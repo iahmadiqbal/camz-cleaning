@@ -49,12 +49,17 @@ function BookingForm() {
       <PageTransition direction="bottom">
         <div className="max-w-4xl mx-auto px-6 py-12">
           <BookingStepper current={1} />
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-            <div className="flex items-center gap-3">
-              <span className="text-4xl">{meta.icon}</span>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-deep-blue">{meta.title}</h1>
-                <p className="text-sm text-muted-foreground">Tell us a bit about your needs</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 rounded-2xl overflow-hidden relative h-44 md:h-56 shadow-[var(--shadow-card)]"
+          >
+            <img src={meta.image} alt={meta.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/85 to-deep-blue/20 flex items-center px-6 md:px-10">
+              <div className="text-primary-foreground">
+                <div className="text-4xl md:text-5xl mb-2">{meta.icon}</div>
+                <h1 className="text-2xl md:text-4xl font-bold">{meta.title}</h1>
+                <p className="text-sm md:text-base opacity-90 mt-1">Tell us a bit about your needs</p>
               </div>
             </div>
           </motion.div>

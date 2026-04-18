@@ -1,9 +1,60 @@
+import residentialImg from "@/assets/svc-residential.jpg";
+import moveImg from "@/assets/svc-move.jpg";
+import commercialImg from "@/assets/svc-commercial.jpg";
+import carpetImg from "@/assets/svc-carpet.jpg";
+import vehicleImg from "@/assets/svc-vehicle.jpg";
+
 export const services = [
-  { id: "residential", title: "Residential Cleaning", desc: "Sparkling homes, every visit.", icon: "🏠", price: "From $89" },
-  { id: "move", title: "Move-In / Move-Out", desc: "Spotless transitions made easy.", icon: "📦", price: "From $179" },
-  { id: "commercial", title: "Commercial Cleaning", desc: "Professional offices & retail.", icon: "🏢", price: "Custom Quote" },
-  { id: "carpet", title: "Carpet / Sofa Cleaning", desc: "Deep steam care for fabrics.", icon: "🛋️", price: "From $59" },
-  { id: "vehicle", title: "Vehicle Detailing", desc: "Showroom shine for your ride.", icon: "🚗", price: "From $99" },
+  {
+    id: "residential",
+    title: "Residential Cleaning",
+    desc: "Sparkling homes, every visit.",
+    icon: "🏠",
+    price: "From $89",
+    image: residentialImg,
+    features: ["Kitchen & bathrooms", "Dusting & vacuuming", "Floor mopping", "Trash removal"],
+    long: "Our most popular service — a thorough clean that keeps your home fresh and welcoming week after week.",
+  },
+  {
+    id: "move",
+    title: "Move-In / Move-Out",
+    desc: "Spotless transitions made easy.",
+    icon: "📦",
+    price: "From $179",
+    image: moveImg,
+    features: ["Inside cabinets", "Appliance deep clean", "Walls & baseboards", "Window tracks"],
+    long: "Get every deposit dollar back. We deep clean every nook so your old place sparkles or your new one feels like home.",
+  },
+  {
+    id: "commercial",
+    title: "Commercial Cleaning",
+    desc: "Professional offices & retail.",
+    icon: "🏢",
+    price: "Custom Quote",
+    image: commercialImg,
+    features: ["Daily / weekly plans", "Restroom sanitation", "Glass & lobby", "After-hours service"],
+    long: "Keep your workplace pristine and productive. Customized plans for offices, clinics, retail and more.",
+  },
+  {
+    id: "carpet",
+    title: "Carpet / Sofa Cleaning",
+    desc: "Deep steam care for fabrics.",
+    icon: "🛋️",
+    price: "From $59",
+    image: carpetImg,
+    features: ["Hot water extraction", "Stain removal", "Pet odor treatment", "Fast drying"],
+    long: "Bring carpets and upholstery back to life with hospital-grade steam extraction and eco-safe solutions.",
+  },
+  {
+    id: "vehicle",
+    title: "Vehicle Detailing",
+    desc: "Showroom shine for your ride.",
+    icon: "🚗",
+    price: "From $99",
+    image: vehicleImg,
+    features: ["Hand wash & wax", "Interior shampoo", "Leather conditioning", "Engine bay clean"],
+    long: "Premium auto detailing inside and out. Your car will look — and smell — brand new.",
+  },
 ];
 
 export const testimonials = [

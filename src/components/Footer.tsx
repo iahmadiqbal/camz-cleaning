@@ -1,4 +1,5 @@
 import { Sparkles, Mail, Phone, MapPin } from "lucide-react";
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export function Footer() {
   return (
@@ -9,7 +10,14 @@ export function Footer() {
             <Sparkles className="w-5 h-5" />
             <span className="font-bold">CAMZ Cleaning</span>
           </div>
-          <p className="text-sm opacity-80">Trusted cleaning professionals serving homes and businesses.</p>
+          <p className="text-sm opacity-80">Trusted cleaning professionals serving homes and businesses since 2013.</p>
+          <div className="flex gap-3 mt-4">
+            {[FaFacebook, FaInstagram, FaTwitter, FaLinkedin].map((Icon, i) => (
+              <a key={i} href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center transition-colors">
+                <Icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
         </div>
         <div>
           <h4 className="font-semibold mb-3">Services</h4>
