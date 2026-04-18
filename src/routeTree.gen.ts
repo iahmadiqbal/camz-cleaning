@@ -9,13 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrackingRouteImport } from './routes/tracking'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as BookingPricingRouteImport } from './routes/booking-pricing'
+import { Route as BookingDatetimeRouteImport } from './routes/booking-datetime'
+import { Route as BookingConfirmationRouteImport } from './routes/booking-confirmation'
+import { Route as BookingCheckoutRouteImport } from './routes/booking-checkout'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookingServiceRouteImport } from './routes/booking.$service'
 
+const TrackingRoute = TrackingRouteImport.update({
+  id: '/tracking',
+  path: '/tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingPricingRoute = BookingPricingRouteImport.update({
+  id: '/booking-pricing',
+  path: '/booking-pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingDatetimeRoute = BookingDatetimeRouteImport.update({
+  id: '/booking-datetime',
+  path: '/booking-datetime',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingConfirmationRoute = BookingConfirmationRouteImport.update({
+  id: '/booking-confirmation',
+  path: '/booking-confirmation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingCheckoutRoute = BookingCheckoutRouteImport.update({
+  id: '/booking-checkout',
+  path: '/booking-checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -28,44 +59,136 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingServiceRoute = BookingServiceRouteImport.update({
+  id: '/booking/$service',
+  path: '/booking/$service',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/booking-checkout': typeof BookingCheckoutRoute
+  '/booking-confirmation': typeof BookingConfirmationRoute
+  '/booking-datetime': typeof BookingDatetimeRoute
+  '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
+  '/tracking': typeof TrackingRoute
+  '/booking/$service': typeof BookingServiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/booking-checkout': typeof BookingCheckoutRoute
+  '/booking-confirmation': typeof BookingConfirmationRoute
+  '/booking-datetime': typeof BookingDatetimeRoute
+  '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
+  '/tracking': typeof TrackingRoute
+  '/booking/$service': typeof BookingServiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/booking-checkout': typeof BookingCheckoutRoute
+  '/booking-confirmation': typeof BookingConfirmationRoute
+  '/booking-datetime': typeof BookingDatetimeRoute
+  '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
+  '/tracking': typeof TrackingRoute
+  '/booking/$service': typeof BookingServiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/booking-checkout'
+    | '/booking-confirmation'
+    | '/booking-datetime'
+    | '/booking-pricing'
+    | '/services'
+    | '/tracking'
+    | '/booking/$service'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/services'
-  id: '__root__' | '/' | '/about' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/booking-checkout'
+    | '/booking-confirmation'
+    | '/booking-datetime'
+    | '/booking-pricing'
+    | '/services'
+    | '/tracking'
+    | '/booking/$service'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/booking-checkout'
+    | '/booking-confirmation'
+    | '/booking-datetime'
+    | '/booking-pricing'
+    | '/services'
+    | '/tracking'
+    | '/booking/$service'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BookingCheckoutRoute: typeof BookingCheckoutRoute
+  BookingConfirmationRoute: typeof BookingConfirmationRoute
+  BookingDatetimeRoute: typeof BookingDatetimeRoute
+  BookingPricingRoute: typeof BookingPricingRoute
   ServicesRoute: typeof ServicesRoute
+  TrackingRoute: typeof TrackingRoute
+  BookingServiceRoute: typeof BookingServiceRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tracking': {
+      id: '/tracking'
+      path: '/tracking'
+      fullPath: '/tracking'
+      preLoaderRoute: typeof TrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking-pricing': {
+      id: '/booking-pricing'
+      path: '/booking-pricing'
+      fullPath: '/booking-pricing'
+      preLoaderRoute: typeof BookingPricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking-datetime': {
+      id: '/booking-datetime'
+      path: '/booking-datetime'
+      fullPath: '/booking-datetime'
+      preLoaderRoute: typeof BookingDatetimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking-confirmation': {
+      id: '/booking-confirmation'
+      path: '/booking-confirmation'
+      fullPath: '/booking-confirmation'
+      preLoaderRoute: typeof BookingConfirmationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking-checkout': {
+      id: '/booking-checkout'
+      path: '/booking-checkout'
+      fullPath: '/booking-checkout'
+      preLoaderRoute: typeof BookingCheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -82,13 +205,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking/$service': {
+      id: '/booking/$service'
+      path: '/booking/$service'
+      fullPath: '/booking/$service'
+      preLoaderRoute: typeof BookingServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BookingCheckoutRoute: BookingCheckoutRoute,
+  BookingConfirmationRoute: BookingConfirmationRoute,
+  BookingDatetimeRoute: BookingDatetimeRoute,
+  BookingPricingRoute: BookingPricingRoute,
   ServicesRoute: ServicesRoute,
+  TrackingRoute: TrackingRoute,
+  BookingServiceRoute: BookingServiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
