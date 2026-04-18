@@ -40,6 +40,9 @@ export function Header() {
               {l.label}
             </Link>
           ))}
+          <Link to="/login" className="ml-1 px-3 py-2 text-sm font-medium text-foreground/70 hover:text-primary transition-colors rounded-md">
+            Login
+          </Link>
           <Link
             to="/services"
             className="ml-2 px-4 py-2 rounded-lg bg-[image:var(--gradient-hero)] text-primary-foreground font-medium text-sm shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow"
@@ -70,6 +73,7 @@ export function Header() {
                 {l.label}
               </Link>
             ))}
+            <Link to="/login" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-sm font-medium hover:bg-soft-blue">Login</Link>
           </div>
         </motion.div>
       )}

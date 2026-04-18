@@ -1,12 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { LayoutDashboard, CalendarDays, Users, Sparkles, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, Sparkles, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, ClipboardList } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/bookings", label: "Bookings", icon: CalendarDays },
+  { to: "/admin/job-assignment", label: "Job Assignment", icon: ClipboardList },
   { to: "/admin/staff", label: "Staff", icon: Users },
   { to: "/admin/services", label: "Services", icon: Sparkles },
   { to: "/admin/payments", label: "Payments", icon: CreditCard },

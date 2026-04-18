@@ -97,6 +97,17 @@ export const payments = [
   { id: "TX-9818", customer: "Liam Foster", amount: 89, method: "Visa ••1102", date: "2025-04-22", status: "Pending" },
 ];
 
+export const staffJobs = [
+  { id: "JB-201", address: "142 Maple Ave NW, Calgary", customer: "Sarah Johnson", notes: "Has a dog. Key under mat.", service: "Residential", time: "09:00 AM", date: "2025-04-20", status: "Assigned", photos: { before: false, after: false } },
+  { id: "JB-202", address: "88 Elbow Dr SW, Calgary", customer: "Mark Chen", notes: "Office on 3rd floor. Ask reception.", service: "Commercial", time: "11:00 AM", date: "2025-04-20", status: "In Progress", photos: { before: true, after: false } },
+  { id: "JB-203", address: "310 Bow Trail SW, Calgary", customer: "Priya Patel", notes: "Move-out. Leave key in mailbox.", service: "Move-Out", time: "02:00 PM", date: "2025-04-21", status: "Assigned", photos: { before: false, after: false } },
+];
+
+export const leaveRequests = [
+  { id: 1, staff: "Jordan Smith", from: "2025-04-25", to: "2025-04-27", reason: "Family event", status: "Pending" },
+  { id: 2, staff: "Taylor Brooks", from: "2025-05-01", to: "2025-05-02", reason: "Medical", status: "Approved" },
+];
+
 export const revenueData = [
   { month: "Nov", revenue: 4200 }, { month: "Dec", revenue: 5100 },
   { month: "Jan", revenue: 4800 }, { month: "Feb", revenue: 6200 },
