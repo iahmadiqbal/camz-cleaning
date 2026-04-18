@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { SiteLayout } from "@/components/SiteLayout";
+import { useState } from "react";import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { BookingStepper } from "@/components/BookingStepper";
 import { services } from "@/lib/data";
@@ -21,6 +20,7 @@ function BookingForm() {
   const navigate = useNavigate();
   const meta = services.find((s) => s.id === service);
   const [form, setForm] = useState<Record<string, string | number | boolean | string[]>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   if (!meta) {
     return (
@@ -39,7 +39,39 @@ function BookingForm() {
     update("addons", list.includes(a) ? list.filter((x) => x !== a) : [...list, a]);
   };
 
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (service === "residential") {
+      if (!form.bedrooms) e.bedrooms = "Please select bedrooms";
+      if (!form.washrooms) e.washrooms = "Please select washrooms";
+      if (!form.type) e.type = "Please select cleaning type";
+    }
+    if (service === "move") {
+      if (!form.bedrooms) e.bedrooms = "Please select bedrooms";
+      if (!form.washrooms) e.washrooms = "Please select washrooms";
+      if (!form.condition) e.condition = "Please select property condition";
+      if (!form.furnished) e.furnished = "Please select property status";
+    }
+    if (service === "commercial") {
+      if (!form.business) e.business = "Please select business type";
+      if (!form.size) e.size = "Please enter square footage";
+      if (!form.frequency) e.frequency = "Please select frequency";
+    }
+    if (service === "carpet") {
+      if (!form.qty || Number(form.qty) < 1) e.qty = "Please enter quantity";
+      if (!form.dirt) e.dirt = "Please select dirt level";
+    }
+    if (service === "vehicle") {
+      if (!form.vehicle) e.vehicle = "Please select vehicle type";
+      if (!form.serviceType) e.serviceType = "Please select service type";
+    }
+    return e;
+  };
+
   const submit = () => {
+    const e = validate();
+    if (Object.keys(e).length > 0) { setErrors(e); return; }
+    setErrors({});
     bookingStore.set({ service, serviceTitle: meta.title, details: form });
     navigate({ to: "/booking-datetime" });
   };
@@ -65,11 +97,11 @@ function BookingForm() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className={cardCls}>
-            {service === "residential" && <ResidentialFields form={form} update={update} toggleAddon={toggleAddon} />}
-            {service === "move" && <MoveFields form={form} update={update} />}
-            {service === "commercial" && <CommercialFields form={form} update={update} />}
-            {service === "carpet" && <CarpetFields form={form} update={update} />}
-            {service === "vehicle" && <VehicleFields form={form} update={update} />}
+            {service === "residential" && <ResidentialFields form={form} update={update} toggleAddon={toggleAddon} errors={errors} />}
+            {service === "move" && <MoveFields form={form} update={update} errors={errors} />}
+            {service === "commercial" && <CommercialFields form={form} update={update} errors={errors} />}
+            {service === "carpet" && <CarpetFields form={form} update={update} errors={errors} />}
+            {service === "vehicle" && <VehicleFields form={form} update={update} errors={errors} />}
 
             <div className="mt-8 flex justify-end">
               <button onClick={submit} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[image:var(--gradient-hero)] text-primary-foreground font-semibold shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow">
@@ -83,19 +115,20 @@ function BookingForm() {
   );
 }
 
-type FieldProps = { form: Record<string, string | number | boolean | string[]>; update: (k: string, v: string | number | boolean | string[]) => void; toggleAddon?: (a: string) => void };
+type FieldProps = { form: Record<string, string | number | boolean | string[]>; update: (k: string, v: string | number | boolean | string[]) => void; toggleAddon?: (a: string) => void; errors?: Record<string, string> };
+const Err = ({ msg }: { msg?: string }) => msg ? <p className="text-xs text-destructive mt-1">{msg}</p> : null;
 
-function ResidentialFields({ form, update, toggleAddon }: FieldProps) {
+function ResidentialFields({ form, update, toggleAddon, errors = {} }: FieldProps) {
   const addons = ["Inside Fridge", "Inside Oven", "Windows", "Blinds"];
   const selected = (form.addons as string[]) || [];
   return (
     <div className="grid sm:grid-cols-2 gap-5">
-      <div><label className={labelCls}>Bedrooms</label><select className={inputCls} value={String(form.bedrooms || "")} onChange={(e) => update("bedrooms", e.target.value)}><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
-      <div><label className={labelCls}>Washrooms</label><select className={inputCls} value={String(form.washrooms || "")} onChange={(e) => update("washrooms", e.target.value)}><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
+      <div><label className={labelCls}>Bedrooms *</label><select className={inputCls} value={String(form.bedrooms || "")} onChange={(e) => update("bedrooms", e.target.value)}><option value="">Select...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select><Err msg={errors.bedrooms} /></div>
+      <div><label className={labelCls}>Washrooms *</label><select className={inputCls} value={String(form.washrooms || "")} onChange={(e) => update("washrooms", e.target.value)}><option value="">Select...</option><option>1</option><option>2</option><option>3</option><option>4+</option></select><Err msg={errors.washrooms} /></div>
       <div><label className={labelCls}>Property size (sqft)</label><input type="number" className={inputCls} placeholder="e.g. 1200" value={String(form.size || "")} onChange={(e) => update("size", e.target.value)} /></div>
-      <div><label className={labelCls}>Cleaning type</label><select className={inputCls} value={String(form.type || "")} onChange={(e) => update("type", e.target.value)}><option>Standard</option><option>Deep Clean</option></select></div>
+      <div><label className={labelCls}>Cleaning type *</label><select className={inputCls} value={String(form.type || "")} onChange={(e) => update("type", e.target.value)}><option value="">Select...</option><option>Standard</option><option>Deep Clean</option></select><Err msg={errors.type} /></div>
       <div className="sm:col-span-2">
-        <label className={labelCls}>Add-ons</label>
+        <label className={labelCls}>Add-ons (optional)</label>
         <div className="flex flex-wrap gap-2">
           {addons.map((a) => (
             <button key={a} type="button" onClick={() => toggleAddon?.(a)} className={`px-4 py-2 rounded-full text-sm border transition-colors ${selected.includes(a) ? "bg-primary text-primary-foreground border-primary" : "border-border hover:border-primary"}`}>{a}</button>
@@ -106,13 +139,13 @@ function ResidentialFields({ form, update, toggleAddon }: FieldProps) {
   );
 }
 
-function MoveFields({ form, update }: FieldProps) {
+function MoveFields({ form, update, errors = {} }: FieldProps) {
   return (
     <div className="grid sm:grid-cols-2 gap-5">
-      <div><label className={labelCls}>Bedrooms</label><select className={inputCls} value={String(form.bedrooms || "")} onChange={(e) => update("bedrooms", e.target.value)}><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
-      <div><label className={labelCls}>Washrooms</label><select className={inputCls} value={String(form.washrooms || "")} onChange={(e) => update("washrooms", e.target.value)}><option>1</option><option>2</option><option>3+</option></select></div>
-      <div><label className={labelCls}>Property Condition</label><select className={inputCls} value={String(form.condition || "")} onChange={(e) => update("condition", e.target.value)}><option value="">Select...</option><option>Light</option><option>Medium</option><option>Heavy</option></select></div>
-      <div><label className={labelCls}>Property Status</label><select className={inputCls} value={String(form.furnished || "")} onChange={(e) => update("furnished", e.target.value)}><option value="">Select...</option><option>Empty</option><option>Furnished</option></select></div>
+      <div><label className={labelCls}>Bedrooms *</label><select className={inputCls} value={String(form.bedrooms || "")} onChange={(e) => update("bedrooms", e.target.value)}><option value="">Select...</option><option>1</option><option>2</option><option>3</option><option>4+</option></select><Err msg={errors.bedrooms} /></div>
+      <div><label className={labelCls}>Washrooms *</label><select className={inputCls} value={String(form.washrooms || "")} onChange={(e) => update("washrooms", e.target.value)}><option value="">Select...</option><option>1</option><option>2</option><option>3+</option></select><Err msg={errors.washrooms} /></div>
+      <div><label className={labelCls}>Property Condition *</label><select className={inputCls} value={String(form.condition || "")} onChange={(e) => update("condition", e.target.value)}><option value="">Select...</option><option>Light</option><option>Medium</option><option>Heavy</option></select><Err msg={errors.condition} /></div>
+      <div><label className={labelCls}>Property Status *</label><select className={inputCls} value={String(form.furnished || "")} onChange={(e) => update("furnished", e.target.value)}><option value="">Select...</option><option>Empty</option><option>Furnished</option></select><Err msg={errors.furnished} /></div>
       <div className="sm:col-span-2 space-y-2">
         <label className={labelCls}>Additional Options</label>
         <div className="flex items-center gap-3"><input type="checkbox" id="carpet" checked={!!form.carpet} onChange={(e) => update("carpet", e.target.checked)} className="w-4 h-4 accent-primary" /><label htmlFor="carpet" className="text-sm">Include Carpet Cleaning (+$60)</label></div>
@@ -122,7 +155,7 @@ function MoveFields({ form, update }: FieldProps) {
   );
 }
 
-function CommercialFields({ form, update }: FieldProps) {
+function CommercialFields({ form, update, errors = {} }: FieldProps) {
   const extras = ["Floor Cleaning / Polishing", "Window Cleaning", "Washroom Maintenance"];
   const selected = (form.extras as string[]) || [];
   const toggleExtra = (item: string) => {
@@ -131,7 +164,7 @@ function CommercialFields({ form, update }: FieldProps) {
   return (
     <div className="grid sm:grid-cols-2 gap-5">
       <div>
-        <label className={labelCls}>Business Type</label>
+        <label className={labelCls}>Business Type *</label>
         <select className={inputCls} value={String(form.business || "")} onChange={(e) => update("business", e.target.value)}>
           <option value="">Select...</option>
           <option>Office</option>
@@ -139,10 +172,11 @@ function CommercialFields({ form, update }: FieldProps) {
           <option>Warehouse</option>
           <option>Restaurant</option>
         </select>
+        <Err msg={errors.business} />
       </div>
-      <div><label className={labelCls}>Square Footage (approx)</label><input type="number" className={inputCls} placeholder="e.g. 3500" value={String(form.size || "")} onChange={(e) => update("size", e.target.value)} /></div>
+      <div><label className={labelCls}>Square Footage *</label><input type="number" className={inputCls} placeholder="e.g. 3500" value={String(form.size || "")} onChange={(e) => update("size", e.target.value)} /><Err msg={errors.size} /></div>
       <div className="sm:col-span-2">
-        <label className={labelCls}>Service Frequency</label>
+        <label className={labelCls}>Service Frequency *</label>
         <select className={inputCls} value={String(form.frequency || "")} onChange={(e) => update("frequency", e.target.value)}>
           <option value="">Select...</option>
           <option>One-time</option>
@@ -150,6 +184,7 @@ function CommercialFields({ form, update }: FieldProps) {
           <option>Weekly</option>
           <option>Monthly</option>
         </select>
+        <Err msg={errors.frequency} />
       </div>
       <div className="sm:col-span-2">
         <label className={labelCls}>Additional Requirements</label>
@@ -170,21 +205,21 @@ function CommercialFields({ form, update }: FieldProps) {
   );
 }
 
-function CarpetFields({ form, update }: FieldProps) {
+function CarpetFields({ form, update, errors = {} }: FieldProps) {
   return (
     <div className="grid sm:grid-cols-2 gap-5">
       <div><label className={labelCls}>Type</label><select className={inputCls} value={String(form.itemType || "")} onChange={(e) => update("itemType", e.target.value)}><option>Carpet</option><option>Sofa</option></select></div>
-      <div><label className={labelCls}>Quantity</label><input type="number" min={1} className={inputCls} value={String(form.qty || 1)} onChange={(e) => update("qty", e.target.value)} /></div>
-      <div className="sm:col-span-2"><label className={labelCls}>Dirt level</label><select className={inputCls} value={String(form.dirt || "")} onChange={(e) => update("dirt", e.target.value)}><option>Light</option><option>Medium</option><option>Heavy</option></select></div>
+      <div><label className={labelCls}>Quantity *</label><input type="number" min={1} className={inputCls} value={String(form.qty || "")} onChange={(e) => update("qty", e.target.value)} /><Err msg={errors.qty} /></div>
+      <div className="sm:col-span-2"><label className={labelCls}>Dirt level *</label><select className={inputCls} value={String(form.dirt || "")} onChange={(e) => update("dirt", e.target.value)}><option value="">Select...</option><option>Light</option><option>Medium</option><option>Heavy</option></select><Err msg={errors.dirt} /></div>
     </div>
   );
 }
 
-function VehicleFields({ form, update }: FieldProps) {
+function VehicleFields({ form, update, errors = {} }: FieldProps) {
   return (
     <div className="grid sm:grid-cols-2 gap-5">
-      <div><label className={labelCls}>Vehicle type</label><select className={inputCls} value={String(form.vehicle || "")} onChange={(e) => update("vehicle", e.target.value)}><option>Sedan</option><option>SUV</option><option>Truck</option><option>Van</option></select></div>
-      <div><label className={labelCls}>Service type</label><select className={inputCls} value={String(form.serviceType || "")} onChange={(e) => update("serviceType", e.target.value)}><option>Exterior</option><option>Interior</option><option>Full Detail</option></select></div>
+      <div><label className={labelCls}>Vehicle type *</label><select className={inputCls} value={String(form.vehicle || "")} onChange={(e) => update("vehicle", e.target.value)}><option value="">Select...</option><option>Sedan</option><option>SUV</option><option>Truck</option><option>Van</option></select><Err msg={errors.vehicle} /></div>
+      <div><label className={labelCls}>Service type *</label><select className={inputCls} value={String(form.serviceType || "")} onChange={(e) => update("serviceType", e.target.value)}><option value="">Select...</option><option>Exterior</option><option>Interior</option><option>Full Detail</option></select><Err msg={errors.serviceType} /></div>
     </div>
   );
 }

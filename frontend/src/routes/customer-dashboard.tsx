@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { bookings } from "@/lib/data";
-import { CalendarDays, Clock, CheckCircle2, RotateCcw, Plus, MapPin } from "lucide-react";
+import { CalendarDays, Clock, CheckCircle2, RotateCcw, Plus, MapPin, Bell, X } from "lucide-react";
 
 export const Route = createFileRoute("/customer-dashboard")({
   head: () => ({ meta: [{ title: "My Dashboard — CAMZ Cleaning" }] }),
@@ -34,11 +34,18 @@ function CustomerDashboard() {
   const past = myBookings.filter((b) => b.status === "Completed");
 
   useEffect(() => {
-    // Protected route — redirect to login if not authenticated
     if (!sessionStorage.getItem("camz_customer")) {
       navigate({ to: "/login" });
     }
   }, []);
+
+  const [notifications, setNotifications] = useState([
+    { id: 1, msg: "Booking BK-1042 confirmed!", type: "success", time: "2 min ago" },
+    { id: 2, msg: "Alex Morgan has been assigned to your job.", type: "info", time: "1 hr ago" },
+    { id: 3, msg: "Your cleaner is on the way!", type: "info", time: "3 hr ago" },
+    { id: 4, msg: "Job completed — hope you love it! ⭐", type: "success", time: "Yesterday" },
+  ]);
+  const dismissNotif = (id: number) => setNotifications((p) => p.filter((n) => n.id !== id));
 
   return (
     <SiteLayout>
@@ -54,6 +61,29 @@ function CustomerDashboard() {
               <Plus className="w-4 h-4" /> New Booking
             </Link>
           </motion.div>
+
+          {/* Notifications */}
+          {notifications.length > 0 && (
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Bell className="w-4 h-4 text-primary" />
+                <h2 className="text-sm font-bold text-deep-blue">Notifications</h2>
+                <span className="text-xs px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground">{notifications.length}</span>
+              </div>
+              <div className="space-y-2">
+                {notifications.map((n) => (
+                  <motion.div key={n.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                    className={`flex items-center justify-between gap-3 px-4 py-3 rounded-xl border text-sm ${n.type === "success" ? "bg-green-50 border-green-200 text-green-800" : "bg-blue-50 border-blue-200 text-blue-800"}`}>
+                    <span>{n.msg}</span>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span className="text-xs opacity-60">{n.time}</span>
+                      <button onClick={() => dismissNotif(n.id)} className="opacity-60 hover:opacity-100"><X className="w-3.5 h-3.5" /></button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-8">
