@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrackingRouteImport } from './routes/tracking'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as CustomerDashboardRouteImport } from './routes/customer-dashboard'
 import { Route as BookingPricingRouteImport } from './routes/booking-pricing'
 import { Route as BookingDatetimeRouteImport } from './routes/booking-datetime'
 import { Route as BookingConfirmationRouteImport } from './routes/booking-confirmation'
@@ -18,6 +20,9 @@ import { Route as BookingCheckoutRouteImport } from './routes/booking-checkout'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminMonitoringRouteImport } from './routes/admin.monitoring'
+import { Route as AdminJobAssignmentRouteImport } from './routes/admin.job-assignment'
 import { Route as BookingServiceRouteImport } from './routes/booking.$service'
 import { Route as AdminStaffRouteImport } from './routes/admin.staff'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
@@ -25,6 +30,10 @@ import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
 import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as StaffIndexRouteImport } from './routes/staff.index'
+import { Route as StaffLoginRouteImport } from './routes/staff.login'
+import { Route as StaffJobsRouteImport } from './routes/staff.jobs'
+import { Route as StaffLeaveRouteImport } from './routes/staff.leave'
 
 const TrackingRoute = TrackingRouteImport.update({
   id: '/tracking',
@@ -34,6 +43,16 @@ const TrackingRoute = TrackingRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
+  id: '/customer-dashboard',
+  path: '/customer-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookingPricingRoute = BookingPricingRouteImport.update({
@@ -71,6 +90,21 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminMonitoringRoute = AdminMonitoringRouteImport.update({
+  id: '/admin/monitoring',
+  path: '/admin/monitoring',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminJobAssignmentRoute = AdminJobAssignmentRouteImport.update({
+  id: '/admin/job-assignment',
+  path: '/admin/job-assignment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookingServiceRoute = BookingServiceRouteImport.update({
   id: '/booking/$service',
   path: '/booking/$service',
@@ -106,6 +140,26 @@ const AdminBookingsRoute = AdminBookingsRouteImport.update({
   path: '/admin/bookings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StaffIndexRoute = StaffIndexRouteImport.update({
+  id: '/staff/',
+  path: '/staff/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffLoginRoute = StaffLoginRouteImport.update({
+  id: '/staff/login',
+  path: '/staff/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffJobsRoute = StaffJobsRouteImport.update({
+  id: '/staff/jobs',
+  path: '/staff/jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffLeaveRoute = StaffLeaveRouteImport.update({
+  id: '/staff/leave',
+  path: '/staff/leave',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -116,14 +170,23 @@ export interface FileRoutesByFullPath {
   '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/login': typeof LoginRoute
+  '/customer-dashboard': typeof CustomerDashboardRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/monitoring': typeof AdminMonitoringRoute
+  '/admin/job-assignment': typeof AdminJobAssignmentRoute
   '/booking/$service': typeof BookingServiceRoute
   '/admin/': typeof AdminIndexRoute
+  '/staff/': typeof StaffIndexRoute
+  '/staff/login': typeof StaffLoginRoute
+  '/staff/jobs': typeof StaffJobsRoute
+  '/staff/leave': typeof StaffLeaveRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -134,14 +197,23 @@ export interface FileRoutesByTo {
   '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/login': typeof LoginRoute
+  '/customer-dashboard': typeof CustomerDashboardRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/monitoring': typeof AdminMonitoringRoute
+  '/admin/job-assignment': typeof AdminJobAssignmentRoute
   '/booking/$service': typeof BookingServiceRoute
   '/admin': typeof AdminIndexRoute
+  '/staff': typeof StaffIndexRoute
+  '/staff/login': typeof StaffLoginRoute
+  '/staff/jobs': typeof StaffJobsRoute
+  '/staff/leave': typeof StaffLeaveRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -153,70 +225,106 @@ export interface FileRoutesById {
   '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/login': typeof LoginRoute
+  '/customer-dashboard': typeof CustomerDashboardRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/monitoring': typeof AdminMonitoringRoute
+  '/admin/job-assignment': typeof AdminJobAssignmentRoute
   '/booking/$service': typeof BookingServiceRoute
   '/admin/': typeof AdminIndexRoute
+  '/staff/': typeof StaffIndexRoute
+  '/staff/login': typeof StaffLoginRoute
+  '/staff/jobs': typeof StaffJobsRoute
+  '/staff/leave': typeof StaffLeaveRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/about'
-    | '/booking-checkout'
-    | '/booking-confirmation'
-    | '/booking-datetime'
-    | '/booking-pricing'
-    | '/services'
-    | '/tracking'
-    | '/admin/bookings'
-    | '/admin/customers'
-    | '/admin/payments'
-    | '/admin/reports'
-    | '/admin/services'
-    | '/admin/staff'
-    | '/booking/$service'
-    | '/admin/'
+  | '/'
+  | '/about'
+  | '/booking-checkout'
+  | '/booking-confirmation'
+  | '/booking-datetime'
+  | '/booking-pricing'
+  | '/services'
+  | '/tracking'
+  | '/login'
+  | '/customer-dashboard'
+  | '/admin/bookings'
+  | '/admin/customers'
+  | '/admin/payments'
+  | '/admin/reports'
+  | '/admin/services'
+  | '/admin/staff'
+  | '/admin/login'
+  | '/admin/monitoring'
+  | '/admin/job-assignment'
+  | '/booking/$service'
+  | '/admin/'
+  | '/staff/'
+  | '/staff/login'
+  | '/staff/jobs'
+  | '/staff/leave'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/about'
-    | '/booking-checkout'
-    | '/booking-confirmation'
-    | '/booking-datetime'
-    | '/booking-pricing'
-    | '/services'
-    | '/tracking'
-    | '/admin/bookings'
-    | '/admin/customers'
-    | '/admin/payments'
-    | '/admin/reports'
-    | '/admin/services'
-    | '/admin/staff'
-    | '/booking/$service'
-    | '/admin'
+  | '/'
+  | '/about'
+  | '/booking-checkout'
+  | '/booking-confirmation'
+  | '/booking-datetime'
+  | '/booking-pricing'
+  | '/services'
+  | '/tracking'
+  | '/login'
+  | '/customer-dashboard'
+  | '/admin/bookings'
+  | '/admin/customers'
+  | '/admin/payments'
+  | '/admin/reports'
+  | '/admin/services'
+  | '/admin/staff'
+  | '/admin/login'
+  | '/admin/monitoring'
+  | '/admin/job-assignment'
+  | '/booking/$service'
+  | '/admin'
+  | '/staff'
+  | '/staff/login'
+  | '/staff/jobs'
+  | '/staff/leave'
   id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/booking-checkout'
-    | '/booking-confirmation'
-    | '/booking-datetime'
-    | '/booking-pricing'
-    | '/services'
-    | '/tracking'
-    | '/admin/bookings'
-    | '/admin/customers'
-    | '/admin/payments'
-    | '/admin/reports'
-    | '/admin/services'
-    | '/admin/staff'
-    | '/booking/$service'
-    | '/admin/'
+  | '__root__'
+  | '/'
+  | '/about'
+  | '/booking-checkout'
+  | '/booking-confirmation'
+  | '/booking-datetime'
+  | '/booking-pricing'
+  | '/services'
+  | '/tracking'
+  | '/login'
+  | '/customer-dashboard'
+  | '/admin/bookings'
+  | '/admin/customers'
+  | '/admin/payments'
+  | '/admin/reports'
+  | '/admin/services'
+  | '/admin/staff'
+  | '/admin/login'
+  | '/admin/monitoring'
+  | '/admin/job-assignment'
+  | '/booking/$service'
+  | '/admin/'
+  | '/staff/'
+  | '/staff/login'
+  | '/staff/jobs'
+  | '/staff/leave'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -228,14 +336,23 @@ export interface RootRouteChildren {
   BookingPricingRoute: typeof BookingPricingRoute
   ServicesRoute: typeof ServicesRoute
   TrackingRoute: typeof TrackingRoute
+  LoginRoute: typeof LoginRoute
+  CustomerDashboardRoute: typeof CustomerDashboardRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminPaymentsRoute: typeof AdminPaymentsRoute
   AdminReportsRoute: typeof AdminReportsRoute
   AdminServicesRoute: typeof AdminServicesRoute
   AdminStaffRoute: typeof AdminStaffRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminMonitoringRoute: typeof AdminMonitoringRoute
+  AdminJobAssignmentRoute: typeof AdminJobAssignmentRoute
   BookingServiceRoute: typeof BookingServiceRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  StaffIndexRoute: typeof StaffIndexRoute
+  StaffLoginRoute: typeof StaffLoginRoute
+  StaffJobsRoute: typeof StaffJobsRoute
+  StaffLeaveRoute: typeof StaffLeaveRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -252,6 +369,20 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer-dashboard': {
+      id: '/customer-dashboard'
+      path: '/customer-dashboard'
+      fullPath: '/customer-dashboard'
+      preLoaderRoute: typeof CustomerDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/booking-pricing': {
@@ -303,6 +434,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/monitoring': {
+      id: '/admin/monitoring'
+      path: '/admin/monitoring'
+      fullPath: '/admin/monitoring'
+      preLoaderRoute: typeof AdminMonitoringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/job-assignment': {
+      id: '/admin/job-assignment'
+      path: '/admin/job-assignment'
+      fullPath: '/admin/job-assignment'
+      preLoaderRoute: typeof AdminJobAssignmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/booking/$service': {
       id: '/booking/$service'
       path: '/booking/$service'
@@ -352,6 +504,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/staff/': {
+      id: '/staff/'
+      path: '/staff'
+      fullPath: '/staff/'
+      preLoaderRoute: typeof StaffIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff/login': {
+      id: '/staff/login'
+      path: '/staff/login'
+      fullPath: '/staff/login'
+      preLoaderRoute: typeof StaffLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff/jobs': {
+      id: '/staff/jobs'
+      path: '/staff/jobs'
+      fullPath: '/staff/jobs'
+      preLoaderRoute: typeof StaffJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff/leave': {
+      id: '/staff/leave'
+      path: '/staff/leave'
+      fullPath: '/staff/leave'
+      preLoaderRoute: typeof StaffLeaveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -364,14 +544,23 @@ const rootRouteChildren: RootRouteChildren = {
   BookingPricingRoute: BookingPricingRoute,
   ServicesRoute: ServicesRoute,
   TrackingRoute: TrackingRoute,
+  LoginRoute: LoginRoute,
+  CustomerDashboardRoute: CustomerDashboardRoute,
   AdminBookingsRoute: AdminBookingsRoute,
   AdminCustomersRoute: AdminCustomersRoute,
   AdminPaymentsRoute: AdminPaymentsRoute,
   AdminReportsRoute: AdminReportsRoute,
   AdminServicesRoute: AdminServicesRoute,
   AdminStaffRoute: AdminStaffRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminMonitoringRoute: AdminMonitoringRoute,
+  AdminJobAssignmentRoute: AdminJobAssignmentRoute,
   BookingServiceRoute: BookingServiceRoute,
   AdminIndexRoute: AdminIndexRoute,
+  StaffIndexRoute: StaffIndexRoute,
+  StaffLoginRoute: StaffLoginRoute,
+  StaffJobsRoute: StaffJobsRoute,
+  StaffLeaveRoute: StaffLeaveRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

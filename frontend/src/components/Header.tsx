@@ -8,7 +8,7 @@ const links = [
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/tracking", label: "Tracking" },
-  { to: "/admin", label: "Admin" },
+  { to: "/admin/login", label: "Admin" },
 ];
 
 export function Header() {
