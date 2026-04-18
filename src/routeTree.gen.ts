@@ -17,7 +17,14 @@ import { Route as BookingConfirmationRouteImport } from './routes/booking-confir
 import { Route as BookingCheckoutRouteImport } from './routes/booking-checkout'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BookingServiceRouteImport } from './routes/booking.$service'
+import { Route as AdminStaffRouteImport } from './routes/admin.staff'
+import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
+import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
+import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
 const TrackingRoute = TrackingRouteImport.update({
   id: '/tracking',
@@ -59,9 +66,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookingServiceRoute = BookingServiceRouteImport.update({
   id: '/booking/$service',
   path: '/booking/$service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminStaffRoute = AdminStaffRouteImport.update({
+  id: '/admin/staff',
+  path: '/admin/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminServicesRoute = AdminServicesRouteImport.update({
+  id: '/admin/services',
+  path: '/admin/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/admin/reports',
+  path: '/admin/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
+  id: '/admin/payments',
+  path: '/admin/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCustomersRoute = AdminCustomersRouteImport.update({
+  id: '/admin/customers',
+  path: '/admin/customers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBookingsRoute = AdminBookingsRouteImport.update({
+  id: '/admin/bookings',
+  path: '/admin/bookings',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -74,7 +116,14 @@ export interface FileRoutesByFullPath {
   '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
+  '/admin/payments': typeof AdminPaymentsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/booking/$service': typeof BookingServiceRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,7 +134,14 @@ export interface FileRoutesByTo {
   '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
+  '/admin/payments': typeof AdminPaymentsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/booking/$service': typeof BookingServiceRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,7 +153,14 @@ export interface FileRoutesById {
   '/booking-pricing': typeof BookingPricingRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
+  '/admin/payments': typeof AdminPaymentsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/booking/$service': typeof BookingServiceRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,7 +173,14 @@ export interface FileRouteTypes {
     | '/booking-pricing'
     | '/services'
     | '/tracking'
+    | '/admin/bookings'
+    | '/admin/customers'
+    | '/admin/payments'
+    | '/admin/reports'
+    | '/admin/services'
+    | '/admin/staff'
     | '/booking/$service'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -121,7 +191,14 @@ export interface FileRouteTypes {
     | '/booking-pricing'
     | '/services'
     | '/tracking'
+    | '/admin/bookings'
+    | '/admin/customers'
+    | '/admin/payments'
+    | '/admin/reports'
+    | '/admin/services'
+    | '/admin/staff'
     | '/booking/$service'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -132,7 +209,14 @@ export interface FileRouteTypes {
     | '/booking-pricing'
     | '/services'
     | '/tracking'
+    | '/admin/bookings'
+    | '/admin/customers'
+    | '/admin/payments'
+    | '/admin/reports'
+    | '/admin/services'
+    | '/admin/staff'
     | '/booking/$service'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -144,7 +228,14 @@ export interface RootRouteChildren {
   BookingPricingRoute: typeof BookingPricingRoute
   ServicesRoute: typeof ServicesRoute
   TrackingRoute: typeof TrackingRoute
+  AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminCustomersRoute: typeof AdminCustomersRoute
+  AdminPaymentsRoute: typeof AdminPaymentsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
+  AdminServicesRoute: typeof AdminServicesRoute
+  AdminStaffRoute: typeof AdminStaffRoute
   BookingServiceRoute: typeof BookingServiceRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -205,11 +296,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/booking/$service': {
       id: '/booking/$service'
       path: '/booking/$service'
       fullPath: '/booking/$service'
       preLoaderRoute: typeof BookingServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/staff': {
+      id: '/admin/staff'
+      path: '/admin/staff'
+      fullPath: '/admin/staff'
+      preLoaderRoute: typeof AdminStaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/services': {
+      id: '/admin/services'
+      path: '/admin/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/payments': {
+      id: '/admin/payments'
+      path: '/admin/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AdminPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/customers': {
+      id: '/admin/customers'
+      path: '/admin/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AdminCustomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/bookings': {
+      id: '/admin/bookings'
+      path: '/admin/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -224,8 +364,24 @@ const rootRouteChildren: RootRouteChildren = {
   BookingPricingRoute: BookingPricingRoute,
   ServicesRoute: ServicesRoute,
   TrackingRoute: TrackingRoute,
+  AdminBookingsRoute: AdminBookingsRoute,
+  AdminCustomersRoute: AdminCustomersRoute,
+  AdminPaymentsRoute: AdminPaymentsRoute,
+  AdminReportsRoute: AdminReportsRoute,
+  AdminServicesRoute: AdminServicesRoute,
+  AdminStaffRoute: AdminStaffRoute,
   BookingServiceRoute: BookingServiceRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
