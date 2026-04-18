@@ -4,13 +4,13 @@ import { useRouterState } from "@tanstack/react-router";
 
 type Direction = "top" | "bottom" | "left" | "right" | "fade";
 
-const variants: Record<Direction, { initial: object; animate: object }> = {
+const variants = {
   top: { initial: { opacity: 0, y: -40 }, animate: { opacity: 1, y: 0 } },
   bottom: { initial: { opacity: 0, y: 40 }, animate: { opacity: 1, y: 0 } },
   left: { initial: { opacity: 0, x: -50 }, animate: { opacity: 1, x: 0 } },
   right: { initial: { opacity: 0, x: 50 }, animate: { opacity: 1, x: 0 } },
   fade: { initial: { opacity: 0, scale: 0.98 }, animate: { opacity: 1, scale: 1 } },
-};
+} as const;
 
 export function PageTransition({ children, direction = "top" }: { children: ReactNode; direction?: Direction }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
