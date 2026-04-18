@@ -14,7 +14,7 @@ export const Route = createFileRoute("/booking-pricing")({
 function Pricing() {
   const navigate = useNavigate();
   const [, force] = useState(0);
-  useEffect(() => bookingStore.subscribe(() => force((n) => n + 1)), []);
+  useEffect(() => { const u = bookingStore.subscribe(() => force((n) => n + 1)); return () => { u(); }; }, []);
   const data = bookingStore.get();
   const base = 89;
   const addonsCount = ((data.details?.addons as string[]) || []).length;
