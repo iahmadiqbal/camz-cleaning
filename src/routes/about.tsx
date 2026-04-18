@@ -1,45 +1,73 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
-import { Award, Heart, Leaf, Users } from "lucide-react";
+import { FaAward, FaHeart, FaLeaf, FaUsers, FaArrowRight } from "react-icons/fa";
+import teamImg from "@/assets/team.jpg";
+import ecoImg from "@/assets/eco.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — CAMZ Cleaning" },
-      { name: "description", content: "Learn about CAMZ Cleaning's mission, team, and values." },
+      { name: "description", content: "Meet the team, mission and values behind CAMZ Cleaning." },
     ],
   }),
   component: About,
 });
 
 const values = [
-  { icon: Heart, title: "Care", desc: "Every space treated like our own." },
-  { icon: Leaf, title: "Eco-friendly", desc: "Safe, green products only." },
-  { icon: Award, title: "Excellence", desc: "Quality that exceeds expectations." },
-  { icon: Users, title: "Community", desc: "Supporting local cleaners and clients." },
+  { icon: FaHeart, title: "Care", desc: "Every space treated like our own home." },
+  { icon: FaLeaf, title: "Eco-friendly", desc: "Safe, plant-based products only." },
+  { icon: FaAward, title: "Excellence", desc: "Quality that exceeds expectations." },
+  { icon: FaUsers, title: "Community", desc: "Supporting local cleaners & clients." },
+];
+
+const milestones = [
+  { y: "2013", t: "Founded", d: "Started with one van and a big mission." },
+  { y: "2017", t: "10k clients", d: "Hit our first major milestone." },
+  { y: "2020", t: "Eco switch", d: "Went 100% plant-based products." },
+  { y: "2025", t: "150+ pros", d: "Serving 25k+ jobs every year." },
 ];
 
 function About() {
   return (
     <SiteLayout>
       <PageTransition direction="right">
-        <section className="bg-[image:var(--gradient-hero)] text-primary-foreground py-20">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <motion.h1 initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-5xl font-bold">
+        {/* Hero */}
+        <section className="relative bg-[image:var(--gradient-hero)] text-primary-foreground py-24 overflow-hidden">
+          <div className="absolute inset-0 opacity-15" style={{
+            backgroundImage: "radial-gradient(circle at 20% 30%, white 0%, transparent 40%), radial-gradient(circle at 80% 70%, white 0%, transparent 40%)"
+          }} />
+          <div className="relative max-w-4xl mx-auto px-6 text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-bold"
+            >
               About CAMZ Cleaning
             </motion.h1>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mt-5 text-lg opacity-90">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="mt-5 text-lg md:text-xl opacity-90 max-w-2xl mx-auto"
+            >
               We're on a mission to make sparkling clean spaces accessible to everyone — with care, integrity and zero hassle.
             </motion.p>
           </div>
         </section>
 
+        {/* Story with image */}
         <section className="max-w-7xl mx-auto px-6 py-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <h2 className="text-3xl font-bold text-deep-blue">Our story</h2>
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-primary text-sm font-semibold uppercase tracking-wider">Our story</span>
+              <h2 className="mt-2 text-3xl md:text-4xl font-bold text-deep-blue">From one van to 150+ pros</h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
                 CAMZ Cleaning started in 2013 with a simple goal: deliver consistent, trustworthy cleaning that
                 people could rely on week after week. Today we serve thousands of homes and businesses, but we
@@ -49,24 +77,100 @@ function About() {
                 Our team of trained, vetted cleaners uses only eco-conscious products and modern techniques.
                 Whether it's a one-time deep clean or a recurring service, we show up on time and leave nothing but shine.
               </p>
+              <Link to="/services" className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[image:var(--gradient-hero)] text-primary-foreground font-semibold hover:scale-105 transition-transform">
+                See our services <FaArrowRight />
+              </Link>
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="grid grid-cols-2 gap-4">
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-3xl overflow-hidden shadow-[var(--shadow-elegant)]"
+            >
+              <img src={teamImg} alt="Team" loading="lazy" className="w-full h-full object-cover" />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Values */}
+        <section className="bg-[image:var(--gradient-soft)] py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-deep-blue">What we stand for</h2>
+              <p className="mt-3 text-muted-foreground">Four values guide everything we do.</p>
+            </motion.div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((v, i) => (
                 <motion.div
                   key={v.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="rounded-2xl bg-card border border-border p-6 shadow-[var(--shadow-card)]"
+                  whileHover={{ y: -6 }}
+                  className="rounded-2xl bg-card p-6 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow"
                 >
-                  <v.icon className="w-8 h-8 text-primary mb-3" />
-                  <div className="font-semibold text-deep-blue">{v.title}</div>
+                  <div className="w-12 h-12 rounded-xl bg-[image:var(--gradient-hero)] grid place-items-center text-primary-foreground text-xl mb-4">
+                    <v.icon />
+                  </div>
+                  <div className="font-bold text-deep-blue text-lg">{v.title}</div>
                   <div className="text-sm text-muted-foreground mt-1">{v.desc}</div>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
+        </section>
+
+        {/* Timeline */}
+        <section className="max-w-5xl mx-auto px-6 py-20">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-deep-blue text-center"
+          >
+            Our journey
+          </motion.h2>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {milestones.map((m, i) => (
+              <motion.div
+                key={m.y}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative rounded-2xl border-2 border-primary/20 bg-card p-6 hover:border-primary transition-colors"
+              >
+                <div className="text-3xl font-bold text-primary">{m.y}</div>
+                <div className="font-semibold text-deep-blue mt-1">{m.t}</div>
+                <div className="text-sm text-muted-foreground mt-2">{m.d}</div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Eco banner */}
+        <section className="max-w-7xl mx-auto px-6 pb-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative rounded-3xl overflow-hidden shadow-[var(--shadow-elegant)]"
+          >
+            <img src={ecoImg} alt="Eco" loading="lazy" className="w-full h-72 md:h-96 object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/85 to-deep-blue/30 grid place-items-center">
+              <div className="text-center text-primary-foreground px-6 max-w-2xl">
+                <FaLeaf className="text-4xl mx-auto mb-4" />
+                <h3 className="text-2xl md:text-4xl font-bold">Cleaner spaces, greener planet.</h3>
+                <p className="mt-3 opacity-90">Plant-based, biodegradable, pet-safe — always.</p>
+              </div>
+            </div>
+          </motion.div>
         </section>
       </PageTransition>
     </SiteLayout>
