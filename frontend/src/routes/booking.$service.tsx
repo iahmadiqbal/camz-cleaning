@@ -111,19 +111,61 @@ function MoveFields({ form, update }: FieldProps) {
     <div className="grid sm:grid-cols-2 gap-5">
       <div><label className={labelCls}>Bedrooms</label><select className={inputCls} value={String(form.bedrooms || "")} onChange={(e) => update("bedrooms", e.target.value)}><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
       <div><label className={labelCls}>Washrooms</label><select className={inputCls} value={String(form.washrooms || "")} onChange={(e) => update("washrooms", e.target.value)}><option>1</option><option>2</option><option>3+</option></select></div>
-      <div><label className={labelCls}>Condition</label><select className={inputCls} value={String(form.condition || "")} onChange={(e) => update("condition", e.target.value)}><option>Light</option><option>Medium</option><option>Heavy</option></select></div>
-      <div><label className={labelCls}>Furnished?</label><select className={inputCls} value={String(form.furnished || "")} onChange={(e) => update("furnished", e.target.value)}><option>Empty</option><option>Furnished</option></select></div>
-      <div className="sm:col-span-2 flex items-center gap-3"><input type="checkbox" id="carpet" checked={!!form.carpet} onChange={(e) => update("carpet", e.target.checked)} className="w-4 h-4 accent-primary" /><label htmlFor="carpet">Include carpet cleaning</label></div>
+      <div><label className={labelCls}>Property Condition</label><select className={inputCls} value={String(form.condition || "")} onChange={(e) => update("condition", e.target.value)}><option value="">Select...</option><option>Light</option><option>Medium</option><option>Heavy</option></select></div>
+      <div><label className={labelCls}>Property Status</label><select className={inputCls} value={String(form.furnished || "")} onChange={(e) => update("furnished", e.target.value)}><option value="">Select...</option><option>Empty</option><option>Furnished</option></select></div>
+      <div className="sm:col-span-2 space-y-2">
+        <label className={labelCls}>Additional Options</label>
+        <div className="flex items-center gap-3"><input type="checkbox" id="carpet" checked={!!form.carpet} onChange={(e) => update("carpet", e.target.checked)} className="w-4 h-4 accent-primary" /><label htmlFor="carpet" className="text-sm">Include Carpet Cleaning (+$60)</label></div>
+        <div className="flex items-center gap-3"><input type="checkbox" id="wall" checked={!!form.wall} onChange={(e) => update("wall", e.target.checked)} className="w-4 h-4 accent-primary" /><label htmlFor="wall" className="text-sm">Wall Spot Cleaning (+$40)</label></div>
+      </div>
     </div>
   );
 }
 
 function CommercialFields({ form, update }: FieldProps) {
+  const extras = ["Floor Cleaning / Polishing", "Window Cleaning", "Washroom Maintenance"];
+  const selected = (form.extras as string[]) || [];
+  const toggleExtra = (item: string) => {
+    update("extras", selected.includes(item) ? selected.filter((x) => x !== item) : [...selected, item]);
+  };
   return (
     <div className="grid sm:grid-cols-2 gap-5">
-      <div><label className={labelCls}>Business type</label><input className={inputCls} placeholder="Office, Retail, Clinic..." value={String(form.business || "")} onChange={(e) => update("business", e.target.value)} /></div>
-      <div><label className={labelCls}>Square footage</label><input type="number" className={inputCls} placeholder="e.g. 3500" value={String(form.size || "")} onChange={(e) => update("size", e.target.value)} /></div>
-      <div className="sm:col-span-2"><label className={labelCls}>Frequency</label><select className={inputCls} value={String(form.frequency || "")} onChange={(e) => update("frequency", e.target.value)}><option>One-time</option><option>Weekly</option><option>Bi-weekly</option><option>Monthly</option></select></div>
+      <div>
+        <label className={labelCls}>Business Type</label>
+        <select className={inputCls} value={String(form.business || "")} onChange={(e) => update("business", e.target.value)}>
+          <option value="">Select...</option>
+          <option>Office</option>
+          <option>Retail Store</option>
+          <option>Warehouse</option>
+          <option>Restaurant</option>
+        </select>
+      </div>
+      <div><label className={labelCls}>Square Footage (approx)</label><input type="number" className={inputCls} placeholder="e.g. 3500" value={String(form.size || "")} onChange={(e) => update("size", e.target.value)} /></div>
+      <div className="sm:col-span-2">
+        <label className={labelCls}>Service Frequency</label>
+        <select className={inputCls} value={String(form.frequency || "")} onChange={(e) => update("frequency", e.target.value)}>
+          <option value="">Select...</option>
+          <option>One-time</option>
+          <option>Daily</option>
+          <option>Weekly</option>
+          <option>Monthly</option>
+        </select>
+      </div>
+      <div className="sm:col-span-2">
+        <label className={labelCls}>Additional Requirements</label>
+        <div className="space-y-2">
+          {extras.map((item) => (
+            <div key={item} className="flex items-center gap-3">
+              <input type="checkbox" id={item} checked={selected.includes(item)} onChange={() => toggleExtra(item)} className="w-4 h-4 accent-primary" />
+              <label htmlFor={item} className="text-sm">{item}</label>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="sm:col-span-2 p-4 rounded-xl bg-soft-blue border border-primary/20">
+        <div className="text-sm font-semibold text-deep-blue mb-1">📋 Request a Quote (Recommended)</div>
+        <p className="text-xs text-muted-foreground">Your request will be reviewed by our team and we'll contact you with a custom quote within 24 hours.</p>
+      </div>
     </div>
   );
 }

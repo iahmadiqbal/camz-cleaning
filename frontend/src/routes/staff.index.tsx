@@ -103,6 +103,33 @@ function StaffDashboard() {
             </div>
           </motion.div>
 
+          {/* Performance */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-6 rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
+            <h2 className="font-bold text-deep-blue mb-4">My Performance</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-3 rounded-xl bg-soft-blue text-center">
+                <div className="text-2xl font-bold text-deep-blue">142</div>
+                <div className="text-xs text-muted-foreground">Jobs completed</div>
+              </div>
+              <div className="p-3 rounded-xl bg-soft-blue text-center">
+                <div className="text-2xl font-bold text-deep-blue flex items-center justify-center gap-1">4.9 <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" /></div>
+                <div className="text-xs text-muted-foreground">Avg rating</div>
+              </div>
+            </div>
+            <div className="mt-4 space-y-2">
+              {[
+                { label: "On-time arrival", pct: 96 },
+                { label: "Customer satisfaction", pct: 98 },
+                { label: "Job completion rate", pct: 100 },
+              ].map((item) => (
+                <div key={item.label}>
+                  <div className="flex justify-between text-xs mb-1"><span className="text-muted-foreground">{item.label}</span><span className="font-medium text-deep-blue">{item.pct}%</span></div>
+                  <div className="w-full bg-muted rounded-full h-1.5"><div className="bg-primary h-1.5 rounded-full" style={{ width: `${item.pct}%` }} /></div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
           {/* Stats */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mt-6 grid grid-cols-3 gap-3">
             {[
