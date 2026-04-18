@@ -1,5 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { bookings } from "@/lib/data";
@@ -28,8 +29,16 @@ const statusIcon = (s: string) => ({
 const myBookings = bookings;
 
 function CustomerDashboard() {
+  const navigate = useNavigate();
   const active = myBookings.filter((b) => b.status !== "Completed");
   const past = myBookings.filter((b) => b.status === "Completed");
+
+  useEffect(() => {
+    // Protected route — redirect to login if not authenticated
+    if (!sessionStorage.getItem("camz_customer")) {
+      navigate({ to: "/login" });
+    }
+  }, []);
 
   return (
     <SiteLayout>

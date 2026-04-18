@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, Briefcase, CalendarOff, LogOut, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 const nav = [
   { to: "/staff", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -10,6 +11,18 @@ const nav = [
 
 export function StaffLayout({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    // Protected route — redirect to staff login if not authenticated
+    if (!sessionStorage.getItem("camz_staff")) {
+      window.location.href = "/staff/login";
+    }
+  }, []);
+
+  const logout = () => {
+    sessionStorage.removeItem("camz_staff");
+    window.location.href = "/staff/login";
+  };
 
   return (
     <div className="min-h-screen bg-[image:var(--gradient-soft)] flex flex-col">
@@ -23,7 +36,7 @@ export function StaffLayout({ children }: { children: ReactNode }) {
         </div>
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground grid place-items-center text-xs font-bold">AM</div>
-          <Link to="/staff/login" className="p-1.5 rounded hover:bg-muted text-muted-foreground"><LogOut className="w-4 h-4" /></Link>
+          <Link to="/staff/login" onClick={logout} className="p-1.5 rounded hover:bg-muted text-muted-foreground"><LogOut className="w-4 h-4" /></Link>
         </div>
       </header>
 

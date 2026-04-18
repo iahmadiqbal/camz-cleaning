@@ -27,6 +27,7 @@ function LoginPage() {
       return;
     }
     setLoading(true);
+    sessionStorage.setItem("camz_customer", "true");
     setTimeout(() => navigate({ to: "/customer-dashboard" }), 800);
   };
 
