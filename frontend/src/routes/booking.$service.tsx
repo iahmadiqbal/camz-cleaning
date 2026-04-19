@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";import { SiteLayout } from "@/components/SiteLayout";
+import { useState } from "react";
+import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { BookingStepper } from "@/components/BookingStepper";
 import { services } from "@/lib/data";
