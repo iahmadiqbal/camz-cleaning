@@ -91,20 +91,41 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           animate={{ y: 0, opacity: 1 }}
           className="h-16 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between gap-4"
         >
-          <div className="flex-1 max-w-md relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <input placeholder="Search bookings, staff..." className="w-full pl-10 pr-4 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-          </div>
+          {/* Left - Page title */}
           <div className="flex items-center gap-3">
-            <button className="relative p-2 rounded-lg hover:bg-muted">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-destructive" />
+            <div className="hidden md:block">
+              <h1 className="text-base font-bold text-deep-blue capitalize">
+                {path === "/admin" ? "Dashboard" : path.split("/admin/")[1]?.replace(/-/g, " ") || "Admin"}
+              </h1>
+              <p className="text-xs text-muted-foreground">CAMZ Cleaning · Admin Panel</p>
+            </div>
+          </div>
+
+          {/* Right - Actions */}
+          <div className="flex items-center gap-2 ml-auto">
+            {/* Search */}
+            <div className="relative hidden sm:block">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <input
+                placeholder="Search..."
+                className="w-48 pl-9 pr-4 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:w-64 transition-all"
+              />
+            </div>
+
+            {/* Notifications */}
+            <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
+              <Bell className="w-5 h-5 text-muted-foreground" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />
             </button>
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground grid place-items-center text-sm font-semibold">AD</div>
-              <div className="hidden sm:block text-sm">
-                <div className="font-medium">Admin</div>
-                <div className="text-xs text-muted-foreground">Owner</div>
+
+            {/* Admin profile */}
+            <div className="flex items-center gap-2 pl-2 border-l border-border">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-soft-blue text-white grid place-items-center text-xs font-bold shadow-sm">
+                AD
+              </div>
+              <div className="hidden sm:block">
+                <div className="text-sm font-semibold text-deep-blue leading-none">Admin</div>
+                <div className="text-xs text-muted-foreground mt-0.5">Owner</div>
               </div>
             </div>
           </div>

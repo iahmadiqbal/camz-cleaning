@@ -442,6 +442,66 @@ function Home() {
           <ReviewsCarousel />
         </section>
 
+        {/* Milestones Timeline */}
+        <section className="max-w-7xl mx-auto px-6 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="text-primary text-sm font-semibold uppercase tracking-wider">Our journey</span>
+            <h2 className="mt-2 text-3xl md:text-5xl font-bold text-deep-blue">Trusted since 2013</h2>
+            <p className="mt-4 text-muted-foreground">Over a decade of making spaces sparkle across Canada.</p>
+          </motion.div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { y: "2013", t: "Founded", d: "Started with one van and a big mission." },
+              { y: "2017", t: "10k clients", d: "Hit our first major milestone." },
+              { y: "2020", t: "Eco switch", d: "Went 100% plant-based products." },
+              { y: "2025", t: "150+ pros", d: "Serving 25k+ jobs every year." },
+            ].map((m, i) => (
+              <motion.div
+                key={m.y}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative rounded-2xl border-2 border-primary/20 bg-card p-6 hover:border-primary transition-colors hover:shadow-[var(--shadow-elegant)]"
+              >
+                <div className="text-3xl font-bold text-primary">{m.y}</div>
+                <div className="font-semibold text-deep-blue mt-1">{m.t}</div>
+                <div className="text-sm text-muted-foreground mt-2">{m.d}</div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Trust strip */}
+        <section className="bg-soft-blue/30 py-12">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid sm:grid-cols-3 gap-6 text-center">
+              {[
+                { n: "60s", l: "Average booking time", d: "Book your service in under a minute" },
+                { n: "Free", l: "Cancellation", d: "Cancel or reschedule up to 24h before" },
+                { n: "100%", l: "Satisfaction guarantee", d: "We re-clean for free if you're not happy" },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.l}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <div className="text-4xl font-bold text-deep-blue">{s.n}</div>
+                  <div className="text-sm font-semibold text-deep-blue mt-1">{s.l}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{s.d}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="max-w-7xl mx-auto px-6 pb-12">
           <motion.div

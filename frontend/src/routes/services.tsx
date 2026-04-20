@@ -1,11 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf } from "react-icons/fa";
+import { FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf, FaHome, FaBoxOpen, FaBuilding, FaCouch, FaCar } from "react-icons/fa";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { services } from "@/lib/data";
 import carpetImg from "@/assets/svc-carpet.jpg";
+
+const serviceIcons: Record<string, React.ElementType> = {
+  residential: FaHome,
+  move: FaBoxOpen,
+  commercial: FaBuilding,
+  carpet: FaCouch,
+  vehicle: FaCar,
+};
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -120,13 +128,15 @@ function ServicesPage() {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/60 to-transparent" />
-                      <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-primary-foreground">
-                        <span className="text-4xl drop-shadow-lg">{s.icon}</span>
+                      <div className="absolute bottom-3 right-4 flex items-end justify-between text-primary-foreground">
                         <span className="px-3 py-1 rounded-full bg-white/90 text-deep-blue text-xs font-bold">{s.price}</span>
                       </div>
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
-                      <h3 className="font-bold text-xl text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-3xl">{s.icon}</span>
+                        <h3 className="font-bold text-xl text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
+                      </div>
                       <p className="text-sm text-muted-foreground mt-2">{s.long}</p>
                       <ul className="mt-4 space-y-1.5 flex-1">
                         {s.features.map((f) => (
