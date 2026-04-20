@@ -25,7 +25,9 @@ function AdminLogin() {
     // Demo credentials
     if (email === "admin@camzcleaning.com" && password === "admin123") {
       setLoading(true);
-      sessionStorage.setItem("camz_admin", "true");
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem("camz_admin", "true");
+      }
       setTimeout(() => navigate({ to: "/admin" }), 800);
     } else {
       setError("Invalid credentials. Use admin@camzcleaning.com / admin123");

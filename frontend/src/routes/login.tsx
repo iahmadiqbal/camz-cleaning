@@ -27,7 +27,9 @@ function LoginPage() {
       return;
     }
     setLoading(true);
-    sessionStorage.setItem("camz_customer", "true");
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem("camz_customer", "true");
+    }
     setTimeout(() => navigate({ to: "/customer-dashboard" }), 800);
   };
 

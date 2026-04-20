@@ -18,7 +18,9 @@ function StaffLogin() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    sessionStorage.setItem("camz_staff", "true");
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem("camz_staff", "true");
+    }
     setTimeout(() => navigate({ to: "/staff" }), 800);
   };
 

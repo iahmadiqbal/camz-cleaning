@@ -34,7 +34,7 @@ function CustomerDashboard() {
   const past = myBookings.filter((b) => b.status === "Completed");
 
   useEffect(() => {
-    if (!sessionStorage.getItem("camz_customer")) {
+    if (typeof window !== 'undefined' && !sessionStorage.getItem("camz_customer")) {
       navigate({ to: "/login" });
     }
   }, []);
