@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
-import { FaAward, FaHeart, FaLeaf, FaUsers, FaArrowRight } from "react-icons/fa";
+import { FaAward, FaHeart, FaLeaf, FaUsers, FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import teamImg from "@/assets/team.jpg";
 import ecoImg from "@/assets/eco.jpg";
 
@@ -34,27 +34,44 @@ function About() {
   return (
     <SiteLayout>
       <PageTransition direction="right">
-        {/* Hero */}
-        <section className="relative bg-[image:var(--gradient-hero)] text-primary-foreground py-24 overflow-hidden">
-          <div className="absolute inset-0 opacity-15" style={{
-            backgroundImage: "radial-gradient(circle at 20% 30%, white 0%, transparent 40%), radial-gradient(circle at 80% 70%, white 0%, transparent 40%)"
-          }} />
-          <div className="relative max-w-4xl mx-auto px-6 text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold"
-            >
-              About CAMZ Cleaning
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="mt-5 text-lg md:text-xl opacity-90 max-w-2xl mx-auto"
-            >
-              We're on a mission to make sparkling clean spaces accessible to everyone — with care, integrity and zero hassle.
-            </motion.p>
+        {/* Hero Banner */}
+        <section className="relative h-[420px] md:h-[520px] overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80" 
+            alt="About CAMZ Cleaning" 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-deep-blue/80 via-deep-blue/60 to-deep-blue/80" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-primary-foreground px-6 max-w-3xl">
+              <motion.h1
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-4xl md:text-6xl font-bold mb-4"
+              >
+                About CAMZ Cleaning
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-6"
+              >
+                We're on a mission to make sparkling clean spaces accessible to everyone — with care, integrity and zero hassle.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-3 justify-center text-sm"
+              >
+                {["Trusted since 2013", "150+ vetted pros", "12,000+ happy clients"].map((t) => (
+                  <div key={t} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                    <FaCheckCircle className="text-soft-blue text-xs" /> {t}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -101,8 +118,9 @@ function About() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-deep-blue">What we stand for</h2>
-              <p className="mt-3 text-muted-foreground">Four values guide everything we do.</p>
+              <span className="text-primary text-sm font-semibold uppercase tracking-wider">Our values</span>
+              <h2 className="mt-2 text-3xl md:text-4xl font-bold text-deep-blue">What we stand for</h2>
+              <p className="mt-3 text-muted-foreground max-w-xl mx-auto">Four core values guide every decision we make — from how we hire our cleaners to the products we use in your home.</p>
             </motion.div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((v, i) => (
