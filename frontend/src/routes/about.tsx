@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { FaAward, FaHeart, FaLeaf, FaUsers, FaArrowRight, FaCheckCircle } from "react-icons/fa";
-import teamImg from "@/assets/team.jpg";
-import ecoImg from "@/assets/eco.jpg";
+const teamImg = "/images/team.jpg";
+const ecoImg = "/images/eco.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({

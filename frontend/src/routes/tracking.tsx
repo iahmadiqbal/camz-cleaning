@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { Clock, CheckCircle2, Loader2, MapPin, Phone, MessageSquare, Star, AlertCircle, Home, X, Copy, Check, Calendar, Sparkles } from "lucide-react";
-import vehicleImg from "@/assets/svc-vehicle.jpg";
+const vehicleImg = "/images/svc-vehicle.jpg";
 
 export const Route = createFileRoute("/tracking")({
   head: () => ({

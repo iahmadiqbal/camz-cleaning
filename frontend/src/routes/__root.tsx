@@ -1,6 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
-import faviconUrl from "../camzcleaninglogo.jpeg?url";
 import { Preloader } from "../components/Preloader";
 
 function NotFoundComponent() {
@@ -47,7 +46,7 @@ export const Route = createRootRoute({
       {
         rel: "icon",
         type: "image/jpeg",
-        href: faviconUrl,
+        href: "/images/camzcleaninglogo.jpeg",
       },
     ],
   }),

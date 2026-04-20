@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../transparentlogo.png";
 
 export function Preloader() {
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,6 @@ export function Preloader() {
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center overflow-hidden"
         >
-          {/* Top accent bar */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -39,10 +37,7 @@ export function Preloader() {
             style={{ background: "linear-gradient(90deg, #003A78, #3B82F6, #6592DB)" }}
           />
 
-          {/* Center content */}
           <div className="flex flex-col items-center gap-10">
-
-            {/* Logo with reveal animation */}
             <motion.div
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -50,18 +45,16 @@ export function Preloader() {
               className="relative"
             >
               <img
-                src={logo}
+                src="/images/transparentlogo.png"
                 alt="CAMZ Cleaning"
                 className="h-32 w-auto object-contain"
               />
-              {/* Glow under logo */}
               <div
                 className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-4 blur-xl rounded-full opacity-30"
                 style={{ background: "#3B82F6" }}
               />
             </motion.div>
 
-            {/* Company name */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -76,7 +69,6 @@ export function Preloader() {
               </span>
             </motion.div>
 
-            {/* Progress bar */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -96,8 +88,6 @@ export function Preloader() {
               <span className="text-xs text-gray-400 tabular-nums">{progress}%</span>
             </motion.div>
           </div>
-
-
         </motion.div>
       )}
     </AnimatePresence>

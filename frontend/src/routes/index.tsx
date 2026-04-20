@@ -21,8 +21,8 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { services, testimonials } from "@/lib/data";
-import teamImg from "@/assets/team.jpg";
-import ecoImg from "@/assets/eco.jpg";
+const teamImg = "/images/team.jpg";
+const ecoImg = "/images/eco.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({

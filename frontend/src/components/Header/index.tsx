@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logo from "../transparentlogo.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -23,7 +22,7 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center group">
-          <img src={logo} alt="CAMZ Cleaning" className="h-20 w-auto object-contain group-hover:scale-110 transition-transform" />
+          <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-20 w-auto object-contain group-hover:scale-110 transition-transform" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

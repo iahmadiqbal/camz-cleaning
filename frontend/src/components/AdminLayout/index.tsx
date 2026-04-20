@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { LayoutDashboard, CalendarDays, Users, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, ClipboardList, Radio, LogOut, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import logo from "../transparentlogo.png";
 
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -23,7 +22,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    // Protected route — redirect to admin login if not authenticated
     if (typeof window !== 'undefined' && !sessionStorage.getItem("camz_admin")) {
       window.location.href = "/admin/login";
     }
@@ -46,7 +44,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground"
       >
         <div className="px-6 py-5 border-b border-sidebar-border flex items-center gap-2">
-          <img src={logo} alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
+          <img src="/images/transparentlogo.png" alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
           <div>
             <div className="font-bold">CAMZ Admin</div>
             <div className="text-xs opacity-70">Control center</div>
@@ -92,7 +90,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           animate={{ y: 0, opacity: 1 }}
           className="h-16 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between gap-4"
         >
-          {/* Left - Page title */}
           <div className="flex items-center gap-3">
             <div className="hidden md:block">
               <h1 className="text-base font-bold text-deep-blue capitalize">
@@ -102,9 +99,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
 
-          {/* Right - Actions */}
           <div className="flex items-center gap-2 ml-auto">
-            {/* Search */}
             <div className="relative hidden sm:block">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
@@ -113,13 +108,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
               />
             </div>
 
-            {/* Notifications */}
             <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
               <Bell className="w-5 h-5 text-muted-foreground" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />
             </button>
 
-            {/* Admin profile */}
             <div className="flex items-center gap-2 pl-2 border-l border-border">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-soft-blue text-white grid place-items-center text-xs font-bold shadow-sm">
                 AD

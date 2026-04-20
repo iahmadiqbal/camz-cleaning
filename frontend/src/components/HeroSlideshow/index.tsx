@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { FaArrowRight, FaStar, FaShieldAlt, FaLeaf } from "react-icons/fa";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import hero3 from "@/assets/hero-3.jpg";
+import { FaArrowRight } from "react-icons/fa";
 
 const slides = [
   {
-    image: hero1,
+    image: "/images/hero-1.jpg",
     title: "A spotless home,",
     accent: "delivered with care.",
     desc: "Book vetted, insured cleaning pros in under 60 seconds. Your home — sparkling clean.",
   },
   {
-    image: hero3,
+    image: "/images/hero-3.jpg",
     title: "Workspaces that",
     accent: "shine all week.",
     desc: "Daily, weekly, or custom commercial plans — keep your team productive in a pristine space.",
@@ -86,14 +83,6 @@ export function HeroSlideshow() {
             >
               Learn more
             </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="mt-10 flex flex-wrap gap-6 text-sm justify-center"
-          >
           </motion.div>
         </div>
       </div>

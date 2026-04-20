@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
-import logo from "../transparentlogo.png";
 
 export function Footer() {
   return (
@@ -10,7 +9,7 @@ export function Footer() {
         {/* Brand */}
         <div>
           <div className="mb-4">
-            <img src={logo} alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
+            <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
           </div>
           <p className="text-sm opacity-80 leading-relaxed">Trusted cleaning professionals serving homes and businesses since 2013.</p>
           <div className="flex gap-3 mt-4">

@@ -1,9 +1,3 @@
-import residentialImg from "@/assets/svc-residential.jpg";
-import moveImg from "@/assets/svc-move.jpg";
-import commercialImg from "@/assets/svc-commercial.jpg";
-import carpetImg from "@/assets/svc-carpet.jpg";
-import vehicleImg from "@/assets/svc-vehicle.jpg";
-
 export const services = [
   {
     id: "residential",
@@ -11,7 +5,7 @@ export const services = [
     desc: "Sparkling homes, every visit.",
     icon: "🏠",
     price: "From $89",
-    image: residentialImg,
+    image: "/images/svc-residential.jpg",
     features: ["Kitchen & bathrooms", "Dusting & vacuuming", "Floor mopping", "Trash removal"],
     long: "Our most popular service — a thorough clean that keeps your home fresh and welcoming week after week.",
   },
@@ -21,7 +15,7 @@ export const services = [
     desc: "Spotless transitions made easy.",
     icon: "📦",
     price: "From $179",
-    image: moveImg,
+    image: "/images/svc-move.jpg",
     features: ["Inside cabinets", "Appliance deep clean", "Walls & baseboards", "Window tracks"],
     long: "Get every deposit dollar back. We deep clean every nook so your old place sparkles or your new one feels like home.",
   },
@@ -31,7 +25,7 @@ export const services = [
     desc: "Professional offices & retail.",
     icon: "🏢",
     price: "Custom Quote",
-    image: commercialImg,
+    image: "/images/svc-commercial.jpg",
     features: ["Daily / weekly plans", "Restroom sanitation", "Glass & lobby", "After-hours service"],
     long: "Keep your workplace pristine and productive. Customized plans for offices, clinics, retail and more.",
   },
@@ -41,7 +35,7 @@ export const services = [
     desc: "Deep steam care for fabrics.",
     icon: "🛋️",
     price: "From $59",
-    image: carpetImg,
+    image: "/images/svc-carpet.jpg",
     features: ["Hot water extraction", "Stain removal", "Pet odor treatment", "Fast drying"],
     long: "Bring carpets and upholstery back to life with hospital-grade steam extraction and eco-safe solutions.",
   },
@@ -51,7 +45,7 @@ export const services = [
     desc: "Showroom shine for your ride.",
     icon: "🚗",
     price: "From $99",
-    image: vehicleImg,
+    image: "/images/svc-vehicle.jpg",
     features: ["Hand wash & wax", "Interior shampoo", "Leather conditioning", "Engine bay clean"],
     long: "Premium auto detailing inside and out. Your car will look — and smell — brand new.",
   },

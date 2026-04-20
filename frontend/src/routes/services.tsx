@@ -5,7 +5,7 @@ import { FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf, FaHome, FaBo
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { services } from "@/lib/data";
-import carpetImg from "@/assets/svc-carpet.jpg";
+const carpetImg = "/images/svc-carpet.jpg";
 
 const serviceIcons: Record<string, React.ElementType> = {
   residential: FaHome,

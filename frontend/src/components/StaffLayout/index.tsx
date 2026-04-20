@@ -2,7 +2,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, Briefcase, CalendarOff, LogOut, ArrowLeft, Bell } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
-import logo from "../transparentlogo.png";
 
 const nav = [
   { to: "/staff", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -30,10 +29,9 @@ export function StaffLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex bg-[image:var(--gradient-soft)]">
-      {/* Sidebar */}
       <aside className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground">
         <div className="px-6 py-5 border-b border-sidebar-border flex items-center gap-2">
-          <img src={logo} alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
+          <img src="/images/transparentlogo.png" alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
           <div>
             <div className="font-bold">CAMZ Staff</div>
             <div className="text-xs opacity-70">Cleaner portal</div>
@@ -66,9 +64,7 @@ export function StaffLayout({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top header */}
         <header className="h-16 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between gap-4">
           <div className="hidden md:block">
             <h1 className="text-base font-bold text-deep-blue capitalize">{pageTitle}</h1>
@@ -89,7 +85,6 @@ export function StaffLayout({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        {/* Mobile bottom nav */}
         <main className="flex-1 p-4 md:p-8 overflow-x-auto pb-20 md:pb-8">{children}</main>
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-40">
           {nav.map((item) => {
