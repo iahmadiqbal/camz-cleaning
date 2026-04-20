@@ -61,6 +61,12 @@ export const testimonials = [
   { name: "Sarah Johnson", role: "Homeowner", text: "CAMZ transformed my home. The team was punctual, friendly and incredibly thorough.", rating: 5 },
   { name: "Mark Chen", role: "Office Manager", text: "Reliable commercial cleaning every single week. Our team loves the fresh space.", rating: 5 },
   { name: "Priya Patel", role: "Tenant", text: "The move-out clean got me my full deposit back. Worth every penny!", rating: 5 },
+  { name: "James Wilson", role: "Homeowner", text: "Best cleaning service I've ever used. My carpets look brand new after every visit!", rating: 5 },
+  { name: "Emily Rodriguez", role: "Business Owner", text: "Our office has never been cleaner. The team is professional and always on time.", rating: 5 },
+  { name: "David Kim", role: "Tenant", text: "Booked online in 60 seconds and the cleaners arrived right on schedule. Highly recommend!", rating: 5 },
+  { name: "Lisa Thompson", role: "Homeowner", text: "Eco-friendly products and amazing results. My kids and pets are safe — love CAMZ!", rating: 5 },
+  { name: "Ahmed Hassan", role: "Restaurant Owner", text: "Commercial cleaning done right. Our kitchen passes every health inspection with flying colors.", rating: 5 },
+  { name: "Sophie Martin", role: "Renter", text: "Got my full deposit back thanks to CAMZ. The move-out clean was absolutely spotless.", rating: 5 },
 ];
 
 export const timeSlots = ["08:00 AM", "09:30 AM", "11:00 AM", "12:30 PM", "02:00 PM", "03:30 PM", "05:00 PM"];

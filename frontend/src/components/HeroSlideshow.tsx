@@ -9,21 +9,12 @@ import hero3 from "@/assets/hero-3.jpg";
 const slides = [
   {
     image: hero1,
-    badge: "✨ #1 Trusted Cleaners",
     title: "A spotless home,",
     accent: "delivered with care.",
     desc: "Book vetted, insured cleaning pros in under 60 seconds. Your home — sparkling clean.",
   },
   {
-    image: hero2,
-    badge: "👋 Friendly Pros",
-    title: "Real people,",
-    accent: "really good at clean.",
-    desc: "Background-checked, trained, and rated 4.9★ by 12,000+ happy customers.",
-  },
-  {
     image: hero3,
-    badge: "🏢 Office & Commercial",
     title: "Workspaces that",
     accent: "shine all week.",
     desc: "Daily, weekly, or custom commercial plans — keep your team productive in a pristine space.",
@@ -56,8 +47,8 @@ export function HeroSlideshow() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative h-full max-w-7xl mx-auto px-6 flex items-center">
-        <div className="max-w-2xl text-primary-foreground">
+      <div className="relative h-full max-w-7xl mx-auto px-6 flex items-center justify-center">
+        <div className="max-w-3xl text-primary-foreground text-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={idx}
@@ -66,16 +57,13 @@ export function HeroSlideshow() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-sm font-medium mb-5 border border-white/20">
-                {slide.badge}
-              </span>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
                 {slide.title} <br />
                 <span className="bg-gradient-to-r from-soft-blue to-white bg-clip-text text-transparent">
                   {slide.accent}
                 </span>
               </h1>
-              <p className="mt-6 text-lg md:text-xl opacity-90 max-w-lg">{slide.desc}</p>
+              <p className="mt-6 text-lg md:text-xl opacity-90 max-w-xl mx-auto">{slide.desc}</p>
             </motion.div>
           </AnimatePresence>
 
@@ -83,7 +71,7 @@ export function HeroSlideshow() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-8 flex flex-wrap gap-3 justify-center"
           >
             <Link
               to="/services"
@@ -104,17 +92,8 @@ export function HeroSlideshow() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="mt-10 flex flex-wrap gap-6 text-sm"
+            className="mt-10 flex flex-wrap gap-6 text-sm justify-center"
           >
-            {[
-              { icon: FaStar, text: "4.9★ rating" },
-              { icon: FaShieldAlt, text: "Fully insured" },
-              { icon: FaLeaf, text: "Eco-friendly" },
-            ].map((b) => (
-              <div key={b.text} className="flex items-center gap-2 opacity-90">
-                <b.icon className="text-soft-blue" /> {b.text}
-              </div>
-            ))}
           </motion.div>
         </div>
       </div>

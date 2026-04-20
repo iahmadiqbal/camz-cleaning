@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import {
   FaArrowRight,
   FaShieldAlt,
@@ -11,6 +14,8 @@ import {
   FaCalendarCheck,
   FaSprayCan,
   FaSmile,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -32,11 +37,48 @@ export const Route = createFileRoute("/")({
 });
 
 const stats = [
-  { icon: FaSmile, n: "12k+", l: "Happy clients" },
-  { icon: FaSprayCan, n: "25k+", l: "Jobs completed" },
-  { icon: FaStar, n: "4.9★", l: "Average rating" },
-  { icon: FaShieldAlt, n: "100%", l: "Insured" },
+  { icon: FaSmile, n: "12k+", end: 12, suffix: "k+", l: "Happy clients" },
+  { icon: FaSprayCan, n: "25k+", end: 25, suffix: "k+", l: "Jobs completed" },
+  { icon: FaStar, n: "4.9★", end: 4.9, suffix: "★", l: "Average rating" },
+  { icon: FaShieldAlt, n: "100%", end: 100, suffix: "%", l: "Insured" },
 ];
+
+function CountUp({ end, suffix, duration = 2000 }: { end: number; suffix: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const steps = 50;
+          const increment = end / steps;
+          let current = 0;
+          let step = 0;
+          const timer = setInterval(() => {
+            step++;
+            current = increment * step;
+            if (step >= steps) {
+              setCount(end);
+              clearInterval(timer);
+            } else {
+              setCount(parseFloat(current.toFixed(1)));
+            }
+          }, duration / steps);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 const steps = [
   { icon: FaPhoneAlt, title: "1. Choose service", desc: "Pick from 5 expert services tailored for any space." },
@@ -44,6 +86,72 @@ const steps = [
   { icon: FaSprayCan, title: "3. We clean it", desc: "Our vetted pros arrive on time with eco-safe supplies." },
   { icon: FaSmile, title: "4. Enjoy", desc: "Relax in your spotless space — satisfaction guaranteed." },
 ];
+
+function ReviewsCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { align: "start", slidesToScroll: 1, containScroll: "trimSnaps", breakpoints: {
+      "(min-width: 768px)": { slidesToScroll: 3 }
+    }},
+    [Autoplay({ delay: 7000, stopOnInteraction: true })]
+  );
+
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCanPrev(emblaApi.canScrollPrev());
+    setCanNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => { emblaApi.off("select", onSelect); emblaApi.off("reInit", onSelect); };
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div className="relative px-10">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex" style={{ gap: "24px" }}>
+          {testimonials.map((t) => (
+            <div key={t.name} className="min-w-0 shrink-0 grow-0 w-full md:w-[calc(33.333%-16px)]">
+              <div className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-card)] hover:-translate-y-1 transition-all h-full">
+                <div className="flex gap-1 text-yellow-500 mb-4">
+                  {Array.from({ length: t.rating }).map((_, j) => <FaStar key={j} />)}
+                </div>
+                <p className="text-foreground/90 italic">"{t.text}"</p>
+                <div className="mt-5 pt-5 border-t border-border flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground grid place-items-center font-bold">{t.name[0]}</div>
+                  <div>
+                    <div className="font-semibold text-deep-blue">{t.name}</div>
+                    <div className="text-xs text-muted-foreground">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <button
+        onClick={() => emblaApi?.scrollPrev()}
+        disabled={!canPrev}
+        className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-primary text-white hover:bg-primary/90 disabled:opacity-30 transition-all"
+      >
+        <FaChevronLeft />
+      </button>
+      <button
+        onClick={() => emblaApi?.scrollNext()}
+        disabled={!canNext}
+        className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-primary text-white hover:bg-primary/90 disabled:opacity-30 transition-all"
+      >
+        <FaChevronRight />
+      </button>
+    </div>
+  );
+}
 
 function Home() {
   return (
@@ -53,7 +161,7 @@ function Home() {
 
         {/* Stats strip */}
         <section className="bg-card border-b border-border">
-          <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((s, i) => (
               <motion.div
                 key={s.l}
@@ -61,15 +169,15 @@ function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-4"
+                className="flex flex-col items-center gap-2"
               >
-                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-primary text-xl">
+                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-primary text-xl mb-1">
                   <s.icon />
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-deep-blue">{s.n}</div>
-                  <div className="text-xs text-muted-foreground">{s.l}</div>
+                <div className="text-3xl md:text-4xl font-bold text-deep-blue">
+                  <CountUp end={s.end} suffix={s.suffix} />
                 </div>
+                <div className="text-sm text-muted-foreground">{s.l}</div>
               </motion.div>
             ))}
           </div>
@@ -85,7 +193,9 @@ function Home() {
           >
             <span className="text-primary text-sm font-semibold uppercase tracking-wider">What we do</span>
             <h2 className="mt-2 text-3xl md:text-5xl font-bold text-deep-blue">Services tailored to you</h2>
-            <p className="mt-4 text-muted-foreground">From cozy apartments to large offices — we have the right plan.</p>
+            <p className="mt-4 text-muted-foreground">
+              Whether it's your home, office, car, or carpets — we have a professional cleaning plan for every need and budget. Simply pick a service, choose your time, and we'll handle the rest.
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -116,6 +226,14 @@ function Home() {
                         <h3 className="font-bold text-lg text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
                       </div>
                       <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
+                      <ul className="mt-3 space-y-1">
+                        {s.features.map((f) => (
+                          <li key={f} className="flex items-center gap-2 text-xs text-foreground/70">
+                            <FaCheckCircle className="text-primary flex-shrink-0 text-xs" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
                       <div className="mt-4 flex items-center gap-2 text-primary font-semibold text-sm">
                         Book now <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -125,6 +243,56 @@ function Home() {
               </motion.div>
             ))}
           </div>
+
+          {/* Bottom content after service cards */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-14 grid sm:grid-cols-3 gap-6"
+          >
+            {[
+              {
+                icon: FaSprayCan,
+                title: "All supplies included",
+                desc: "No need to buy anything. Our pros bring all eco-friendly cleaning products and equipment.",
+              },
+              {
+                icon: FaShieldAlt,
+                title: "100% satisfaction guarantee",
+                desc: "Not happy? We'll re-clean for free. No questions asked — your satisfaction is our priority.",
+              },
+              {
+                icon: FaCalendarCheck,
+                title: "Flexible scheduling",
+                desc: "Book same-day, next-day, or plan ahead. Reschedule or cancel anytime up to 24 hours before.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="flex gap-4 p-6 rounded-2xl bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow">
+                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-primary text-xl flex-shrink-0">
+                  <item.icon />
+                </div>
+                <div>
+                  <h4 className="font-bold text-deep-blue mb-1">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-8 text-center"
+          >
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-colors"
+            >
+              View all services <FaArrowRight />
+            </Link>
+          </motion.div>
         </section>
 
         {/* How it works */}
@@ -260,7 +428,7 @@ function Home() {
           </div>
         </section>
 
-        {/* Testimonials */}
+        {/* Testimonials with Embla Carousel */}
         <section className="max-w-7xl mx-auto px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -271,58 +439,57 @@ function Home() {
             <span className="text-primary text-sm font-semibold uppercase tracking-wider">Reviews</span>
             <h2 className="mt-2 text-3xl md:text-5xl font-bold text-deep-blue">Loved by 12,000+ clients</h2>
           </motion.div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow"
-              >
-                <div className="flex gap-1 text-yellow-500 mb-4">
-                  {Array.from({ length: t.rating }).map((_, j) => <FaStar key={j} />)}
-                </div>
-                <p className="text-foreground/90 italic">"{t.text}"</p>
-                <div className="mt-5 pt-5 border-t border-border flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground grid place-items-center font-bold">
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-deep-blue">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.role}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <ReviewsCarousel />
         </section>
 
         {/* CTA */}
-        <section className="max-w-7xl mx-auto px-6 pb-24">
+        <section className="max-w-7xl mx-auto px-6 pb-12">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-[image:var(--gradient-hero)] text-primary-foreground p-10 md:p-16 text-center shadow-[var(--shadow-elegant)]"
+            className="relative overflow-hidden rounded-3xl shadow-[var(--shadow-elegant)]"
           >
-            <div className="absolute inset-0 opacity-20" style={{
-              backgroundImage: "radial-gradient(circle at 20% 30%, white 0%, transparent 40%), radial-gradient(circle at 80% 70%, white 0%, transparent 40%)"
-            }} />
-            <div className="relative">
-              <FaClock className="mx-auto text-3xl mb-4 opacity-90" />
-              <h2 className="text-3xl md:text-5xl font-bold">Ready for a cleaner space?</h2>
-              <p className="mt-4 opacity-90 text-lg max-w-xl mx-auto">
-                Book your first cleaning today and enjoy <span className="font-bold underline">10% off</span>. Takes less than 60 seconds.
+            {/* Background image with overlay */}
+            <div className="absolute inset-0">
+              <img src={ecoImg} alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-deep-blue/85" />
+            </div>
+
+            <div className="relative text-primary-foreground text-center py-16 px-6 md:py-20 md:px-16">
+
+              <h2 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                Your cleanest home <br className="hidden md:block" />
+                <span className="text-soft-blue">starts today.</span>
+              </h2>
+
+              <p className="text-lg opacity-80 max-w-lg mx-auto mb-10">
+                Book in under 60 seconds. Vetted pros, eco-friendly products, 100% satisfaction guaranteed.
               </p>
-              <Link
-                to="/services"
-                className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-deep-blue font-semibold hover:scale-105 transition-transform shadow-2xl"
-              >
-                Get Started <FaArrowRight />
-              </Link>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Link
+                  to="/services"
+                  className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-deep-blue font-bold text-lg hover:scale-105 transition-transform shadow-2xl"
+                >
+                  Book Now
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  to="/tracking"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition-colors"
+                >
+                  Track a Booking
+                </Link>
+              </div>
+
+              <div className="mt-10 flex flex-wrap justify-center gap-8 text-sm opacity-70">
+                {["No credit card required", "Cancel anytime", "Insured & vetted pros"].map((t) => (
+                  <div key={t} className="flex items-center gap-2">
+                    <FaCheckCircle className="text-soft-blue" /> {t}
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </section>
