@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, CalendarDays, MapPin, LogOut, Sparkles, ArrowLeft, Bell, User } from "lucide-react";
+import { LayoutDashboard, CalendarDays, MapPin, LogOut, ArrowLeft, Bell, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
+import logo from "../transparentlogo.png";
 
 const nav = [
   { to: "/customer-dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -45,9 +46,7 @@ export function CustomerLayout({ children }: { children: ReactNode }) {
       {/* Sidebar */}
       <aside className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground">
         <div className="px-6 py-5 border-b border-sidebar-border flex items-center gap-2">
-          <div className="w-9 h-9 rounded-lg bg-sidebar-primary grid place-items-center">
-            <Sparkles className="w-5 h-5" />
-          </div>
+          <img src={logo} alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
           <div>
             <div className="font-bold">My Account</div>
             <div className="text-xs opacity-70">Customer portal</div>

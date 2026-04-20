@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Sparkles, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "../transparentlogo.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -20,12 +21,9 @@ export function Header() {
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-[image:var(--gradient-hero)] grid place-items-center text-primary-foreground shadow-[var(--shadow-card)] group-hover:scale-110 transition-transform">
-            <Sparkles className="w-5 h-5" />
-          </div>
-          <span className="font-bold text-lg tracking-tight text-deep-blue">CAMZ Cleaning</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+        <Link to="/" className="flex items-center group">
+          <img src={logo} alt="CAMZ Cleaning" className="h-20 w-auto object-contain group-hover:scale-110 transition-transform" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

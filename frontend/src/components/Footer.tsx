@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+import logo from "../transparentlogo.png";
 
 export function Footer() {
   return (
@@ -8,9 +9,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         {/* Brand */}
         <div>
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5" />
-            <span className="font-bold text-lg">CAMZ Cleaning</span>
+          <div className="mb-4">
+            <img src={logo} alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
           </div>
           <p className="text-sm opacity-80 leading-relaxed">Trusted cleaning professionals serving homes and businesses since 2013.</p>
           <div className="flex gap-3 mt-4">
@@ -90,7 +90,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-4 text-center text-xs opacity-60">
+      <div className="border-t border-white/10 py-4 text-center text-xs text-white">
         © 2025 CAMZ Cleaning. All rights reserved.
       </div>
     </footer>
