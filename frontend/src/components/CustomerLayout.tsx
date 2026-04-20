@@ -1,31 +1,44 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Briefcase, CalendarOff, LogOut, Sparkles, ArrowLeft, Bell } from "lucide-react";
+import { LayoutDashboard, CalendarDays, MapPin, LogOut, Sparkles, ArrowLeft, Bell, User } from "lucide-react";
 import type { ReactNode } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const nav = [
-  { to: "/staff", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/staff/jobs", label: "Jobs", icon: Briefcase },
-  { to: "/staff/leave", label: "Leave", icon: CalendarOff },
+  { to: "/customer-dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { to: "/tracking", label: "Track Booking", icon: MapPin },
+  { to: "/services", label: "Book Service", icon: CalendarDays },
 ];
 
-export function StaffLayout({ children }: { children: ReactNode }) {
+export function CustomerLayout({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const [customerName, setCustomerName] = useState("Customer");
 
   useEffect(() => {
-    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_staff")) {
-      window.location.href = "/staff/login";
+    if (typeof window !== "undefined") {
+      if (!sessionStorage.getItem("camz_customer")) {
+        window.location.href = "/login";
+        return;
+      }
+      try {
+        const data = JSON.parse(sessionStorage.getItem("camz_customer") || "{}");
+        if (data.name) setCustomerName(data.name);
+      } catch {}
     }
   }, []);
 
   const logout = () => {
     if (typeof window !== "undefined") {
-      sessionStorage.removeItem("camz_staff");
-      window.location.href = "/staff/login";
+      sessionStorage.removeItem("camz_customer");
+      window.location.href = "/login";
     }
   };
 
-  const pageTitle = path === "/staff" ? "Dashboard" : path.split("/staff/")[1]?.replace(/-/g, " ") || "Staff";
+  const initials = customerName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
+
+  const pageTitle = path === "/customer-dashboard" ? "Dashboard"
+    : path === "/tracking" ? "Track Booking"
+    : path === "/services" ? "Book Service"
+    : "My Account";
 
   return (
     <div className="min-h-screen flex bg-[image:var(--gradient-soft)]">
@@ -36,8 +49,8 @@ export function StaffLayout({ children }: { children: ReactNode }) {
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <div className="font-bold">CAMZ Staff</div>
-            <div className="text-xs opacity-70">Cleaner portal</div>
+            <div className="font-bold">My Account</div>
+            <div className="text-xs opacity-70">Customer portal</div>
           </div>
         </div>
         <nav className="flex-1 p-3 space-y-1">
@@ -73,7 +86,7 @@ export function StaffLayout({ children }: { children: ReactNode }) {
         <header className="h-16 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between gap-4">
           <div className="hidden md:block">
             <h1 className="text-base font-bold text-deep-blue capitalize">{pageTitle}</h1>
-            <p className="text-xs text-muted-foreground">CAMZ Cleaning · Staff Portal</p>
+            <p className="text-xs text-muted-foreground">CAMZ Cleaning · Customer Portal</p>
           </div>
           <div className="flex items-center gap-2 ml-auto">
             <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
@@ -81,17 +94,20 @@ export function StaffLayout({ children }: { children: ReactNode }) {
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />
             </button>
             <div className="flex items-center gap-2 pl-2 border-l border-border">
-              <div className="w-8 h-8 rounded-full bg-[image:var(--gradient-hero)] text-white grid place-items-center text-xs font-bold shadow-sm">AM</div>
+              <div className="w-8 h-8 rounded-full bg-[image:var(--gradient-hero)] text-white grid place-items-center text-xs font-bold shadow-sm">
+                {initials || <User className="w-4 h-4" />}
+              </div>
               <div className="hidden sm:block">
-                <div className="text-sm font-semibold text-deep-blue leading-none">Alex Morgan</div>
-                <div className="text-xs text-muted-foreground mt-0.5">Cleaner</div>
+                <div className="text-sm font-semibold text-deep-blue leading-none">{customerName}</div>
+                <div className="text-xs text-muted-foreground mt-0.5">Customer</div>
               </div>
             </div>
           </div>
         </header>
 
-        {/* Mobile bottom nav */}
         <main className="flex-1 p-4 md:p-8 overflow-x-auto pb-20 md:pb-8">{children}</main>
+
+        {/* Mobile bottom nav */}
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-40">
           {nav.map((item) => {
             const active = item.exact ? path === item.to : path.startsWith(item.to);

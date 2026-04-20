@@ -410,9 +410,9 @@ function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <FaLeaf className="text-primary text-4xl mb-3" />
-              <h2 className="text-3xl md:text-4xl font-bold text-deep-blue">Eco-friendly. Pet & kid safe.</h2>
-              <p className="mt-4 text-muted-foreground text-lg">
+              <FaLeaf className="text-white text-4xl mb-3" />
+              <h2 className="text-3xl md:text-4xl font-bold text-white">Eco-friendly. Pet & kid safe.</h2>
+              <p className="mt-4 text-white/90 text-lg">
                 We only use plant-based, biodegradable cleaning products. Tough on grime, gentle on your family
                 and the planet. No harsh chemicals — ever.
               </p>
@@ -478,7 +478,7 @@ function Home() {
         </section>
 
         {/* Trust strip */}
-        <section className="bg-soft-blue/30 py-12">
+        <section className="bg-soft-blue py-12">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid sm:grid-cols-3 gap-6 text-center">
               {[
@@ -493,9 +493,9 @@ function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <div className="text-4xl font-bold text-deep-blue">{s.n}</div>
-                  <div className="text-sm font-semibold text-deep-blue mt-1">{s.l}</div>
-                  <div className="text-xs text-muted-foreground mt-1">{s.d}</div>
+                  <div className="text-4xl font-bold text-white">{s.n}</div>
+                  <div className="text-sm font-semibold text-white mt-1">{s.l}</div>
+                  <div className="text-xs text-white/80 mt-1">{s.d}</div>
                 </motion.div>
               ))}
             </div>

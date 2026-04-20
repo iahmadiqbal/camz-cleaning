@@ -169,11 +169,11 @@ function ServicesPage() {
               { end: 100, suffix: "%", label: "Satisfaction guarantee", desc: "We re-clean for free if you're not happy" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center">
-                <div className="text-4xl font-bold text-deep-blue mb-1">
+                <div className="text-4xl font-bold text-white mb-1">
                   <CountUp end={s.end} suffix={s.suffix} />
                 </div>
-                <div className="text-sm font-semibold text-deep-blue mt-1">{s.label}</div>
-                <div className="text-xs text-muted-foreground mt-1">{s.desc}</div>
+                <div className="text-sm font-semibold text-white mt-1">{s.label}</div>
+                <div className="text-xs text-white/80 mt-1">{s.desc}</div>
               </div>
             ))}
           </motion.div>

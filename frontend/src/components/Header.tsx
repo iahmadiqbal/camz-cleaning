@@ -33,14 +33,14 @@ export function Header() {
             <Link
               key={l.to}
               to={l.to}
-              className="px-3 py-2 text-sm font-medium text-foreground/70 hover:text-primary transition-colors rounded-md"
-              activeProps={{ className: "text-primary bg-soft-blue" }}
+              className="px-3 py-2 text-sm font-medium text-foreground/70 hover:text-white hover:bg-primary transition-colors rounded-md"
+              activeProps={{ className: "!text-white !bg-primary" }}
               activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
             </Link>
           ))}
-          <Link to="/login" className="ml-1 px-3 py-2 text-sm font-medium text-foreground/70 hover:text-primary transition-colors rounded-md">
+          <Link to="/login" className="ml-1 px-3 py-2 text-sm font-medium text-foreground/70 hover:text-white hover:bg-primary transition-colors rounded-md">
             Login
           </Link>
           <Link
@@ -68,12 +68,14 @@ export function Header() {
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="px-3 py-2 rounded-md text-sm font-medium hover:bg-soft-blue"
+                className="px-3 py-2 rounded-md text-sm font-medium text-foreground/70 hover:text-white hover:bg-primary transition-colors"
+                activeProps={{ className: "!text-white !bg-primary" }}
+                activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
               </Link>
             ))}
-            <Link to="/login" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-sm font-medium hover:bg-soft-blue">Login</Link>
+            <Link to="/login" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-sm font-medium text-foreground/70 hover:text-white hover:bg-primary transition-colors">Login</Link>
           </div>
         </motion.div>
       )}

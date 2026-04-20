@@ -462,17 +462,17 @@ function Tracking() {
               </button>
             </div>
             <div className="space-y-3 mb-4">
-              <a href="tel:+18001234567" className="flex items-center gap-3 p-3 rounded-xl bg-soft-blue/20 border border-soft-blue hover:bg-soft-blue/30 transition-colors">
+              <a href="tel:+18001234567" className="flex items-center gap-3 p-3 rounded-xl bg-primary/10 border border-primary/30 hover:bg-primary/20 transition-colors">
                 <Phone className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="font-semibold text-deep-blue text-sm">Call Support</p>
+                  <p className="font-semibold text-foreground text-sm">Call Support</p>
                   <p className="text-xs text-muted-foreground">+1 (800) 123-4567 · 24/7</p>
                 </div>
               </a>
-              <a href="mailto:support@camzcleaning.com" className="flex items-center gap-3 p-3 rounded-xl bg-soft-blue/20 border border-soft-blue hover:bg-soft-blue/30 transition-colors">
+              <a href="mailto:support@camzcleaning.com" className="flex items-center gap-3 p-3 rounded-xl bg-primary/10 border border-primary/30 hover:bg-primary/20 transition-colors">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="font-semibold text-deep-blue text-sm">Email Support</p>
+                  <p className="font-semibold text-foreground text-sm">Email Support</p>
                   <p className="text-xs text-muted-foreground">support@camzcleaning.com</p>
                 </div>
               </a>
