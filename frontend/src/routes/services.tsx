@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf } from "react-icons/fa";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { services } from "@/lib/data";
+import carpetImg from "@/assets/svc-carpet.jpg";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -15,28 +17,86 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
 });
 
+function CountUp({ end, suffix = "", duration = 2000 }: { end: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const steps = 50;
+          let step = 0;
+          const timer = setInterval(() => {
+            step++;
+            const current = (end / steps) * step;
+            if (step >= steps) { setCount(end); clearInterval(timer); }
+            else setCount(parseFloat(current.toFixed(1)));
+          }, duration / steps);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
 function ServicesPage() {
   return (
     <SiteLayout>
       <PageTransition direction="left">
-        {/* Header */}
-        <section className="bg-[image:var(--gradient-hero)] text-primary-foreground py-20">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold tracking-tight"
-            >
-              Choose your service
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="mt-5 text-lg opacity-90"
-            >
-              Pick a service to start your booking. All plans come with our 100% satisfaction guarantee.
-            </motion.p>
+        {/* Hero Banner with unique image */}
+        <section className="relative h-[420px] md:h-[520px] overflow-hidden">
+          <img
+            src={carpetImg}
+            alt="CAMZ Cleaning Services"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-deep-blue/80 via-deep-blue/60 to-deep-blue/80" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-primary-foreground px-6 max-w-3xl">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-4xl md:text-6xl font-bold tracking-tight mb-4"
+              >
+                Choose Your
+                <span className="block bg-gradient-to-r from-soft-blue to-white bg-clip-text text-transparent">
+                  Perfect Service
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-lg md:text-xl opacity-90 max-w-xl mx-auto mb-6"
+              >
+                From homes to offices, carpets to cars — we have a professional cleaning plan for every need.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap gap-4 justify-center text-sm"
+              >
+                {[
+                  { icon: FaShieldAlt, text: "Fully Insured" },
+                  { icon: FaClock, text: "Book in 60s" },
+                  { icon: FaLeaf, text: "Eco-Friendly" },
+                ].map((b) => (
+                  <div key={b.text} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                    <b.icon className="text-soft-blue" /> {b.text}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -86,7 +146,7 @@ function ServicesPage() {
             ))}
           </div>
 
-          {/* Trust strip */}
+          {/* Trust strip with animated counters */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -94,13 +154,16 @@ function ServicesPage() {
             className="mt-16 rounded-2xl bg-soft-blue p-8 grid sm:grid-cols-3 gap-6 text-center"
           >
             {[
-              { n: "60s", l: "Average booking time" },
-              { n: "Free", l: "Cancel up to 24h before" },
-              { n: "100%", l: "Satisfaction guarantee" },
+              { end: 60, suffix: "s", label: "Average booking time", desc: "Book your service in under a minute" },
+              { end: 24, suffix: "h", label: "Free cancellation", desc: "Cancel or reschedule anytime before" },
+              { end: 100, suffix: "%", label: "Satisfaction guarantee", desc: "We re-clean for free if you're not happy" },
             ].map((s) => (
-              <div key={s.l}>
-                <div className="text-3xl font-bold text-deep-blue">{s.n}</div>
-                <div className="text-sm text-muted-foreground mt-1">{s.l}</div>
+              <div key={s.label} className="flex flex-col items-center">
+                <div className="text-4xl font-bold text-deep-blue mb-1">
+                  <CountUp end={s.end} suffix={s.suffix} />
+                </div>
+                <div className="text-sm font-semibold text-deep-blue mt-1">{s.label}</div>
+                <div className="text-xs text-muted-foreground mt-1">{s.desc}</div>
               </div>
             ))}
           </motion.div>
