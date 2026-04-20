@@ -23,14 +23,16 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     setMounted(true);
     // Protected route — redirect to admin login if not authenticated
-    if (!sessionStorage.getItem("camz_admin")) {
+    if (typeof window !== 'undefined' && !sessionStorage.getItem("camz_admin")) {
       window.location.href = "/admin/login";
     }
   }, []);
 
   const logout = () => {
-    sessionStorage.removeItem("camz_admin");
-    window.location.href = "/admin/login";
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem("camz_admin");
+      window.location.href = "/admin/login";
+    }
   };
 
   return (

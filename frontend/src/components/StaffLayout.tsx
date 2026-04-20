@@ -14,14 +14,16 @@ export function StaffLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Protected route — redirect to staff login if not authenticated
-    if (!sessionStorage.getItem("camz_staff")) {
+    if (typeof window !== 'undefined' && !sessionStorage.getItem("camz_staff")) {
       window.location.href = "/staff/login";
     }
   }, []);
 
   const logout = () => {
-    sessionStorage.removeItem("camz_staff");
-    window.location.href = "/staff/login";
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem("camz_staff");
+      window.location.href = "/staff/login";
+    }
   };
 
   return (
