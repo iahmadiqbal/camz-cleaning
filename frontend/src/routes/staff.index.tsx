@@ -120,7 +120,7 @@ function StaffDashboard() {
                         <Clock className="w-3 h-3" />{job.time}
                       </div>
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ${job.status === "In Progress" ? "bg-purple-100 text-purple-800" : "bg-blue-100 text-blue-800"}`}>
+                    <span className={`text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ${job.status === "In Progress" ? "bg-primary text-white" : "bg-primary text-white"}`}>
                       {job.status}
                     </span>
                   </div>

@@ -46,9 +46,9 @@ function StaffJobs() {
                     <div className="text-xs text-muted-foreground mt-0.5">{job.id} · {job.date}</div>
                   </div>
                   <span className={`text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ${
-                    job.status === "Completed" ? "bg-green-100 text-green-800" :
-                    job.status === "In Progress" ? "bg-purple-100 text-purple-800" :
-                    "bg-blue-100 text-blue-800"
+                    job.status === "Completed" ? "bg-primary text-white" :
+                    job.status === "In Progress" ? "bg-primary text-white" :
+                    "bg-primary text-white"
                   }`}>{job.status}</span>
                 </div>
 
@@ -59,7 +59,7 @@ function StaffJobs() {
                 </div>
 
                 {job.notes && (
-                  <div className="mt-3 p-3 rounded-lg bg-soft-blue text-xs text-deep-blue">
+                  <div className="mt-3 p-3 rounded-lg bg-primary/10 text-xs text-deep-blue">
                     📝 {job.notes}
                   </div>
                 )}

@@ -11,11 +11,11 @@ export const Route = createFileRoute("/customer-dashboard")({
 
 const statusColor = (s: string) =>
   ({
-    Pending: "bg-yellow-100 text-yellow-800",
-    Confirmed: "bg-blue-100 text-blue-800",
-    "In Progress": "bg-purple-100 text-purple-800",
-    Completed: "bg-green-100 text-green-800",
-  }[s] || "bg-muted text-muted-foreground");
+    Pending: "bg-primary text-white",
+    Confirmed: "bg-primary text-white",
+    "In Progress": "bg-primary text-white",
+    Completed: "bg-primary text-white",
+  }[s] || "bg-primary text-white");
 
 const statusIcon = (s: string) =>
   ({
