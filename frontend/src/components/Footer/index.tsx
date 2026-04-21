@@ -11,7 +11,7 @@ export function Footer() {
           <div className="mb-4">
             <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
           </div>
-          <p className="text-sm opacity-80 leading-relaxed">Camz Cleaning delivers reliable, professional residential and commercial cleaning services focused on quality, consistency, and complete customer satisfaction across communities.</p>
+          <p className="text-base opacity-80 leading-relaxed">Camz Cleaning delivers reliable, professional residential and commercial cleaning services focused on quality, consistency, and complete customer satisfaction across communities.</p>
           <p className="text-sm opacity-60 mt-3 mb-2">Follow us on:</p>
           <div className="flex gap-3 mt-1">
             {[
@@ -31,7 +31,7 @@ export function Footer() {
         {/* Services */}
         <div>
           <h4 className="font-semibold mb-4 text-white">Services</h4>
-          <ul className="space-y-2.5 text-sm">
+          <ul className="space-y-2.5 text-base">
             {[
               { label: "Residential Cleaning", to: "/booking/$service", params: { service: "residential" } },
               { label: "Commercial Cleaning", to: "/booking/$service", params: { service: "commercial" } },
@@ -55,7 +55,7 @@ export function Footer() {
         {/* Company */}
         <div>
           <h4 className="font-semibold mb-4 text-white">Company</h4>
-          <ul className="space-y-2.5 text-sm">
+          <ul className="space-y-2.5 text-base">
             {[
               { label: "Home", to: "/" },
               { label: "About Us", to: "/about" },
@@ -78,7 +78,7 @@ export function Footer() {
         {/* Contact */}
         <div>
           <h4 className="font-semibold mb-4 text-white">Contact</h4>
-          <ul className="space-y-3 text-sm opacity-80">
+          <ul className="space-y-3 text-base opacity-80">
             <li>
               <a href="mailto:info@camzcleaning.com" className="flex items-center gap-2 hover:opacity-100 hover:text-soft-blue transition-all">
                 <Mail className="w-4 h-4 flex-shrink-0" /> info@camzcleaning.com
@@ -99,9 +99,9 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-4 px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white">
-        <span>© 2025 CAMZ Cleaning. All rights reserved.</span>
-        <Link to="/privacy-policy" className="opacity-70 hover:opacity-100 hover:text-soft-blue transition-all">
+      <div className="border-t border-white/10 py-4 px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
+        <span className="text-white opacity-100">© 2025 CAMZ Cleaning. All rights reserved.</span>
+        <Link to="/privacy-policy" className="text-white opacity-100 hover:text-soft-blue transition-all">
           Privacy Policy
         </Link>
       </div>
