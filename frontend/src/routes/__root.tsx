@@ -1,5 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import appCss from "../styles.css?url";
+import { Outlet, Link, createRootRoute } from "@tanstack/react-router";
 import { Preloader } from "../components/Preloader";
 
 function NotFoundComponent() {
@@ -25,49 +24,9 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CAMZ Cleaning" },
-      { name: "description", content: "Professional cleaning services — residential, commercial, carpet & vehicle." },
-      { name: "author", content: "CAMZ Cleaning" },
-      { property: "og:title", content: "CAMZ Cleaning" },
-      { property: "og:description", content: "Professional cleaning services — residential, commercial, carpet & vehicle." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@CAMZCleaning" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      {
-        rel: "icon",
-        type: "image/jpeg",
-        href: "/images/camzcleaninglogo.jpeg",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body suppressHydrationWarning={true}>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   return (
