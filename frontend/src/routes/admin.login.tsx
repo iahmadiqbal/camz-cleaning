@@ -16,6 +16,12 @@ function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Already logged in → redirect
+  if (typeof window !== "undefined" && sessionStorage.getItem("camz_admin")) {
+    navigate({ to: "/admin" });
+    return null;
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);

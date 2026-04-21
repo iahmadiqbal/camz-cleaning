@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, Briefcase, CalendarOff, LogOut, ArrowLeft, Bell } from "lucide-react";
 import type { ReactNode } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const nav = [
   { to: "/staff", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -11,19 +11,26 @@ const nav = [
 
 export function StaffLayout({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const [authed, setAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_staff")) {
-      window.location.href = "/staff/login";
+    if (typeof window !== "undefined") {
+      if (!sessionStorage.getItem("camz_staff")) {
+        window.location.replace("/staff/login");
+      } else {
+        setAuthed(true);
+      }
     }
   }, []);
 
   const logout = () => {
     if (typeof window !== "undefined") {
       sessionStorage.removeItem("camz_staff");
-      window.location.href = "/staff/login";
+      window.location.replace("/staff/login");
     }
   };
+
+  if (!authed) return null;
 
   const pageTitle = path === "/staff" ? "Dashboard" : path.split("/staff/")[1]?.replace(/-/g, " ") || "Staff";
 

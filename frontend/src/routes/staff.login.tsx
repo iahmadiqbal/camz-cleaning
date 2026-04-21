@@ -15,6 +15,12 @@ function StaffLogin() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  // Already logged in → redirect
+  if (typeof window !== "undefined" && sessionStorage.getItem("camz_staff")) {
+    navigate({ to: "/staff" });
+    return null;
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

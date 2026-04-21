@@ -19,20 +19,27 @@ const navItems = [
 export function AdminLayout({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [mounted, setMounted] = useState(false);
+  const [authed, setAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
     setMounted(true);
-    if (typeof window !== 'undefined' && !sessionStorage.getItem("camz_admin")) {
-      window.location.href = "/admin/login";
+    if (typeof window !== 'undefined') {
+      if (!sessionStorage.getItem("camz_admin")) {
+        window.location.replace("/admin/login");
+      } else {
+        setAuthed(true);
+      }
     }
   }, []);
 
   const logout = () => {
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem("camz_admin");
-      window.location.href = "/admin/login";
+      window.location.replace("/admin/login");
     }
   };
+
+  if (!authed) return null;
 
   return (
     <div className="min-h-screen flex bg-[image:var(--gradient-soft)]">

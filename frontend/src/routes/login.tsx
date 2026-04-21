@@ -37,6 +37,13 @@ function saveCustomer(c: Customer) {
 
 function LoginPage() {
   const navigate = useNavigate();
+
+  // Already logged in → redirect
+  if (typeof window !== "undefined" && sessionStorage.getItem("camz_customer")) {
+    navigate({ to: "/customer-dashboard" });
+    return null;
+  }
+
   const [tab, setTab] = useState<"login" | "register">("login");
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [loading, setLoading] = useState(false);

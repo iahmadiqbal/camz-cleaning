@@ -12,26 +12,30 @@ const nav = [
 export function CustomerLayout({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [customerName, setCustomerName] = useState("Customer");
+  const [authed, setAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (!sessionStorage.getItem("camz_customer")) {
-        window.location.href = "/login";
+        window.location.replace("/login");
         return;
       }
       try {
         const data = JSON.parse(sessionStorage.getItem("camz_customer") || "{}");
         if (data.name) setCustomerName(data.name);
       } catch {}
+      setAuthed(true);
     }
   }, []);
 
   const logout = () => {
     if (typeof window !== "undefined") {
       sessionStorage.removeItem("camz_customer");
-      window.location.href = "/login";
+      window.location.replace("/login");
     }
   };
+
+  if (!authed) return null;
 
   const initials = customerName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 
