@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 export function Footer() {
   return (
@@ -13,8 +13,14 @@ export function Footer() {
           </div>
           <p className="text-sm opacity-80 leading-relaxed">Trusted cleaning professionals serving homes and businesses since 2013.</p>
           <div className="flex gap-3 mt-4">
-            {[FaFacebook, FaInstagram, FaTwitter, FaLinkedin].map((Icon, i) => (
-              <a key={i} href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center transition-colors">
+            {[
+              { Icon: FaInstagram, href: "https://www.instagram.com/camzcleaning" },
+              { Icon: FaTwitter, href: "https://x.com/camzcleaning" },
+              { Icon: FaFacebook, href: "https://www.facebook.com/Camzcleaning1" },
+              { Icon: FaLinkedin, href: "https://www.linkedin.com/company/camzcleaning" },
+              { Icon: FaYoutube, href: "https://www.youtube.com/@CamzCleaning" },
+            ].map(({ Icon, href }, i) => (
+              <a key={i} href={href} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center transition-colors">
                 <Icon className="w-4 h-4" />
               </a>
             ))}
