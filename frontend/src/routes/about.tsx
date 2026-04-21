@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { FaAward, FaHeart, FaLeaf, FaUsers, FaArrowRight, FaCheckCircle } from "react-icons/fa";
 const teamImg = "/images/team.jpg";
-const ecoImg = "/images/eco.jpg";
+const moveImg = "/images/svc-move.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -37,40 +37,49 @@ function About() {
         {/* Hero Banner */}
         <section className="relative h-[420px] md:h-[520px] overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80" 
+            src="/images/hero-2.jpg"
             alt="About CAMZ Cleaning" 
-            className="w-full h-full object-cover" 
+            className="w-full h-full object-cover object-center" 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-deep-blue/80 via-deep-blue/60 to-deep-blue/80" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-primary-foreground px-6 max-w-3xl">
-              <motion.h1
-                initial={{ opacity: 0, y: -30 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl font-bold mb-4"
-              >
-                About CAMZ Cleaning
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-6"
-              >
-                We're on a mission to make sparkling clean spaces accessible to everyone — with care, integrity and zero hassle.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-3 justify-center text-sm"
-              >
-                {["Trusted since 2013", "150+ vetted pros", "12,000+ happy clients"].map((t) => (
-                  <div key={t} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
-                    <FaCheckCircle className="text-soft-blue text-xs" /> {t}
-                  </div>
-                ))}
-              </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/92 via-deep-blue/65 to-transparent" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="max-w-7xl mx-auto px-6 w-full">
+              <div className="max-w-2xl text-primary-foreground">
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="inline-block mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-sm font-semibold tracking-wide"
+                >
+                  Our Story
+                </motion.span>
+                <motion.h1
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-4xl md:text-6xl font-bold mb-4"
+                >
+                  About CAMZ Cleaning
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-lg md:text-xl opacity-85 max-w-lg mb-6 leading-relaxed"
+                >
+                  We're on a mission to make sparkling clean spaces accessible to everyone — with care, integrity and zero hassle.
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-wrap gap-3 text-sm"
+                >
+                  {["Trusted since 2013", "150+ vetted pros", "12,000+ happy clients"].map((t) => (
+                    <div key={t} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                      <FaCheckCircle className="text-soft-blue text-xs" /> {t}
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -180,7 +189,7 @@ function About() {
             viewport={{ once: true }}
             className="relative rounded-3xl overflow-hidden shadow-[var(--shadow-elegant)]"
           >
-            <img src={ecoImg} alt="Eco" loading="lazy" className="w-full h-72 md:h-96 object-cover" />
+            <img src={moveImg} alt="Move-in move-out cleaning" loading="lazy" className="w-full h-72 md:h-96 object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/85 to-deep-blue/30 grid place-items-center">
               <div className="text-center text-primary-foreground px-6 max-w-2xl">
                 <FaLeaf className="text-4xl mx-auto mb-4" />
