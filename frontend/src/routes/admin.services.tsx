@@ -70,7 +70,7 @@ function ServicesAdmin() {
                   <div className="text-xs font-medium text-deep-blue mb-2">Add-ons</div>
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     {state.addons.map((a) => (
-                      <span key={a} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-soft-blue text-deep-blue text-xs">
+                      <span key={a} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary text-white text-xs">
                         {a}
                         <button onClick={() => removeAddon(s.id, a)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
                       </span>
