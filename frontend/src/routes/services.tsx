@@ -5,7 +5,7 @@ import { FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf, FaHome, FaBo
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { services } from "@/lib/data";
-const carpetImg = "/images/svc-carpet.jpg";
+const residentialImg = "/images/svc-residential.jpg";
 
 const serviceIcons: Record<string, React.ElementType> = {
   residential: FaHome,
@@ -66,47 +66,56 @@ function ServicesPage() {
         {/* Hero Banner with unique image */}
         <section className="relative h-[420px] md:h-[520px] overflow-hidden">
           <img
-            src={carpetImg}
+            src={residentialImg}
             alt="CAMZ Cleaning Services"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-deep-blue/80 via-deep-blue/60 to-deep-blue/80" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-primary-foreground px-6 max-w-3xl">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl font-bold tracking-tight mb-4"
-              >
-                Choose Your
-                <span className="block bg-gradient-to-r from-soft-blue to-white bg-clip-text text-transparent">
-                  Perfect Service
-                </span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl opacity-90 max-w-xl mx-auto mb-6"
-              >
-                From homes to offices, carpets to cars — we have a professional cleaning plan for every need.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4 justify-center text-sm"
-              >
-                {[
-                  { icon: FaShieldAlt, text: "Fully Insured" },
-                  { icon: FaClock, text: "Book in 60s" },
-                  { icon: FaLeaf, text: "Eco-Friendly" },
-                ].map((b) => (
-                  <div key={b.text} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
-                    <b.icon className="text-soft-blue" /> {b.text}
-                  </div>
-                ))}
-              </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/92 via-deep-blue/65 to-transparent" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="max-w-7xl mx-auto px-6 w-full">
+              <div className="max-w-2xl text-primary-foreground">
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="inline-block mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-sm font-semibold tracking-wide"
+                >
+                  What We Offer
+                </motion.span>
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-4xl md:text-6xl font-bold tracking-tight mb-4"
+                >
+                  Choose Your
+                  <span className="block bg-gradient-to-r from-soft-blue to-white bg-clip-text text-transparent">
+                    Perfect Service
+                  </span>
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-lg md:text-xl opacity-85 max-w-lg mb-6 leading-relaxed"
+                >
+                  From homes to offices, carpets to cars — we have a professional cleaning plan for every need.
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-wrap gap-4 text-sm"
+                >
+                  {[
+                    { icon: FaShieldAlt, text: "Fully Insured" },
+                    { icon: FaClock, text: "Book in 60s" },
+                    { icon: FaLeaf, text: "Eco-Friendly" },
+                  ].map((b) => (
+                    <div key={b.text} className="flex items-center gap-2 text-white/80">
+                      <b.icon className="text-soft-blue" /> {b.text}
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -131,8 +140,9 @@ function ServicesPage() {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/60 to-transparent" />
-                      <div className="absolute bottom-3 right-4 flex items-end justify-between text-primary-foreground">
+                      <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-primary-foreground">
                         <span className="px-3 py-1 rounded-full bg-white/90 text-deep-blue text-xs font-bold">{s.price}</span>
+                        <span className="px-3 py-1 rounded-full bg-deep-blue/80 text-white text-xs font-semibold">⏱ {s.duration}</span>
                       </div>
                     </div>
                     <div className="p-6 flex-1 flex flex-col">

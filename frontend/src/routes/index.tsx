@@ -23,6 +23,7 @@ import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { services, testimonials } from "@/lib/data";
 const teamImg = "/images/team.jpg";
 const ecoImg = "/images/eco.jpg";
+const hero3Img = "/images/hero-3.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -216,6 +217,9 @@ function Home() {
                       />
                       <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-deep-blue">
                         {s.price}
+                      </div>
+                      <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-deep-blue/80 backdrop-blur text-xs font-semibold text-white">
+                        ⏱ {s.duration}
                       </div>
                     </div>
                     <div className="p-6">
@@ -440,41 +444,6 @@ function Home() {
           <ReviewsCarousel />
         </section>
 
-        {/* Milestones Timeline */}
-        <section className="max-w-7xl mx-auto px-6 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <span className="text-primary text-sm font-semibold uppercase tracking-wider">Our journey</span>
-            <h2 className="mt-2 text-3xl md:text-5xl font-bold text-deep-blue">Trusted since 2013</h2>
-            <p className="mt-4 text-muted-foreground">Over a decade of making spaces sparkle across Canada.</p>
-          </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { y: "2013", t: "Founded", d: "Started with one van and a big mission." },
-              { y: "2017", t: "10k clients", d: "Hit our first major milestone." },
-              { y: "2020", t: "Eco switch", d: "Went 100% plant-based products." },
-              { y: "2025", t: "150+ pros", d: "Serving 25k+ jobs every year." },
-            ].map((m, i) => (
-              <motion.div
-                key={m.y}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative rounded-2xl border-2 border-primary/20 bg-card p-6 hover:border-primary transition-colors hover:shadow-[var(--shadow-elegant)]"
-              >
-                <div className="text-3xl font-bold text-primary">{m.y}</div>
-                <div className="font-semibold text-deep-blue mt-1">{m.t}</div>
-                <div className="text-sm text-muted-foreground mt-2">{m.d}</div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
         {/* Trust strip */}
         <section className="bg-soft-blue py-12">
           <div className="max-w-7xl mx-auto px-6">
@@ -510,7 +479,7 @@ function Home() {
           >
             {/* Background image with overlay */}
             <div className="absolute inset-0">
-              <img src={ecoImg} alt="" className="w-full h-full object-cover" />
+              <img src={hero3Img} alt="" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-deep-blue/85" />
             </div>
 
@@ -539,6 +508,12 @@ function Home() {
                 >
                   Track a Booking
                 </Link>
+                <a
+                  href="tel:+15878371977"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition-colors"
+                >
+                  <FaPhoneAlt className="text-sm" /> +1 587-837-1977
+                </a>
               </div>
 
               <div className="mt-10 flex flex-wrap justify-center gap-8 text-sm opacity-70">

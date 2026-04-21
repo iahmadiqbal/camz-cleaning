@@ -42,7 +42,7 @@ export function Header() {
           </Link>
           <Link
             to="/services"
-            className="ml-2 px-4 py-2 rounded-lg bg-[image:var(--gradient-hero)] text-primary-foreground font-medium text-sm shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow"
+            className="ml-2 px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm shadow-lg hover:bg-primary/90 hover:scale-105 transition-all"
           >
             Book Now
           </Link>

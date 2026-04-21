@@ -53,32 +53,41 @@ function Tracking() {
         {/* Hero Banner */}
         <section className="relative h-[340px] md:h-[420px] overflow-hidden">
           <img src={vehicleImg} alt="Track your booking" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/90 via-deep-blue/70 to-deep-blue/30" />
-            <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-primary-foreground px-6 max-w-2xl">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-3xl md:text-5xl font-bold mb-4"
-              >
-                Your Cleaner is On the Way
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-base md:text-lg opacity-90 mb-4"
-              >
-                Real-time updates on your residential cleaning service
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-medium"
-              >
-                Booking #BK-1042 · Residential Cleaning
-              </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/92 via-deep-blue/65 to-transparent" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="max-w-7xl mx-auto px-6 w-full">
+              <div className="max-w-2xl text-primary-foreground">
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="inline-block mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-sm font-semibold tracking-wide"
+                >
+                  Live Tracking
+                </motion.span>
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-3xl md:text-5xl font-bold mb-4"
+                >
+                  Your Cleaner is On the Way
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-base md:text-lg opacity-85 mb-4 leading-relaxed"
+                >
+                  Real-time updates on your residential cleaning service
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-medium"
+                >
+                  Booking #BK-1042 · Residential Cleaning
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>

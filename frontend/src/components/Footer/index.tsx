@@ -12,19 +12,21 @@ export function Footer() {
             <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
           </div>
           <p className="text-base opacity-80 leading-relaxed">Camz Cleaning delivers reliable, professional residential and commercial cleaning services focused on quality, consistency, and complete customer satisfaction across communities.</p>
-          <p className="text-sm opacity-60 mt-3 mb-2">Follow us on:</p>
-          <div className="flex gap-3 mt-1">
+          <div className="mt-4 border-t border-white/10 pt-4">
+            <p className="text-sm font-semibold text-white mb-3">Follow us</p>
+            <div className="flex gap-3">
             {[
-              { Icon: FaInstagram, href: "https://www.instagram.com/camzcleaning" },
-              { Icon: FaTwitter, href: "https://x.com/camzcleaning" },
-              { Icon: FaFacebook, href: "https://www.facebook.com/Camzcleaning1" },
-              { Icon: FaLinkedin, href: "https://www.linkedin.com/company/camzcleaning" },
-              { Icon: FaYoutube, href: "https://www.youtube.com/@CamzCleaning" },
-            ].map(({ Icon, href }, i) => (
-              <a key={i} href={href} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center transition-colors">
+              { Icon: FaInstagram, href: "https://www.instagram.com/camzcleaning", label: "Instagram" },
+              { Icon: FaTwitter, href: "https://x.com/camzcleaning", label: "Twitter" },
+              { Icon: FaFacebook, href: "https://www.facebook.com/Camzcleaning1", label: "Facebook" },
+              { Icon: FaLinkedin, href: "https://www.linkedin.com/company/camzcleaning", label: "LinkedIn" },
+              { Icon: FaYoutube, href: "https://www.youtube.com/@CamzCleaning", label: "YouTube" },
+            ].map(({ Icon, href, label }, i) => (
+              <a key={i} href={href} target="_blank" rel="noreferrer" aria-label={label} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 grid place-items-center transition-colors">
                 <Icon className="w-4 h-4" />
               </a>
             ))}
+            </div>
           </div>
         </div>
 
