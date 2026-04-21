@@ -124,7 +124,23 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
         </motion.header>
-        <main className="flex-1 p-4 md:p-8 overflow-x-auto">{children}</main>
+        <main className="flex-1 p-4 md:p-8 overflow-x-auto pb-20 md:pb-8">{children}</main>
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-40">
+          {navItems.slice(0, 4).map((item) => {
+            const active = item.exact ? path === item.to : path.startsWith(item.to);
+            return (
+              <Link key={item.to} to={item.to}
+                className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors ${active ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
+                <item.icon className="w-5 h-5" />
+                {item.label}
+              </Link>
+            );
+          })}
+          <Link to="/" className="flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="w-5 h-5" />
+            Back to site
+          </Link>
+        </nav>
       </div>
     </div>
   );

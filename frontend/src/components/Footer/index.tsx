@@ -11,8 +11,9 @@ export function Footer() {
           <div className="mb-4">
             <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
           </div>
-          <p className="text-sm opacity-80 leading-relaxed">Trusted cleaning professionals serving homes and businesses since 2013.</p>
-          <div className="flex gap-3 mt-4">
+          <p className="text-sm opacity-80 leading-relaxed">Camz Cleaning delivers reliable, professional residential and commercial cleaning services focused on quality, consistency, and complete customer satisfaction across communities.</p>
+          <p className="text-sm opacity-60 mt-3 mb-2">Follow us on:</p>
+          <div className="flex gap-3 mt-1">
             {[
               { Icon: FaInstagram, href: "https://www.instagram.com/camzcleaning" },
               { Icon: FaTwitter, href: "https://x.com/camzcleaning" },
@@ -79,24 +80,30 @@ export function Footer() {
           <h4 className="font-semibold mb-4 text-white">Contact</h4>
           <ul className="space-y-3 text-sm opacity-80">
             <li>
-              <a href="tel:+15551234567" className="flex items-center gap-2 hover:opacity-100 hover:text-soft-blue transition-all">
-                <Phone className="w-4 h-4 flex-shrink-0" /> (555) 123-4567
+              <a href="mailto:info@camzcleaning.com" className="flex items-center gap-2 hover:opacity-100 hover:text-soft-blue transition-all">
+                <Mail className="w-4 h-4 flex-shrink-0" /> info@camzcleaning.com
               </a>
             </li>
             <li>
-              <a href="mailto:hello@camzcleaning.com" className="flex items-center gap-2 hover:opacity-100 hover:text-soft-blue transition-all">
-                <Mail className="w-4 h-4 flex-shrink-0" /> hello@camzcleaning.com
+              <a href="tel:+15878371977" className="flex items-center gap-2 hover:opacity-100 hover:text-soft-blue transition-all">
+                <Phone className="w-4 h-4 flex-shrink-0" /> +1 587-837-1977
               </a>
             </li>
+            <li className="flex items-start gap-2">
+              <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" /> Calgary, AB, Canada
+            </li>
             <li className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 flex-shrink-0" /> 100 Clean St, Toronto, ON
+              <span className="w-4 h-4 flex-shrink-0 text-center text-xs">🕐</span> 9:00 AM – 5:00 PM
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-4 text-center text-xs text-white">
-        © 2025 CAMZ Cleaning. All rights reserved.
+      <div className="border-t border-white/10 py-4 px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white">
+        <span>© 2025 CAMZ Cleaning. All rights reserved.</span>
+        <Link to="/privacy-policy" className="opacity-70 hover:opacity-100 hover:text-soft-blue transition-all">
+          Privacy Policy
+        </Link>
       </div>
     </footer>
   );

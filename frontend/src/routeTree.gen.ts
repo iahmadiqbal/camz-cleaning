@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrackingRouteImport } from './routes/tracking'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CustomerDashboardRouteImport } from './routes/customer-dashboard'
 import { Route as BookingPricingRouteImport } from './routes/booking-pricing'
@@ -43,6 +44,11 @@ const TrackingRoute = TrackingRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -170,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/booking-pricing': typeof BookingPricingRoute
   '/customer-dashboard': typeof CustomerDashboardRoute
   '/login': typeof LoginRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
   '/admin/bookings': typeof AdminBookingsRoute
@@ -197,6 +204,7 @@ export interface FileRoutesByTo {
   '/booking-pricing': typeof BookingPricingRoute
   '/customer-dashboard': typeof CustomerDashboardRoute
   '/login': typeof LoginRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
   '/admin/bookings': typeof AdminBookingsRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/booking-pricing': typeof BookingPricingRoute
   '/customer-dashboard': typeof CustomerDashboardRoute
   '/login': typeof LoginRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
   '/admin/bookings': typeof AdminBookingsRoute
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/booking-pricing'
     | '/customer-dashboard'
     | '/login'
+    | '/privacy-policy'
     | '/services'
     | '/tracking'
     | '/admin/bookings'
@@ -281,6 +291,7 @@ export interface FileRouteTypes {
     | '/booking-pricing'
     | '/customer-dashboard'
     | '/login'
+    | '/privacy-policy'
     | '/services'
     | '/tracking'
     | '/admin/bookings'
@@ -308,6 +319,7 @@ export interface FileRouteTypes {
     | '/booking-pricing'
     | '/customer-dashboard'
     | '/login'
+    | '/privacy-policy'
     | '/services'
     | '/tracking'
     | '/admin/bookings'
@@ -336,6 +348,7 @@ export interface RootRouteChildren {
   BookingPricingRoute: typeof BookingPricingRoute
   CustomerDashboardRoute: typeof CustomerDashboardRoute
   LoginRoute: typeof LoginRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ServicesRoute: typeof ServicesRoute
   TrackingRoute: typeof TrackingRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
@@ -369,6 +382,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -544,6 +564,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookingPricingRoute: BookingPricingRoute,
   CustomerDashboardRoute: CustomerDashboardRoute,
   LoginRoute: LoginRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ServicesRoute: ServicesRoute,
   TrackingRoute: TrackingRoute,
   AdminBookingsRoute: AdminBookingsRoute,

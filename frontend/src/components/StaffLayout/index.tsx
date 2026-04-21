@@ -97,6 +97,10 @@ export function StaffLayout({ children }: { children: ReactNode }) {
               </Link>
             );
           })}
+          <Link to="/" className="flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="w-5 h-5" />
+            Back to site
+          </Link>
         </nav>
       </div>
     </div>

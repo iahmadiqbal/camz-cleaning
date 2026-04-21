@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Only show preloader once per session
+let hasLoaded = false;
+
 export function Preloader() {
-  const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(!hasLoaded);
+  const [progress, setProgress] = useState(hasLoaded ? 100 : 0);
 
   useEffect(() => {
+    if (hasLoaded) return;
     let current = 0;
     const interval = setInterval(() => {
       const increment = current < 70 ? Math.random() * 20 + 15 : Math.random() * 10 + 8;
@@ -13,7 +17,10 @@ export function Preloader() {
       setProgress(Math.floor(current));
       if (current >= 100) {
         clearInterval(interval);
-        setTimeout(() => setLoading(false), 200);
+        setTimeout(() => {
+          hasLoaded = true;
+          setLoading(false);
+        }, 200);
       }
     }, 80);
     return () => clearInterval(interval);
