@@ -37,21 +37,24 @@ function CountUp({ end, suffix = "", duration = 2000 }: { end: number; suffix?: 
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
-          const steps = 50;
-          let step = 0;
-          const timer = setInterval(() => {
-            step++;
-            const current = (end / steps) * step;
-            if (step >= steps) { setCount(end); clearInterval(timer); }
-            else setCount(parseFloat(current.toFixed(1)));
-          }, duration / steps);
+          const startTime = performance.now();
+          const isDecimal = end % 1 !== 0;
+          const tick = (now: number) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = eased * end;
+            setCount(isDecimal ? parseFloat(current.toFixed(1)) : Math.round(current));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
         }
       },
       { threshold: 0.5 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [end, duration]);
 
   return <span ref={ref}>{count}{suffix}</span>;
 }
