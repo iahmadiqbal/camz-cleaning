@@ -66,9 +66,14 @@ export function StaffLayout({ children }: { children: ReactNode }) {
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between gap-4">
-          <div className="hidden md:block">
-            <h1 className="text-base font-bold text-deep-blue capitalize">{pageTitle}</h1>
-            <p className="text-xs text-muted-foreground">CAMZ Cleaning · Staff Portal</p>
+          <div className="flex items-center gap-3">
+            <Link to="/" className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <div className="hidden md:block">
+              <h1 className="text-base font-bold text-deep-blue capitalize">{pageTitle}</h1>
+              <p className="text-xs text-muted-foreground">CAMZ Cleaning · Staff Portal</p>
+            </div>
           </div>
           <div className="flex items-center gap-2 ml-auto">
             <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
@@ -97,10 +102,6 @@ export function StaffLayout({ children }: { children: ReactNode }) {
               </Link>
             );
           })}
-          <Link to="/" className="flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="w-5 h-5" />
-            Back to site
-          </Link>
         </nav>
       </div>
     </div>
