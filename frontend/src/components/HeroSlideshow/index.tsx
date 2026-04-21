@@ -45,7 +45,7 @@ export function HeroSlideshow() {
   const slide = slides[idx];
 
   return (
-    <section className="relative h-[680px] md:h-[760px] overflow-hidden">
+    <section className="relative h-[680px] md:h-[760px] overflow-hidden" style={{ maxWidth: "100vw" }}>
       {/* Background */}
       <AnimatePresence mode="wait">
         <motion.div

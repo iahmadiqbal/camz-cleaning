@@ -4,7 +4,7 @@ import { FaArrowRight, FaHome, FaPhoneAlt } from "react-icons/fa";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 relative overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 relative overflow-hidden w-full" style={{ maxWidth: "100vw" }}>
       {/* Subtle background decoration */}
       <div className="absolute inset-0 bg-[image:var(--gradient-soft)] opacity-50" />
       <div className="absolute top-0 right-0 w-96 h-96 bg-soft-blue/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
@@ -72,9 +72,9 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <Preloader />
       <Outlet />
-    </>
+    </div>
   );
 }
