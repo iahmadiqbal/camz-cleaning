@@ -7,6 +7,8 @@ export const services = [
     price: "From $89",
     duration: "2–3 hrs",
     image: "/images/svc-residential.jpg",
+    category: "residential",
+    recommended: true,
     features: ["Kitchen & bathrooms", "Dusting & vacuuming", "Floor mopping", "Trash removal"],
     long: "Our most popular service — a thorough clean that keeps your home fresh and welcoming week after week.",
   },
@@ -18,6 +20,8 @@ export const services = [
     price: "From $179",
     duration: "4–6 hrs",
     image: "/images/svc-move.jpg",
+    category: "specialty",
+    recommended: true,
     features: ["Inside cabinets", "Appliance deep clean", "Walls & baseboards", "Window tracks"],
     long: "Get every deposit dollar back. We deep clean every nook so your old place sparkles or your new one feels like home.",
   },
@@ -29,6 +33,8 @@ export const services = [
     price: "Custom Quote",
     duration: "Flexible",
     image: "/images/svc-commercial.jpg",
+    category: "commercial",
+    recommended: false,
     features: ["Daily / weekly plans", "Restroom sanitation", "Glass & lobby", "After-hours service"],
     long: "Keep your workplace pristine and productive. Customized plans for offices, clinics, retail and more.",
   },
@@ -40,6 +46,8 @@ export const services = [
     price: "From $59",
     duration: "1–2 hrs",
     image: "/images/svc-carpet.jpg",
+    category: "specialty",
+    recommended: true,
     features: ["Hot water extraction", "Stain removal", "Pet odor treatment", "Fast drying"],
     long: "Bring carpets and upholstery back to life with hospital-grade steam extraction and eco-safe solutions.",
   },
@@ -51,9 +59,18 @@ export const services = [
     price: "From $99",
     duration: "2–4 hrs",
     image: "/images/svc-vehicle.jpg",
+    category: "vehicle",
+    recommended: false,
     features: ["Hand wash & wax", "Interior shampoo", "Leather conditioning", "Engine bay clean"],
     long: "Premium auto detailing inside and out. Your car will look — and smell — brand new.",
   },
+];
+
+export const serviceCategories = [
+  { id: "vehicle", label: "Vehicle" },
+  { id: "specialty", label: "Specialty" },
+  { id: "residential", label: "Residential" },
+  { id: "commercial", label: "Commercial" },
 ];
 
 export const testimonials = [

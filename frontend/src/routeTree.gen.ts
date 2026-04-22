@@ -26,6 +26,7 @@ import { Route as StaffLoginRouteImport } from './routes/staff.login'
 import { Route as StaffLeaveRouteImport } from './routes/staff.leave'
 import { Route as StaffJobsRouteImport } from './routes/staff.jobs'
 import { Route as BookingServiceRouteImport } from './routes/booking.$service'
+import { Route as BookingDetailsIdRouteImport } from './routes/booking-details.$id'
 import { Route as AdminStaffRouteImport } from './routes/admin.staff'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
@@ -121,6 +122,11 @@ const BookingServiceRoute = BookingServiceRouteImport.update({
   path: '/booking/$service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingDetailsIdRoute = BookingDetailsIdRouteImport.update({
+  id: '/booking-details/$id',
+  path: '/booking-details/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminStaffRoute = AdminStaffRouteImport.update({
   id: '/admin/staff',
   path: '/admin/staff',
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/admin/reports': typeof AdminReportsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
+  '/booking-details/$id': typeof BookingDetailsIdRoute
   '/booking/$service': typeof BookingServiceRoute
   '/staff/jobs': typeof StaffJobsRoute
   '/staff/leave': typeof StaffLeaveRoute
@@ -216,6 +223,7 @@ export interface FileRoutesByTo {
   '/admin/reports': typeof AdminReportsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
+  '/booking-details/$id': typeof BookingDetailsIdRoute
   '/booking/$service': typeof BookingServiceRoute
   '/staff/jobs': typeof StaffJobsRoute
   '/staff/leave': typeof StaffLeaveRoute
@@ -245,6 +253,7 @@ export interface FileRoutesById {
   '/admin/reports': typeof AdminReportsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
+  '/booking-details/$id': typeof BookingDetailsIdRoute
   '/booking/$service': typeof BookingServiceRoute
   '/staff/jobs': typeof StaffJobsRoute
   '/staff/leave': typeof StaffLeaveRoute
@@ -275,6 +284,7 @@ export interface FileRouteTypes {
     | '/admin/reports'
     | '/admin/services'
     | '/admin/staff'
+    | '/booking-details/$id'
     | '/booking/$service'
     | '/staff/jobs'
     | '/staff/leave'
@@ -303,6 +313,7 @@ export interface FileRouteTypes {
     | '/admin/reports'
     | '/admin/services'
     | '/admin/staff'
+    | '/booking-details/$id'
     | '/booking/$service'
     | '/staff/jobs'
     | '/staff/leave'
@@ -331,6 +342,7 @@ export interface FileRouteTypes {
     | '/admin/reports'
     | '/admin/services'
     | '/admin/staff'
+    | '/booking-details/$id'
     | '/booking/$service'
     | '/staff/jobs'
     | '/staff/leave'
@@ -360,6 +372,7 @@ export interface RootRouteChildren {
   AdminReportsRoute: typeof AdminReportsRoute
   AdminServicesRoute: typeof AdminServicesRoute
   AdminStaffRoute: typeof AdminStaffRoute
+  BookingDetailsIdRoute: typeof BookingDetailsIdRoute
   BookingServiceRoute: typeof BookingServiceRoute
   StaffJobsRoute: typeof StaffJobsRoute
   StaffLeaveRoute: typeof StaffLeaveRoute
@@ -489,6 +502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking-details/$id': {
+      id: '/booking-details/$id'
+      path: '/booking-details/$id'
+      fullPath: '/booking-details/$id'
+      preLoaderRoute: typeof BookingDetailsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/staff': {
       id: '/admin/staff'
       path: '/admin/staff'
@@ -576,6 +596,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminReportsRoute: AdminReportsRoute,
   AdminServicesRoute: AdminServicesRoute,
   AdminStaffRoute: AdminStaffRoute,
+  BookingDetailsIdRoute: BookingDetailsIdRoute,
   BookingServiceRoute: BookingServiceRoute,
   StaffJobsRoute: StaffJobsRoute,
   StaffLeaveRoute: StaffLeaveRoute,

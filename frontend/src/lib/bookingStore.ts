@@ -5,6 +5,9 @@ type BookingState = {
   details?: Record<string, string | number | boolean | string[]>;
   date?: string;
   time?: string;
+  location?: string;
+  pricingMode?: "fixed" | "hourly";
+  hours?: number;
   price?: number;
 };
 

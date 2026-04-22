@@ -136,8 +136,12 @@ function CustomerDashboard() {
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColor(b.status)}`}>{b.status}</span>
-                      <Link to="/tracking" className="text-xs text-primary hover:underline flex items-center gap-1">
-                        <MapPin className="w-3 h-3" /> Track
+                      <Link
+                        to="/booking-details/$id"
+                        params={{ id: b.id }}
+                        className="text-xs text-primary hover:underline flex items-center gap-1"
+                      >
+                        <MapPin className="w-3 h-3" /> View
                       </Link>
                     </div>
                   </div>
