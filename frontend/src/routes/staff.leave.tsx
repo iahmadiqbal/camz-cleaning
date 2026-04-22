@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { StaffLayout } from "@/components/StaffLayout";
@@ -8,6 +8,11 @@ import { Plus, X } from "lucide-react";
 
 export const Route = createFileRoute("/staff/leave")({
   head: () => ({ meta: [{ title: "Leave Request — CAMZ Cleaning" }] }),
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_staff")) {
+      throw redirect({ to: "/staff/login" });
+    }
+  },
   component: StaffLeave,
 });
 

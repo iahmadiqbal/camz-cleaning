@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { StaffLayout } from "@/components/StaffLayout";
@@ -8,6 +8,11 @@ import { MapPin, Clock, User, Camera, CheckCircle2, X, Navigation } from "lucide
 
 export const Route = createFileRoute("/staff/jobs")({
   head: () => ({ meta: [{ title: "My Jobs — CAMZ Cleaning" }] }),
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_staff")) {
+      throw redirect({ to: "/staff/login" });
+    }
+  },
   component: StaffJobs,
 });
 

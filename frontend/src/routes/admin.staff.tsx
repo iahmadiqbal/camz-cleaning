@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
@@ -8,6 +8,11 @@ import { Plus, Star, Clock, Trash2 } from "lucide-react";
 import { Modal } from "./admin.bookings";
 
 export const Route = createFileRoute("/admin/staff")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_admin")) {
+      throw redirect({ to: "/admin/login" });
+    }
+  },
   component: StaffPage,
 });
 

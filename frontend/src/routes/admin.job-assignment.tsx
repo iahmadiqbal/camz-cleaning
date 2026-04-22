@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
@@ -7,6 +7,11 @@ import { bookings, staff } from "@/lib/data";
 import { UserPlus, MapPin, Briefcase, Clock, X, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/job-assignment")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_admin")) {
+      throw redirect({ to: "/admin/login" });
+    }
+  },
   component: JobAssignment,
 });
 

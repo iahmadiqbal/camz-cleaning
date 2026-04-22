@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -8,6 +8,11 @@ import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "rec
 import { revenueData } from "@/lib/data";
 
 export const Route = createFileRoute("/admin/")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_admin")) {
+      throw redirect({ to: "/admin/login" });
+    }
+  },
   component: AdminHome,
 });
 

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -6,6 +6,11 @@ import { revenueData, serviceBreakdown, staff, bookings } from "@/lib/data";
 import { BarChart, Bar, ResponsiveContainer, Tooltip, XAxis, YAxis, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 
 export const Route = createFileRoute("/admin/reports")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_admin")) {
+      throw redirect({ to: "/admin/login" });
+    }
+  },
   component: ReportsPage,
 });
 

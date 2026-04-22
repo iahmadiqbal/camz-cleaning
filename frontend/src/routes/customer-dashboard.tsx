@@ -1,11 +1,16 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { useState } from "react";
 import { CustomerLayout } from "@/components/CustomerLayout";
 import { bookings } from "@/lib/data";
 import { CalendarDays, Clock, CheckCircle2, RotateCcw, Plus, MapPin, Bell, X } from "lucide-react";
 
 export const Route = createFileRoute("/customer-dashboard")({
   head: () => ({ meta: [{ title: "My Dashboard — CAMZ Cleaning" }] }),
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_customer")) {
+      throw redirect({ to: "/login" });
+    }
+  },
   component: CustomerDashboard,
 });
 
@@ -28,7 +33,6 @@ const statusIcon = (s: string) =>
 const myBookings = bookings;
 
 function CustomerDashboard() {
-  const navigate = useNavigate();
   const active = myBookings.filter((b) => b.status !== "Completed");
   const past = myBookings.filter((b) => b.status === "Completed");
 
@@ -42,12 +46,6 @@ function CustomerDashboard() {
       return "there";
     }
   })();
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_customer")) {
-      navigate({ to: "/login" });
-    }
-  }, []);
 
   const [notifications, setNotifications] = useState([
     { id: 1, msg: "Booking BK-1042 confirmed!", type: "success", time: "2 min ago" },

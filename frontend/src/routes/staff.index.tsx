@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { StaffLayout } from "@/components/StaffLayout";
 import { staffJobs } from "@/lib/data";
 import { Play, Briefcase, CheckCircle2, Clock, MapPin, Star } from "lucide-react";
@@ -6,6 +6,11 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/staff/")({
   head: () => ({ meta: [{ title: "Staff Dashboard — CAMZ Cleaning" }] }),
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("camz_staff")) {
+      throw redirect({ to: "/staff/login" });
+    }
+  },
   component: StaffDashboard,
 });
 
