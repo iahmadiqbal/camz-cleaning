@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
-  FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf, FaFire,
+  FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf,
   FaCar, FaCouch, FaHome, FaBuilding, FaBoxOpen,
 } from "react-icons/fa";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -70,9 +70,9 @@ function CountUp({ end, suffix = "", duration = 2000 }: { end: number; suffix?: 
 }
 
 function ServicesPage() {
-  const [activeCategory, setActiveCategory] = useState("vehicle");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  const filtered = services.filter((s) => s.category === activeCategory);
+  const filtered = activeCategory ? services.filter((s) => s.category === activeCategory) : [];
 
   return (
     <SiteLayout>
@@ -132,140 +132,102 @@ function ServicesPage() {
 
         <div className="max-w-7xl mx-auto px-6 py-16">
 
-          {/* Recommended Services — centered title */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-16"
-          >
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 justify-center mb-2">
-                <FaFire className="text-orange-500 text-xl" />
-                <h2 className="text-2xl font-bold text-deep-blue">Recommended Services</h2>
-              </div>
-              <p className="text-sm text-muted-foreground">Most popular picks by our customers</p>
-            </div>
-            <div className="grid sm:grid-cols-3 gap-4">
-              {services.filter((s) => s.recommended).map((s, i) => {
-                const SvcIcon = serviceIconMap[s.id];
-                return (
-                  <motion.div
-                    key={s.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.08 }}
-                  >
-                    <Link to="/booking/$service" params={{ service: s.id }} className="block group">
-                      <div className="rounded-2xl overflow-hidden border border-border bg-card hover:shadow-[var(--shadow-elegant)] hover:-translate-y-1 transition-all duration-300 flex gap-4 p-4 items-center">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                          <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            {SvcIcon && <SvcIcon className="text-primary text-base flex-shrink-0" />}
-                            <h4 className="font-bold text-deep-blue text-sm group-hover:text-primary transition-colors truncate">{s.title}</h4>
-                          </div>
-                          <p className="text-xs text-muted-foreground mt-0.5">{s.desc}</p>
-                          <div className="mt-1.5 flex items-center gap-2">
-                            <span className="text-xs font-semibold text-primary">{s.price}</span>
-                            <span className="text-xs text-muted-foreground">· {s.duration}</span>
-                          </div>
-                        </div>
-                        <FaArrowRight className="text-primary text-xs flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          {/* Service Categories — centered title */}
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-deep-blue">Service Categories</h2>
-            <p className="text-sm text-muted-foreground mt-1">Browse by category to find the right service</p>
+          {/* Service Categories — same as home page */}
+          <div className="text-center mb-10">
+            <span className="text-primary text-sm font-semibold uppercase tracking-wider">Browse by type</span>
+            <h2 className="mt-2 text-3xl font-bold text-deep-blue">Service Categories</h2>
+            <p className="text-muted-foreground mt-2 text-sm">Pick a category to explore what we offer</p>
           </div>
 
-          {/* Category tabs — centered */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {serviceCategories.map((cat) => {
+          {/* 4 big category cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            {serviceCategories.map((cat, i) => {
               const Icon = categoryIcons[cat.id];
+              const bgClass = { vehicle: "bg-[image:var(--gradient-hero)]", specialty: "bg-deep-blue", residential: "bg-primary", commercial: "bg-soft-blue" }[cat.id] ?? "bg-primary";
+              const desc = { vehicle: "Auto detailing & car cleaning", specialty: "Carpet, sofa & move-in/out", residential: "Homes & apartments", commercial: "Offices, retail & clinics" }[cat.id] ?? "";
+              const count = services.filter((s) => s.category === cat.id).length;
+              const isActive = activeCategory === cat.id;
               return (
-                <button
+                <motion.button
                   key={cat.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                    activeCategory === cat.id
-                      ? "bg-primary text-white shadow-md"
-                      : "bg-card border border-border text-foreground hover:border-primary hover:text-primary"
+                  className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 ${bgClass} ${
+                    isActive ? "ring-2 ring-offset-2 ring-primary shadow-xl scale-[1.02]" : "hover:shadow-lg hover:-translate-y-1"
                   }`}
                 >
-                  {Icon && <Icon className="text-base" />}
-                  {cat.label}
-                </button>
+                  <div className="w-12 h-12 rounded-xl bg-white/20 grid place-items-center mb-4">
+                    {Icon && <Icon className="text-white text-2xl" />}
+                  </div>
+                  <div className="font-bold text-white text-lg leading-tight">{cat.label}</div>
+                  <div className="text-white/75 text-xs mt-1">{desc}</div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-white/90 bg-white/20 px-2.5 py-1 rounded-full">
+                    {count} service{count !== 1 ? "s" : ""}
+                  </div>
+                  {isActive && (
+                    <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-white grid place-items-center">
+                      <FaCheckCircle className="text-primary text-sm" />
+                    </div>
+                  )}
+                </motion.button>
               );
             })}
           </div>
 
           {/* Filtered service cards */}
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filtered.map((s, i) => {
-                const SvcIcon = serviceIconMap[s.id];
-                return (
-                  <motion.div
-                    key={s.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    whileHover={{ y: -8 }}
-                  >
-                    <Link to="/booking/$service" params={{ service: s.id }} className="block group h-full">
-                      <div className="h-full rounded-2xl overflow-hidden border border-border bg-card hover:shadow-[var(--shadow-elegant)] transition-all flex flex-col">
-                        <div className="aspect-video overflow-hidden relative">
-                          <img
-                            src={s.image}
-                            alt={s.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/60 to-transparent" />
-                          <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-primary-foreground">
-                            <span className="px-3 py-1 rounded-full bg-white/90 text-deep-blue text-xs font-bold">{s.price}</span>
-                            <span className="px-3 py-1 rounded-full bg-deep-blue/80 text-white text-xs font-semibold">⏱ {s.duration}</span>
+            {activeCategory && (
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6"
+              >
+                {filtered.map((s, i) => {
+                  const SvcIcon = serviceIconMap[s.id];
+                  return (
+                    <motion.div
+                      key={s.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.06 }}
+                    >
+                      <Link to="/booking/$service" params={{ service: s.id }} className="block group h-full">
+                        <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:shadow-[var(--shadow-elegant)] hover:-translate-y-2 transition-all duration-300">
+                          <div className="aspect-[4/3] overflow-hidden relative">
+                            <img src={s.image} alt={s.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                            <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-deep-blue">{s.price}</div>
+                            <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-deep-blue/80 backdrop-blur text-xs font-semibold text-white">⏱ {s.duration}</div>
+                          </div>
+                          <div className="p-6">
+                            <div className="flex items-center gap-3">
+                              {SvcIcon && <SvcIcon className="text-2xl text-primary" />}
+                              <h3 className="font-bold text-lg text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
+                            </div>
+                            <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
+                            <ul className="mt-3 space-y-1">
+                              {s.features.map((f) => (
+                                <li key={f} className="flex items-center gap-2 text-xs text-foreground/70">
+                                  <FaCheckCircle className="text-primary flex-shrink-0 text-xs" />{f}
+                                </li>
+                              ))}
+                            </ul>
+                            <div className="mt-4 flex items-center gap-2 text-primary font-semibold text-sm">
+                              Book now <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                            </div>
                           </div>
                         </div>
-                        <div className="p-6 flex-1 flex flex-col">
-                          <div className="flex items-center gap-3 mb-2">
-                            {SvcIcon && <SvcIcon className="text-2xl text-primary" />}
-                            <h3 className="font-bold text-xl text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
-                          </div>
-                          <p className="text-sm text-muted-foreground mt-2">{s.long}</p>
-                          <ul className="mt-4 space-y-1.5 flex-1">
-                            {s.features.map((f) => (
-                              <li key={f} className="flex items-center gap-2 text-sm">
-                                <FaCheckCircle className="text-primary text-xs flex-shrink-0" />
-                                <span className="text-foreground/80">{f}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="mt-6 inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
-                            Book this service <FaArrowRight />
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            )}
           </AnimatePresence>
 
           {/* Trust strip */}

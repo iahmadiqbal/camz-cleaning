@@ -16,7 +16,6 @@ import {
   FaSmile,
   FaChevronLeft,
   FaChevronRight,
-  FaFire,
   FaCar,
   FaCouch,
   FaHome,
@@ -257,7 +256,7 @@ function AllServicesSection({ serviceIconMap }: { serviceIconMap: Record<string,
     >
       <div className="text-center mb-8">
         <h3 className="text-2xl font-bold text-deep-blue">All Services</h3>
-        <p className="text-sm text-muted-foreground mt-1">Everything we offer, all in one place</p>
+        <p className="text-sm text-muted-foreground mt-1">From homes to offices, carpets to cars — professional cleaning for every need.</p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence>
@@ -427,57 +426,6 @@ function Home() {
         <section className="max-w-7xl mx-auto px-6 py-20">
           {/* Category tabs + See All */}
           <ServiceCategorySection />
-
-          {/* Recommended Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16"
-          >
-            {/* Centered title */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 justify-center mb-2">
-                <FaFire className="text-orange-500 text-xl" />
-                <h3 className="text-2xl font-bold text-deep-blue">Recommended Services</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Most popular picks by our customers</p>
-            </div>
-            <div className="grid sm:grid-cols-3 gap-5">
-              {services.filter((s) => s.recommended).map((s, i) => {
-                const SvcIcon = serviceIconMap[s.id];
-                return (
-                  <motion.div
-                    key={s.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                  >
-                    <Link to="/booking/$service" params={{ service: s.id }} className="block group">
-                      <div className="rounded-2xl overflow-hidden border border-border bg-card hover:shadow-[var(--shadow-elegant)] hover:-translate-y-1 transition-all duration-300 flex gap-4 p-4 items-center">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                          <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            {SvcIcon && <SvcIcon className="text-primary text-base flex-shrink-0" />}
-                            <h4 className="font-bold text-deep-blue text-sm group-hover:text-primary transition-colors truncate">{s.title}</h4>
-                          </div>
-                          <p className="text-xs text-muted-foreground mt-0.5">{s.desc}</p>
-                          <div className="mt-1.5 flex items-center gap-2">
-                            <span className="text-xs font-semibold text-primary">{s.price}</span>
-                            <span className="text-xs text-muted-foreground">· {s.duration}</span>
-                          </div>
-                        </div>
-                        <FaArrowRight className="text-primary text-xs flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
 
           {/* All Services grid below Recommended */}
           <AllServicesSection serviceIconMap={serviceIconMap} />
