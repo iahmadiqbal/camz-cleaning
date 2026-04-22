@@ -170,7 +170,7 @@ function Home() {
                 transition={{ delay: i * 0.1 }}
                 className="flex flex-col items-center gap-2"
               >
-                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-primary text-xl mb-1">
+                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-white text-xl mb-1">
                   <s.icon />
                 </div>
                 <div className="text-3xl md:text-4xl font-bold text-deep-blue">
@@ -271,7 +271,7 @@ function Home() {
               },
             ].map((item) => (
               <div key={item.title} className="flex gap-4 p-6 rounded-2xl bg-card border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow">
-                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-primary text-xl flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-soft-blue grid place-items-center text-white text-xl flex-shrink-0">
                   <item.icon />
                 </div>
                 <div>

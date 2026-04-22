@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { Clock, CheckCircle2, Loader2, MapPin, Phone, MessageSquare, Star, AlertCircle, Home, X, Copy, Check, Calendar, Sparkles } from "lucide-react";
-const vehicleImg = "/images/svc-vehicle.jpg";
+const trackingBannerImg = "/images/svc-carpet.jpg";
 
 export const Route = createFileRoute("/tracking")({
   head: () => ({
@@ -52,7 +52,7 @@ function Tracking() {
       <PageTransition direction="bottom">
         {/* Hero Banner */}
         <section className="relative h-[340px] md:h-[420px] overflow-hidden">
-          <img src={vehicleImg} alt="Track your booking" className="w-full h-full object-cover object-center" />
+          <img src={trackingBannerImg} alt="Track your booking" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/92 via-deep-blue/65 to-transparent" />
           <div className="absolute inset-0 flex items-center">
             <div className="max-w-7xl mx-auto px-6 w-full">

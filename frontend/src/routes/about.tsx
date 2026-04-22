@@ -37,9 +37,9 @@ function About() {
         {/* Hero Banner */}
         <section className="relative h-[420px] md:h-[520px] overflow-hidden">
           <img 
-            src="/images/hero-2.jpg"
+            src="/images/svc-commercial.jpg"
             alt="About CAMZ Cleaning" 
-            className="w-full h-full object-cover object-center" 
+            className="w-full h-full object-cover object-top" 
           />
           <div className="absolute inset-0 bg-gradient-to-r from-deep-blue/92 via-deep-blue/65 to-transparent" />
           <div className="absolute inset-0 flex items-center">
