@@ -177,9 +177,9 @@ export default function AdminHome() {
             <div className="grid grid-cols-4 md:grid-cols-4 gap-3">
               {[
                 { label: "Users", icon: Users, color: "text-blue-400", bg: "bg-blue-50", to: "/admin/customers" },
-                { label: "Verify", icon: CheckCircle2, color: "text-green-400", bg: "bg-green-50", to: "/admin/services" },
-                { label: "Support", icon: Briefcase, color: "text-blue-400", bg: "bg-blue-50", to: "/admin/bookings" },
-                { label: "Leave", icon: RefreshCw, color: "text-blue-400", bg: "bg-blue-50", to: "/admin/reports" },
+                { label: "Verify", icon: CheckCircle2, color: "text-green-400", bg: "bg-green-50", to: "/admin/staff-verification" },
+                { label: "Support", icon: Briefcase, color: "text-blue-400", bg: "bg-blue-50", to: "/admin/support" },
+                { label: "Leave", icon: RefreshCw, color: "text-blue-400", bg: "bg-blue-50", to: "/admin/leave" },
               ].map((item) => (
                 <Link
                   key={item.label}

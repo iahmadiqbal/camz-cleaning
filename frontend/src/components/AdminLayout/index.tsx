@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, ConciergeBell } from "lucide-react";
+import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, ConciergeBell, CalendarOff, ShieldCheck, HeadphonesIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 
@@ -11,6 +11,9 @@ const navItems = [
   { to: "/admin/payments", label: "Payments", icon: CreditCard },
   { to: "/admin/reports", label: "Reports", icon: BarChart3 },
   { to: "/admin/services", label: "Services", icon: ConciergeBell },
+  { to: "/admin/leave", label: "Leave", icon: CalendarOff },
+  { to: "/admin/staff-verification", label: "Verification", icon: ShieldCheck },
+  { to: "/admin/support", label: "Support", icon: HeadphonesIcon },
 ];
 
 export function AdminLayout({ children }: { children: ReactNode }) {

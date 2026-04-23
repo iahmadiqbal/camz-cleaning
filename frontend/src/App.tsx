@@ -31,6 +31,9 @@ import AdminPayments from "./pages/admin/dashboard/AdminPayments";
 import AdminReports from "./pages/admin/dashboard/AdminReports";
 import AdminServices from "./pages/admin/dashboard/AdminServices";
 import AdminStaff from "./pages/admin/dashboard/AdminStaff";
+import AdminLeave from "./pages/admin/dashboard/AdminLeave";
+import AdminStaffVerification from "./pages/admin/dashboard/AdminStaffVerification";
+import AdminSupport from "./pages/admin/dashboard/AdminSupport";
 
 // Staff pages
 import StaffLogin from "./pages/staff/dashboard/StaffLogin";
@@ -77,6 +80,9 @@ export default function App() {
         <Route path="/admin/reports" element={<AdminReports />} />
         <Route path="/admin/services" element={<AdminServices />} />
         <Route path="/admin/staff" element={<AdminStaff />} />
+        <Route path="/admin/leave" element={<AdminLeave />} />
+        <Route path="/admin/staff-verification" element={<AdminStaffVerification />} />
+        <Route path="/admin/support" element={<AdminSupport />} />
 
         {/* Staff */}
         <Route path="/staff/login" element={<StaffLogin />} />
