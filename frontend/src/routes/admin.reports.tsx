@@ -1,9 +1,9 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
-import { revenueData, serviceBreakdown, staff, bookings } from "@/lib/data";
-import { BarChart, Bar, ResponsiveContainer, Tooltip, XAxis, YAxis, PieChart, Pie, Cell, LineChart, Line } from "recharts";
+import { DollarSign, Clock, CheckCircle2, RefreshCw } from "lucide-react";
 
 export const Route = createFileRoute("/admin/reports")({
   beforeLoad: () => {
@@ -14,89 +14,86 @@ export const Route = createFileRoute("/admin/reports")({
   component: ReportsPage,
 });
 
-const COLORS = ["oklch(0.45 0.18 260)", "oklch(0.6 0.2 255)", "oklch(0.7 0.15 240)", "oklch(0.5 0.1 220)", "oklch(0.4 0.12 280)"];
-
-const bookingTrends = [
-  { week: "W1", bookings: 18 }, { week: "W2", bookings: 24 },
-  { week: "W3", bookings: 21 }, { week: "W4", bookings: 31 },
-  { week: "W5", bookings: 28 }, { week: "W6", bookings: 35 },
-];
+// Mock data — replace with API later
+const mockReportData = {
+  netRevenue: 40.05,
+  pending: 10,
+  active: 0,
+};
 
 function ReportsPage() {
+  const [data, setData] = useState(mockReportData);
+
+  const refresh = () => setData({ ...mockReportData });
+
   return (
     <AdminLayout>
       <PageTransition direction="top">
-        <h1 className="text-2xl md:text-3xl font-bold text-deep-blue">Reports</h1>
-        <p className="text-muted-foreground mt-1 text-sm">Revenue, staff performance and booking trends.</p>
+        <div className="pb-6">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-2xl font-bold text-gray-900">Platform Analytics</h1>
+            <button
+              onClick={refresh}
+              className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <RefreshCw className="w-5 h-5 text-gray-500" />
+            </button>
+          </div>
 
-        <div className="mt-6 grid lg:grid-cols-2 gap-6">
-          {/* Revenue */}
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-            <h3 className="font-semibold text-deep-blue mb-4">Monthly Revenue</h3>
-            <div className="h-64">
-              <ResponsiveContainer>
-                <BarChart data={revenueData}>
-                  <XAxis dataKey="month" fontSize={12} />
-                  <YAxis fontSize={12} />
-                  <Tooltip />
-                  <Bar dataKey="revenue" fill="oklch(0.45 0.18 260)" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+          {/* Net Platform Revenue */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center flex-shrink-0">
+                <DollarSign className="w-6 h-6 text-green-500" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase mb-1">
+                  Net Platform Revenue
+                </p>
+                <p className="text-3xl font-bold text-gray-900">
+                  ${data.netRevenue.toFixed(2)}
+                </p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Service breakdown */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-            <h3 className="font-semibold text-deep-blue mb-4">Service Breakdown</h3>
-            <div className="h-64">
-              <ResponsiveContainer>
-                <PieChart>
-                  <Pie data={serviceBreakdown} dataKey="value" nameKey="name" outerRadius={90} label={({ name, value }) => `${name} ${value}%`}>
-                    {serviceBreakdown.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
+          {/* Pending + Active */}
+          <div className="grid grid-cols-2 gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08 }}
+              className="bg-white rounded-2xl p-5 shadow-sm border border-yellow-100"
+            >
+              <div className="w-9 h-9 rounded-xl bg-yellow-50 flex items-center justify-center mb-3">
+                <Clock className="w-5 h-5 text-yellow-500" />
+              </div>
+              <p className="text-3xl font-bold text-gray-900">{data.pending}</p>
+              <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase mt-1">
+                Pending
+              </p>
+            </motion.div>
 
-          {/* Booking trends */}
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-            <h3 className="font-semibold text-deep-blue mb-4">Booking Trends (Weekly)</h3>
-            <div className="h-64">
-              <ResponsiveContainer>
-                <LineChart data={bookingTrends}>
-                  <XAxis dataKey="week" fontSize={12} />
-                  <YAxis fontSize={12} />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="bookings" stroke="oklch(0.45 0.18 260)" strokeWidth={3} dot={{ r: 5 }} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
-
-          {/* Staff performance */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-            <h3 className="font-semibold text-deep-blue mb-4">Staff Performance</h3>
-            <div className="space-y-4">
-              {staff.map((s) => (
-                <div key={s.id}>
-                  <div className="flex items-center justify-between text-sm mb-1.5">
-                    <span className="font-medium text-deep-blue">{s.name}</span>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span>{s.jobs} jobs</span>
-                      <span className="text-yellow-600">★ {s.rating}</span>
-                      <span className={s.status === "Active" ? "text-green-600" : "text-yellow-600"}>{s.status}</span>
-                    </div>
-                  </div>
-                  <div className="w-full bg-muted rounded-full h-2">
-                    <div className="bg-primary h-2 rounded-full transition-all" style={{ width: `${Math.min((s.jobs / 200) * 100, 100)}%` }} />
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{s.role}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12 }}
+              className="bg-white rounded-2xl p-5 shadow-sm border border-blue-100"
+            >
+              <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center mb-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-400" />
+              </div>
+              <p className="text-3xl font-bold text-gray-900">{data.active}</p>
+              <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase mt-1">
+                Active
+              </p>
+            </motion.div>
+          </div>
         </div>
       </PageTransition>
     </AdminLayout>
