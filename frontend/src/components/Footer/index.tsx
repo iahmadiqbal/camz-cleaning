@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
 
@@ -43,8 +43,7 @@ export function Footer() {
             ].map((item) => (
               <li key={item.label}>
                 <Link
-                  to={item.to}
-                  params={item.params}
+                  to={`/booking/${item.params.service}`}
                   className="opacity-70 hover:opacity-100 hover:text-soft-blue transition-all"
                 >
                   {item.label}
@@ -110,3 +109,4 @@ export function Footer() {
     </footer>
   );
 }
+

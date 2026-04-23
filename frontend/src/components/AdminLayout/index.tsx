@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, ConciergeBell } from "lucide-react";
 import type { ReactNode } from "react";
@@ -14,7 +14,7 @@ const navItems = [
 ];
 
 export function AdminLayout({ children }: { children: ReactNode }) {
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname: path } = useLocation();
   const [mounted, setMounted] = useState(false);
   const [authed, setAuthed] = useState<boolean | null>(null);
 
@@ -144,3 +144,4 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+

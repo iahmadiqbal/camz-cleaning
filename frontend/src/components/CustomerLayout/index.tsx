@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, CalendarDays, MapPin, LogOut, ArrowLeft, Bell, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ const nav = [
 ];
 
 export function CustomerLayout({ children }: { children: ReactNode }) {
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname: path } = useLocation();
   const [customerName, setCustomerName] = useState("Customer");
   const [authed, setAuthed] = useState<boolean | null>(null);
 
@@ -123,3 +123,4 @@ export function CustomerLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+

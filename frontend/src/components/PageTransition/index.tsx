@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, type ReactNode } from "react";
-import { useRouterState } from "@tanstack/react-router";
+import { useLocation } from "react-router-dom";
 
 type Direction = "top" | "bottom" | "left" | "right" | "fade";
 
@@ -13,7 +13,7 @@ const variants = {
 } as const;
 
 export function PageTransition({ children, direction = "top" }: { children: ReactNode; direction?: Direction }) {
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname: path } = useLocation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
@@ -30,3 +30,4 @@ export function PageTransition({ children, direction = "top" }: { children: Reac
     </motion.div>
   );
 }
+
