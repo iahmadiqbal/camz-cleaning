@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, ConciergeBell } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ const navItems = [
   { to: "/admin/bookings", label: "Bookings", icon: CalendarDays },
   { to: "/admin/payments", label: "Payments", icon: CreditCard },
   { to: "/admin/reports", label: "Reports", icon: BarChart3 },
-  { to: "/admin/services", label: "Services", icon: Sparkles },
+  { to: "/admin/services", label: "Services", icon: ConciergeBell },
 ];
 
 export function AdminLayout({ children }: { children: ReactNode }) {
@@ -48,7 +48,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground"
       >
         <div className="px-6 py-5 border-b border-sidebar-border flex items-center gap-2">
-          <img src="/images/transparentlogo.png" alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
+          <img src="/images/cleaninglogo.png" alt="CAMZ" className="w-10 h-10 object-contain brightness-0 invert" />
           <div>
             <div className="font-bold">CAMZ Admin</div>
             <div className="text-xs opacity-70">Control center</div>

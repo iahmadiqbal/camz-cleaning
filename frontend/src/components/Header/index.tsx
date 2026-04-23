@@ -22,7 +22,7 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center group">
-          <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-20 w-auto object-contain group-hover:scale-110 transition-transform" />
+          <img src="/images/cleaninglogo.png" alt="CAMZ Cleaning" className="w-[90px] h-[90px] object-contain scale-[2.2] group-hover:scale-[2.4] transition-transform" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

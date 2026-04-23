@@ -13,7 +13,7 @@ function NotFoundComponent() {
       <div className="relative max-w-lg text-center">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-14 w-auto object-contain opacity-80" />
+          <img src="/images/cleaninglogo.png" alt="CAMZ Cleaning" className="h-14 w-auto object-contain opacity-80" />
         </div>
 
         {/* 404 */}

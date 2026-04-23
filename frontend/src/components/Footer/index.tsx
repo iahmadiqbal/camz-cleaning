@@ -9,7 +9,7 @@ export function Footer() {
         {/* Brand */}
         <div>
           <div className="mb-4">
-            <img src="/images/transparentlogo.png" alt="CAMZ Cleaning" className="h-16 w-auto object-contain brightness-0 invert" />
+            <img src="/images/cleaninglogo.png" alt="CAMZ Cleaning" className="w-[90px] h-[90px] object-contain scale-[2.2] brightness-0 invert" />
           </div>
           <p className="text-base opacity-80 leading-relaxed">Camz Cleaning delivers reliable, professional residential and commercial cleaning services focused on quality, consistency, and complete customer satisfaction across communities.</p>
           <div className="mt-4 border-t border-white/10 pt-4">

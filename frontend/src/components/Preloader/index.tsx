@@ -52,7 +52,7 @@ export function Preloader() {
               className="relative"
             >
               <img
-                src="/images/transparentlogo.png"
+                src="/images/cleaninglogo.png"
                 alt="CAMZ Cleaning"
                 className="h-32 w-auto object-contain"
               />

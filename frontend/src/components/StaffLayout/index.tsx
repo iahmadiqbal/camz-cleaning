@@ -38,7 +38,7 @@ export function StaffLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex bg-[image:var(--gradient-soft)]">
       <aside className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground">
         <div className="px-6 py-5 border-b border-sidebar-border flex items-center gap-2">
-          <img src="/images/transparentlogo.png" alt="CAMZ" className="h-12 w-auto object-contain brightness-0 invert" />
+          <img src="/images/cleaninglogo.png" alt="CAMZ" className="w-10 h-10 object-contain brightness-0 invert" />
           <div>
             <div className="font-bold">CAMZ Staff</div>
             <div className="text-xs opacity-70">Cleaner portal</div>
