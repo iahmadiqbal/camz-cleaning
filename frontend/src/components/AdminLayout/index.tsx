@@ -47,12 +47,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         transition={{ duration: 0.4 }}
         className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground"
       >
-        <div className="px-6 py-5 border-b border-sidebar-border flex items-center gap-2">
-          <img src="/images/cleaninglogo.png" alt="CAMZ" className="w-10 h-10 object-contain brightness-0 invert" />
-          <div>
-            <div className="font-bold">CAMZ Admin</div>
-            <div className="text-xs opacity-70">Control center</div>
-          </div>
+        <div className="px-6 py-3 border-b border-sidebar-border flex items-center justify-start overflow-hidden h-16">
+          <img src="/images/cleaninglogo.png" alt="CAMZ" className="w-[90px] h-[90px] object-contain scale-[2.2] brightness-0 invert" />
         </div>
         <nav className="flex-1 p-3 space-y-1">
           {navItems.map((item, i) => {
