@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, Briefcase, CalendarOff, LogOut, ArrowLeft, Bell } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ const nav = [
 ];
 
 export function StaffLayout({ children }: { children: ReactNode }) {
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname: path } = useLocation();
   const [authed, setAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -110,3 +110,4 @@ export function StaffLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
