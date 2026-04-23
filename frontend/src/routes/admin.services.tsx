@@ -1,10 +1,10 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { services, serviceCategories } from "@/lib/data";
-import { Plus, Settings, Trash2, ChevronUp, ChevronDown, RefreshCw } from "lucide-react";
+import { Plus, Settings, Trash2, ChevronUp, ChevronDown, RefreshCw, Search, X } from "lucide-react";
 import { Modal } from "./admin.bookings";
 
 export const Route = createFileRoute("/admin/services")({
@@ -26,6 +26,7 @@ function ServicesAdmin() {
   );
   const [categories, setCategories] = useState(serviceCategories);
   const [activeCategory, setActiveCategory] = useState("specialty");
+  const [searchQuery, setSearchQuery] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState("");
 
@@ -46,10 +47,23 @@ function ServicesAdmin() {
     setEditing(null);
   };
 
-  // Filter services by active category
-  const filteredServices = activeCategory
-    ? services.filter((s) => s.category === activeCategory && svcState[s.id])
-    : services.filter((s) => svcState[s.id]);
+  // Filter services by active category + search query
+  const filteredServices = (() => {
+    const q = searchQuery.trim().toLowerCase();
+    let list = activeCategory
+      ? services.filter((s) => s.category === activeCategory && svcState[s.id])
+      : services.filter((s) => svcState[s.id]);
+    if (q) {
+      list = list.filter(
+        (s) =>
+          s.title.toLowerCase().includes(q) ||
+          s.desc.toLowerCase().includes(q) ||
+          s.features.some((f) => f.toLowerCase().includes(q)) ||
+          (s.long && s.long.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  })();
 
   return (
     <AdminLayout>
@@ -106,6 +120,26 @@ function ServicesAdmin() {
               <button className="flex items-center gap-1.5 bg-green-500 text-white text-xs font-semibold px-3 py-2 rounded-xl">
                 <Plus className="w-3.5 h-3.5" /> SERVICE
               </button>
+            </div>
+
+            {/* Search bar */}
+            <div className="relative mb-4">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search services by name, feature…"
+                className="w-full pl-9 pr-9 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
 
             <div className="space-y-3">
@@ -178,9 +212,19 @@ function ServicesAdmin() {
               })}
 
               {filteredServices.length === 0 && (
-                <div className="text-center py-10 text-muted-foreground text-sm">
-                  No services in this category.
-                </div>
+                <AnimatePresence>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-10 text-muted-foreground text-sm"
+                  >
+                    <Search className="w-8 h-8 mx-auto mb-2 opacity-20" />
+                    {searchQuery
+                      ? <>No services match "<span className="font-semibold text-foreground">{searchQuery}</span>"<br /><button onClick={() => setSearchQuery("")} className="mt-2 text-xs text-primary underline underline-offset-2">Clear search</button></>
+                      : "No services in this category."
+                    }
+                  </motion.div>
+                </AnimatePresence>
               )}
             </div>
           </section>

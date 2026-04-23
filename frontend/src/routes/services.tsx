@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
   FaArrowRight, FaCheckCircle, FaShieldAlt, FaClock, FaLeaf,
-  FaCar, FaCouch, FaHome, FaBuilding, FaBoxOpen,
+  FaCar, FaCouch, FaHome, FaBuilding, FaBoxOpen, FaSearch, FaTimes,
 } from "react-icons/fa";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -71,8 +71,24 @@ function CountUp({ end, suffix = "", duration = 2000 }: { end: number; suffix?: 
 
 function ServicesPage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered = activeCategory ? services.filter((s) => s.category === activeCategory) : [];
+  const filtered = (() => {
+    const q = searchQuery.trim().toLowerCase();
+    let list = activeCategory ? services.filter((s) => s.category === activeCategory) : services;
+    if (q) {
+      list = list.filter(
+        (s) =>
+          s.title.toLowerCase().includes(q) ||
+          s.desc.toLowerCase().includes(q) ||
+          s.features.some((f) => f.toLowerCase().includes(q)) ||
+          (s.long && s.long.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  })();
+
+  const showResults = !!activeCategory || searchQuery.trim().length > 0;
 
   return (
     <SiteLayout>
@@ -132,6 +148,31 @@ function ServicesPage() {
 
         <div className="max-w-7xl mx-auto px-6 py-16">
 
+          {/* Search Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="relative max-w-xl mx-auto mb-10"
+          >
+            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search services, e.g. carpet, move-out, vehicle…"
+              className="w-full pl-10 pr-10 py-3 rounded-xl border border-border bg-card text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition"
+              >
+                <FaTimes className="text-sm" />
+              </button>
+            )}
+          </motion.div>
+
           {/* Service Categories — same as home page */}
           <div className="text-center mb-10">
             <span className="text-primary text-sm font-semibold uppercase tracking-wider">Browse by type</span>
@@ -179,53 +220,67 @@ function ServicesPage() {
 
           {/* Filtered service cards */}
           <AnimatePresence mode="wait">
-            {activeCategory && (
+            {showResults && (
               <motion.div
-                key={activeCategory}
+                key={`${activeCategory}-${searchQuery}`}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6"
               >
-                {filtered.map((s, i) => {
-                  const SvcIcon = serviceIconMap[s.id];
-                  return (
-                    <motion.div
-                      key={s.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.06 }}
+                {filtered.length === 0 ? (
+                  <div className="text-center py-16 text-muted-foreground">
+                    <FaSearch className="mx-auto text-3xl mb-3 opacity-30" />
+                    <p className="text-sm">No services found for "<span className="font-semibold text-foreground">{searchQuery}</span>"</p>
+                    <button
+                      onClick={() => { setSearchQuery(""); setActiveCategory(null); }}
+                      className="mt-3 text-xs text-primary underline underline-offset-2"
                     >
-                      <Link to="/booking/$service" params={{ service: s.id }} className="block group h-full">
-                        <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:shadow-[var(--shadow-elegant)] hover:-translate-y-2 transition-all duration-300">
-                          <div className="aspect-[4/3] overflow-hidden relative">
-                            <img src={s.image} alt={s.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                            <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-deep-blue">{s.price}</div>
-                            <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-deep-blue/80 backdrop-blur text-xs font-semibold text-white">⏱ {s.duration}</div>
-                          </div>
-                          <div className="p-6">
-                            <div className="flex items-center gap-3">
-                              {SvcIcon && <SvcIcon className="text-2xl text-primary" />}
-                              <h3 className="font-bold text-lg text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
+                      Clear filters
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    {filtered.map((s, i) => {
+                      const SvcIcon = serviceIconMap[s.id];
+                      return (
+                        <motion.div
+                          key={s.id}
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.06 }}
+                        >
+                          <Link to="/booking/$service" params={{ service: s.id }} className="block group h-full">
+                            <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:shadow-[var(--shadow-elegant)] hover:-translate-y-2 transition-all duration-300">
+                              <div className="aspect-[4/3] overflow-hidden relative">
+                                <img src={s.image} alt={s.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-deep-blue">{s.price}</div>
+                                <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-deep-blue/80 backdrop-blur text-xs font-semibold text-white">⏱ {s.duration}</div>
+                              </div>
+                              <div className="p-6">
+                                <div className="flex items-center gap-3">
+                                  {SvcIcon && <SvcIcon className="text-2xl text-primary" />}
+                                  <h3 className="font-bold text-lg text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
+                                </div>
+                                <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
+                                <ul className="mt-3 space-y-1">
+                                  {s.features.map((f) => (
+                                    <li key={f} className="flex items-center gap-2 text-xs text-foreground/70">
+                                      <FaCheckCircle className="text-primary flex-shrink-0 text-xs" />{f}
+                                    </li>
+                                  ))}
+                                </ul>
+                                <div className="mt-4 flex items-center gap-2 text-primary font-semibold text-sm">
+                                  Book now <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                                </div>
+                              </div>
                             </div>
-                            <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
-                            <ul className="mt-3 space-y-1">
-                              {s.features.map((f) => (
-                                <li key={f} className="flex items-center gap-2 text-xs text-foreground/70">
-                                  <FaCheckCircle className="text-primary flex-shrink-0 text-xs" />{f}
-                                </li>
-                              ))}
-                            </ul>
-                            <div className="mt-4 flex items-center gap-2 text-primary font-semibold text-sm">
-                              Book now <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
