@@ -17,26 +17,26 @@ import BookingCheckout from "./pages/booking/BookingCheckout";
 import BookingConfirmation from "./pages/booking/BookingConfirmation";
 
 // Customer pages
-import CustomerDashboard from "./pages/customer/CustomerDashboard";
-import BookingDetails from "./pages/customer/BookingDetails";
+import CustomerDashboard from "./pages/customer/dashboard/CustomerDashboard";
+import BookingDetails from "./pages/customer/dashboard/BookingDetails";
 
 // Admin pages
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminIndex from "./pages/admin/AdminIndex";
-import AdminBookings from "./pages/admin/AdminBookings";
-import AdminCustomers from "./pages/admin/AdminCustomers";
-import AdminJobAssignment from "./pages/admin/AdminJobAssignment";
-import AdminMonitoring from "./pages/admin/AdminMonitoring";
-import AdminPayments from "./pages/admin/AdminPayments";
-import AdminReports from "./pages/admin/AdminReports";
-import AdminServices from "./pages/admin/AdminServices";
-import AdminStaff from "./pages/admin/AdminStaff";
+import AdminLogin from "./pages/admin/dashboard/AdminLogin";
+import AdminIndex from "./pages/admin/dashboard/AdminIndex";
+import AdminBookings from "./pages/admin/dashboard/AdminBookings";
+import AdminCustomers from "./pages/admin/dashboard/AdminCustomers";
+import AdminJobAssignment from "./pages/admin/dashboard/AdminJobAssignment";
+import AdminMonitoring from "./pages/admin/dashboard/AdminMonitoring";
+import AdminPayments from "./pages/admin/dashboard/AdminPayments";
+import AdminReports from "./pages/admin/dashboard/AdminReports";
+import AdminServices from "./pages/admin/dashboard/AdminServices";
+import AdminStaff from "./pages/admin/dashboard/AdminStaff";
 
 // Staff pages
-import StaffLogin from "./pages/staff/StaffLogin";
-import StaffIndex from "./pages/staff/StaffIndex";
-import StaffJobs from "./pages/staff/StaffJobs";
-import StaffLeave from "./pages/staff/StaffLeave";
+import StaffLogin from "./pages/staff/dashboard/StaffLogin";
+import StaffIndex from "./pages/staff/dashboard/StaffIndex";
+import StaffJobs from "./pages/staff/dashboard/StaffJobs";
+import StaffLeave from "./pages/staff/dashboard/StaffLeave";
 
 // 404
 import NotFound from "./pages/NotFound";
