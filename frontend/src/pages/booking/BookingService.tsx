@@ -1,10 +1,18 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FaArrowLeft, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaCheck, FaCheckCircle, FaCar, FaCouch, FaHome, FaBuilding, FaBoxOpen } from "react-icons/fa";
 import { SiteLayout } from "@/components/SiteLayout";
 import { services } from "@/lib/data";
 import { bookingStore } from "@/lib/bookingStore";
+
+const serviceIconMap: Record<string, React.ElementType> = {
+  residential: FaHome,
+  move: FaBoxOpen,
+  commercial: FaBuilding,
+  carpet: FaCouch,
+  vehicle: FaCar,
+};
 
 
 // Step progress bar
@@ -146,6 +154,67 @@ export default function BookingServiceDetails() {
               >
                 Continue <FaArrowRight className="text-sm" />
               </button>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* All Services Section */}
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-deep-blue">All Services</h2>
+              <p className="text-sm text-muted-foreground mt-2">From homes to offices, carpets to cars — professional cleaning for every need.</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.map((s, i) => {
+                const SvcIcon = serviceIconMap[s.id];
+                const isActive = s.id === service;
+                return (
+                  <motion.div
+                    key={s.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.06 }}
+                  >
+                    <Link to={`/booking/${s.id}`} className="block group h-full">
+                      <div className={`h-full rounded-2xl overflow-hidden bg-card border-2 transition-all duration-300 hover:shadow-[var(--shadow-elegant)] hover:-translate-y-2 ${isActive ? "border-primary shadow-[var(--shadow-elegant)]" : "border-border"}`}>
+                        <div className="aspect-[4/3] overflow-hidden relative">
+                          <img src={s.image} alt={s.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                          <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-semibold text-deep-blue">{s.price}</div>
+                          <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-deep-blue/80 backdrop-blur text-xs font-semibold text-white">⏱ {s.duration}</div>
+                          {isActive && (
+                            <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
+                              <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">Currently Viewing</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-6">
+                          <div className="flex items-center gap-3">
+                            {SvcIcon && <SvcIcon className="text-2xl text-primary" />}
+                            <h3 className="font-bold text-lg text-deep-blue group-hover:text-primary transition-colors">{s.title}</h3>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
+                          <ul className="mt-3 space-y-1">
+                            {s.features.map((f) => (
+                              <li key={f} className="flex items-center gap-2 text-xs text-foreground/70">
+                                <FaCheckCircle className="text-primary flex-shrink-0 text-xs" />{f}
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="mt-4 flex items-center gap-2 text-primary font-semibold text-sm">
+                            Book now <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
