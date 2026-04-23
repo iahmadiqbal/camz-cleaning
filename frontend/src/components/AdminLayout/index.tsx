@@ -1,19 +1,16 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { LayoutDashboard, CalendarDays, Users, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, ClipboardList, Radio, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/bookings", label: "Bookings", icon: CalendarDays },
-  { to: "/admin/job-assignment", label: "Job Assignment", icon: ClipboardList },
-  { to: "/admin/monitoring", label: "Monitoring", icon: Radio },
-  { to: "/admin/staff", label: "Staff", icon: Users },
-  { to: "/admin/services", label: "Services", icon: Sparkles },
-  { to: "/admin/payments", label: "Payments", icon: CreditCard },
   { to: "/admin/customers", label: "Customers", icon: UserCheck },
+  { to: "/admin/bookings", label: "Bookings", icon: CalendarDays },
+  { to: "/admin/payments", label: "Payments", icon: CreditCard },
   { to: "/admin/reports", label: "Reports", icon: BarChart3 },
+  { to: "/admin/services", label: "Services", icon: Sparkles },
 ];
 
 export function AdminLayout({ children }: { children: ReactNode }) {
@@ -134,15 +131,15 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
         </motion.header>
-        <main className="flex-1 p-4 md:p-8 overflow-x-auto pb-20 md:pb-8">{children}</main>
+        <main className="flex-1 p-4 md:p-8 overflow-x-auto pb-24 md:pb-8">{children}</main>
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-40">
-          {navItems.slice(0, 4).map((item) => {
+          {navItems.map((item) => {
             const active = item.exact ? path === item.to : path.startsWith(item.to);
             return (
               <Link key={item.to} to={item.to}
                 className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors ${active ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
                 <item.icon className="w-5 h-5" />
-                {item.label}
+                <span className="text-[10px]">{item.label}</span>
               </Link>
             );
           })}
