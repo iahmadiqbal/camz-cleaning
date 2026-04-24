@@ -175,7 +175,6 @@ export default function AdminStaffVerification() {
         {/* Review Modal */}
         {reviewing && (
             <div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setReviewing(null)}
               className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm grid place-items-center p-4"
             >

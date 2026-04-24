@@ -10,5 +10,5 @@ export function PageTransition({ children, direction = "top" }: { children: Reac
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, [path]);
 
-  return <div>{children}</div>;
+  return <div style={{ animation: "none", transform: "none", opacity: 1 }}>{children}</div>;
 }

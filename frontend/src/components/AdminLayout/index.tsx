@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, ConciergeBell, CalendarOff, ShieldCheck, HeadphonesIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
 
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -17,26 +16,18 @@ const navItems = [
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const { pathname: path } = useLocation();
-  const [authed, setAuthed] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (!sessionStorage.getItem("camz_admin")) {
-        window.location.replace("/admin/login");
-      } else {
-        setAuthed(true);
-      }
-    }
-  }, []);
+  const authed = typeof window !== "undefined" && !!sessionStorage.getItem("camz_admin");
+
+  if (!authed) {
+    if (typeof window !== "undefined") window.location.replace("/admin/login");
+    return null;
+  }
 
   const logout = () => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem("camz_admin");
-      window.location.replace("/admin/login");
-    }
+    sessionStorage.removeItem("camz_admin");
+    window.location.replace("/admin/login");
   };
-
-  if (!authed) return null;
 
   return (
     <div className="min-h-screen flex bg-[image:var(--gradient-soft)]">
