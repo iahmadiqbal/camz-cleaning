@@ -108,7 +108,7 @@ export default function ServicesAdmin() {
             </div>
 
             {/* Horizontal scroll category cards */}
-            <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3" style={{ overflowY: "visible" }}>
               {categories.map((cat, i) => {
                 const Icon = catIconMap[cat.id] ?? FaStar;
                 const isActive = activeCategory === cat.id;
@@ -118,9 +118,9 @@ export default function ServicesAdmin() {
                   <div
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`relative flex-shrink-0 w-24 h-24 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm ${
+                    className={`relative flex flex-row md:flex-col items-center md:justify-center gap-3 md:gap-2 cursor-pointer transition-all shadow-sm rounded-2xl px-4 py-3 md:w-24 md:h-24 md:mx-auto w-full ${
                       isActive
-                        ? `${bg} text-white shadow-lg scale-105`
+                        ? `${bg} text-white shadow-lg`
                         : "bg-card border border-border text-foreground hover:shadow-md"
                     }`}
                   >
