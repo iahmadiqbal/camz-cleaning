@@ -1,5 +1,4 @@
 
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -28,7 +27,7 @@ export default function StaffPage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {staff.map((s, i) => (
-            <motion.div key={s.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+            <div key={s.id}
               className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-shadow">
               <div className="flex items-start justify-between">
                 <div className="w-14 h-14 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground grid place-items-center font-bold text-lg">
@@ -49,7 +48,7 @@ export default function StaffPage() {
                 <span className={`text-xs px-2 py-1 rounded-full font-medium ${s.status === "Active" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}`}>{s.status}</span>
                 <button onClick={() => setView(s.id)} className="text-xs text-primary hover:underline">View details</button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

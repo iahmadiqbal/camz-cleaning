@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { PageTransition } from "@/components/PageTransition";
 import { ArrowRight, Lock, Sparkles } from "lucide-react";
@@ -29,7 +28,7 @@ export default function StaffLogin() {
   return (
     <div className="min-h-screen bg-[image:var(--gradient-soft)] flex items-center justify-center px-4">
       <PageTransition direction="fade">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
+        <div className="w-full max-w-sm">
           <div className="text-center mb-8">
             <div className="w-14 h-14 rounded-2xl bg-[image:var(--gradient-hero)] grid place-items-center mx-auto mb-4 shadow-[var(--shadow-elegant)]">
               <Sparkles className="w-7 h-7 text-primary-foreground" />
@@ -54,7 +53,7 @@ export default function StaffLogin() {
           <p className="text-center text-xs text-muted-foreground mt-4">
             <Link to="/login" className="hover:text-primary">Customer login →</Link>
           </p>
-        </motion.div>
+        </div>
       </PageTransition>
     </div>
   );

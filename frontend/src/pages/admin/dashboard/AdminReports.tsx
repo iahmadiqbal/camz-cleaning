@@ -1,5 +1,4 @@
 
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -34,9 +33,7 @@ export default function ReportsPage() {
           </div>
 
           {/* Net Platform Revenue */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4"
           >
             <div className="flex items-center gap-4">
@@ -52,14 +49,11 @@ export default function ReportsPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Pending + Active */}
           <div className="grid grid-cols-2 gap-3">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.08 }}
+            <div
               className="bg-white rounded-2xl p-5 shadow-sm border border-yellow-100"
             >
               <div className="w-9 h-9 rounded-xl bg-yellow-50 flex items-center justify-center mb-3">
@@ -69,12 +63,9 @@ export default function ReportsPage() {
               <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase mt-1">
                 Pending
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.12 }}
+            <div
               className="bg-white rounded-2xl p-5 shadow-sm border border-blue-100"
             >
               <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center mb-3">
@@ -84,7 +75,7 @@ export default function ReportsPage() {
               <p className="text-xs text-gray-400 font-semibold tracking-wide uppercase mt-1">
                 Active
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </PageTransition>

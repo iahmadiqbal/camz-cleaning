@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -90,7 +89,7 @@ export default function AdminStaffVerification() {
                   }`}>{count}</span>
                 )}
                 {tab === t && (
-                  <motion.div layoutId="tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
                 )}
               </button>
             );
@@ -105,14 +104,9 @@ export default function AdminStaffVerification() {
           </div>
         ) : (
           <div className="space-y-4">
-            <AnimatePresence>
               {filtered.map((app, i) => (
-                <motion.div
+                <div
                   key={app.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ delay: i * 0.06 }}
                   className="rounded-2xl bg-card border border-border shadow-[var(--shadow-card)] overflow-hidden"
                 >
                   {/* Top — avatar + name + status */}
@@ -173,22 +167,19 @@ export default function AdminStaffVerification() {
                       REVIEW APPLICATION
                     </button>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
           </div>
         )}
 
         {/* Review Modal */}
-        <AnimatePresence>
-          {reviewing && (
-            <motion.div
+        {reviewing && (
+            <div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setReviewing(null)}
               className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm grid place-items-center p-4"
             >
-              <motion.div
-                initial={{ scale: 0.92, y: 24 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.92, y: 24 }}
+              <div
                 onClick={(e) => e.stopPropagation()}
                 className="w-full max-w-md rounded-3xl bg-card p-6 shadow-[var(--shadow-elegant)]"
               >
@@ -258,10 +249,9 @@ export default function AdminStaffVerification() {
                     Approve
                   </button>
                 )}
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
       </PageTransition>
     </AdminLayout>
   );

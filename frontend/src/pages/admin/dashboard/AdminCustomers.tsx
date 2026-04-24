@@ -1,5 +1,4 @@
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -125,11 +124,8 @@ export default function CustomersPage() {
           {/* Customer Cards */}
           <div className="space-y-3">
             {filtered.map((c, i) => (
-              <motion.div
+              <div
                 key={c.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4"
               >
                 {/* Top row */}
@@ -187,7 +183,7 @@ export default function CustomersPage() {
                     <ChevronRight className="w-4 h-4 text-blue-400" />
                   </button>
                 </div>
-              </motion.div>
+              </div>
             ))}
 
             {filtered.length === 0 && (
@@ -206,8 +202,7 @@ export default function CustomersPage() {
         </div>
 
         {/* ── Add Customer Modal ── */}
-        <AnimatePresence>
-          {showAddModal && (
+        {showAddModal && (
             <Modal title="Add Customer" onClose={() => setShowAddModal(false)}>
               <div className="space-y-3">
                 <div>
@@ -247,11 +242,8 @@ export default function CustomersPage() {
               </div>
             </Modal>
           )}
-        </AnimatePresence>
 
-        {/* ── Edit Customer Modal ── */}
-        <AnimatePresence>
-          {showEditModal && (
+        {showEditModal && (
             <Modal title="Edit Customer" onClose={() => setShowEditModal(null)}>
               <div className="space-y-3">
                 <div>
@@ -289,11 +281,8 @@ export default function CustomersPage() {
               </div>
             </Modal>
           )}
-        </AnimatePresence>
 
-        {/* ── Delete Confirm Modal ── */}
-        <AnimatePresence>
-          {showDeleteModal && (
+        {showDeleteModal && (
             <Modal title="Delete Customer?" onClose={() => setShowDeleteModal(null)}>
               <p className="text-sm text-gray-500 mb-5">
                 Are you sure you want to delete <span className="font-semibold text-gray-800">{showDeleteModal.name}</span>? This cannot be undone.
@@ -304,7 +293,6 @@ export default function CustomersPage() {
               </div>
             </Modal>
           )}
-        </AnimatePresence>
       </PageTransition>
     </AdminLayout>
   );
@@ -312,17 +300,11 @@ export default function CustomersPage() {
 
 function Modal({ title, children, onClose }: { title: string; children: React.ReactNode; onClose: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
       onClick={onClose}
       className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
     >
-      <motion.div
-        initial={{ y: 60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 60, opacity: 0 }}
+      <div
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-md bg-white rounded-2xl p-5 shadow-xl"
       >
@@ -333,8 +315,8 @@ function Modal({ title, children, onClose }: { title: string; children: React.Re
           </button>
         </div>
         {children}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 

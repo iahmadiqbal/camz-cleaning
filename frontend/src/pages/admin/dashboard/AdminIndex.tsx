@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -75,9 +74,7 @@ export default function AdminHome() {
           <section>
             <h2 className="text-base font-bold text-gray-900 mb-3">Platform Health</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+              <div
                 className="bg-white rounded-2xl p-5 shadow-sm border border-border"
               >
                 <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mb-3">
@@ -85,12 +82,9 @@ export default function AdminHome() {
                 </div>
                 <div className="text-3xl font-bold text-blue-500">4</div>
                 <div className="text-xs text-gray-400 font-medium mt-1 tracking-wide">TOTAL USERS</div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.08 }}
+              <div
                 className="bg-white rounded-2xl p-5 shadow-sm border border-border"
               >
                 <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mb-3">
@@ -98,12 +92,9 @@ export default function AdminHome() {
                 </div>
                 <div className="text-3xl font-bold text-green-500">2</div>
                 <div className="text-xs text-gray-400 font-medium mt-1 tracking-wide">VERIFIED CLEANERS</div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.12 }}
+              <div
                 className="bg-white rounded-2xl p-5 shadow-sm border border-border"
               >
                 <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mb-3">
@@ -111,12 +102,9 @@ export default function AdminHome() {
                 </div>
                 <div className="text-3xl font-bold text-blue-500">0</div>
                 <div className="text-xs text-gray-400 font-medium mt-1 tracking-wide">WORKING NOW</div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.16 }}
+              <div
                 className="bg-white rounded-2xl p-5 shadow-sm border border-border"
               >
                 <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mb-3">
@@ -124,7 +112,7 @@ export default function AdminHome() {
                 </div>
                 <div className="text-3xl font-bold text-green-500">0</div>
                 <div className="text-xs text-gray-400 font-medium mt-1 tracking-wide">AVAILABLE FOR JOBS</div>
-              </motion.div>
+              </div>
             </div>
           </section>
 
@@ -202,11 +190,8 @@ export default function AdminHome() {
               <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gray-200" />
               <div className="space-y-3">
                 {recentTimeline.map((item, i) => (
-                  <motion.div
+                  <div
                     key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
                     className="flex items-start gap-4"
                   >
                     <div className={`w-3.5 h-3.5 rounded-full mt-3 flex-shrink-0 z-10 ${timelineDot[item.status] || "bg-gray-300"}`} />
@@ -222,7 +207,7 @@ export default function AdminHome() {
                         {item.status}
                       </span>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>

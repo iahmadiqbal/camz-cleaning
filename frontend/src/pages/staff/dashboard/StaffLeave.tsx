@@ -1,5 +1,4 @@
 
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { StaffLayout } from "@/components/StaffLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -37,7 +36,7 @@ export default function StaffLeave() {
           ) : (
             <div className="space-y-3">
               {requests.map((r, i) => (
-                <motion.div key={r.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                <div key={r.id}
                   className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -50,16 +49,16 @@ export default function StaffLeave() {
                       "bg-yellow-100 text-yellow-800"
                     }`}>{r.status}</span>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
         </div>
 
         {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setOpen(false)}
+          <div onClick={() => setOpen(false)}
             className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm grid place-items-center p-4">
-            <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} onClick={(e) => e.stopPropagation()}
+            <div onClick={(e) => e.stopPropagation()}
               className="w-full max-w-md rounded-2xl bg-card p-6 shadow-[var(--shadow-elegant)]">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-deep-blue">Apply for Leave</h3>
@@ -74,8 +73,8 @@ export default function StaffLeave() {
                   <button type="submit" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium text-sm">Submit</button>
                 </div>
               </form>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
       </PageTransition>
     </StaffLayout>

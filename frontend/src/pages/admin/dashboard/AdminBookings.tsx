@@ -1,5 +1,4 @@
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -71,11 +70,8 @@ export default function BookingsPage() {
 
           <div className="space-y-4">
             {bookings.map((b, i) => (
-              <motion.div
+              <div
                 key={b.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.04 }}
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4"
               >
                 {/* Top row: icon + status */}
@@ -161,25 +157,18 @@ export default function BookingsPage() {
                     Assign Cleaner
                   </button>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Assign Cleaner Modal */}
-        <AnimatePresence>
-          {assignFor && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+        {assignFor && (
+            <div
               onClick={() => setAssignFor(null)}
               className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
             >
-              <motion.div
-                initial={{ y: 60, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 60, opacity: 0 }}
+              <div
                 onClick={(e) => e.stopPropagation()}
                 className="w-full max-w-md bg-white rounded-2xl p-5 shadow-xl"
               >
@@ -201,10 +190,9 @@ export default function BookingsPage() {
                   <button onClick={() => setAssignFor(null)} className="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium">Cancel</button>
                   <button onClick={assignCleaner} className="flex-1 py-2.5 rounded-xl bg-blue-500 text-white text-sm font-semibold hover:bg-blue-600">Assign</button>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
       </PageTransition>
     </AdminLayout>
   );
@@ -212,15 +200,11 @@ export default function BookingsPage() {
 
 export function Modal({ title, children, onClose }: { title: string; children: React.ReactNode; onClose: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+    <div
       onClick={onClose}
       className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm grid place-items-center p-4"
     >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
+      <div
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-md rounded-2xl bg-card p-6 shadow-[var(--shadow-elegant)]"
       >
@@ -229,8 +213,8 @@ export function Modal({ title, children, onClose }: { title: string; children: R
           <button onClick={onClose} className="p-1 rounded hover:bg-muted"><X className="w-5 h-5" /></button>
         </div>
         {children}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 

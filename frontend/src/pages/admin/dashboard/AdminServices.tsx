@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -116,11 +115,8 @@ export default function ServicesAdmin() {
                 const bg = catBgMap[cat.id] ?? "bg-blue-500";
 
                 return (
-                  <motion.div
+                  <div
                     key={cat.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.06 }}
                     onClick={() => setActiveCategory(cat.id)}
                     className={`relative flex-shrink-0 w-24 h-24 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all shadow-sm ${
                       isActive
@@ -142,7 +138,7 @@ export default function ServicesAdmin() {
                     <span className={`text-xs font-semibold text-center leading-tight ${isActive ? "text-white" : "text-foreground"}`}>
                       {cat.label}
                     </span>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
@@ -167,11 +163,8 @@ export default function ServicesAdmin() {
                   const state = svcState[svc.id];
                   if (!state) return null;
                   return (
-                    <motion.div
+                    <div
                       key={svc.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.05 }}
                       className="bg-card rounded-2xl shadow-[var(--shadow-card)] border border-border overflow-hidden"
                     >
                       {/* Header row */}
@@ -234,7 +227,7 @@ export default function ServicesAdmin() {
                             </div>
                           </div>
                         )}
-                    </motion.div>
+                    </div>
                   );
                 })
               )}
@@ -260,15 +253,12 @@ export default function ServicesAdmin() {
         )}
 
         {/* New Category Modal */}
-        <AnimatePresence>
-          {newCatOpen && (
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        {newCatOpen && (
+            <div
               onClick={() => setNewCatOpen(false)}
               className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm grid place-items-center p-4"
             >
-              <motion.div
-                initial={{ scale: 0.92, y: 24 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.92, y: 24 }}
+              <div
                 onClick={(e) => e.stopPropagation()}
                 className="w-full max-w-sm rounded-3xl bg-card p-6 shadow-[var(--shadow-elegant)]"
               >
@@ -337,10 +327,9 @@ export default function ServicesAdmin() {
                     Create Category
                   </button>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
       </PageTransition>
     </AdminLayout>
   );

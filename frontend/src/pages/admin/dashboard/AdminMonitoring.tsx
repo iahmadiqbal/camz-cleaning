@@ -1,5 +1,4 @@
 
-import { motion } from "framer-motion";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
 import { staff, staffJobs } from "@/lib/data";
@@ -39,7 +38,7 @@ export default function MonitoringPage() {
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Map placeholder */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          <div
             className="lg:col-span-2 rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] overflow-hidden">
             <div className="p-4 border-b border-border flex items-center justify-between">
               <h3 className="font-semibold text-deep-blue">Staff Map — Calgary</h3>
@@ -73,8 +72,7 @@ export default function MonitoringPage() {
                 const y = 25 + (i % 2) * 40;
                 const Icon = statusIcon(s.status);
                 return (
-                  <motion.div key={s.id}
-                    initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.1, type: "spring" }}
+                  <div key={s.id}
                     style={{ left: `${x}%`, top: `${y}%` }}
                     className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer">
                     <div className={`w-10 h-10 rounded-full border-2 border-white shadow-lg grid place-items-center text-white text-xs font-bold ${s.status === "On Leave" ? "bg-yellow-500" : s.status === "In Progress" ? "bg-purple-600" : "bg-primary"}`}>
@@ -90,14 +88,14 @@ export default function MonitoringPage() {
                     {s.status === "In Progress" && (
                       <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-green-500 border-2 border-white animate-pulse" />
                     )}
-                  </motion.div>
+                  </div>
                 );
               })}
               <div className="absolute bottom-3 right-3 bg-card/90 backdrop-blur rounded-lg px-3 py-2 text-xs text-muted-foreground border border-border">
                 📍 Calgary, Alberta · Demo map
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Staff status list */}
           <div className="space-y-3">
@@ -106,7 +104,7 @@ export default function MonitoringPage() {
               const Icon = statusIcon(s.status);
               const job = s.job ? staffJobs.find((j) => j.id === s.job) : null;
               return (
-                <motion.div key={s.id} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}
+                <div key={s.id}
                   className="rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)]">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground grid place-items-center font-bold text-sm flex-shrink-0">
@@ -126,14 +124,14 @@ export default function MonitoringPage() {
                       <div className="flex items-center gap-1.5 text-muted-foreground truncate"><MapPin className="w-3 h-3 flex-shrink-0" />{job.address}</div>
                     </div>
                   )}
-                </motion.div>
+                </div>
               );
             })}
           </div>
         </div>
 
         {/* Active jobs table */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-6">
+        <div className="mt-6">
           <h3 className="font-semibold text-deep-blue mb-3">Active Jobs Progress</h3>
           <div className="rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] overflow-hidden">
             <div className="overflow-x-auto">
@@ -145,7 +143,7 @@ export default function MonitoringPage() {
                 </thead>
                 <tbody>
                   {activeJobs.map((job, i) => (
-                    <motion.tr key={job.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.06 }}
+                    <tr key={job.id}
                       className="border-t border-border hover:bg-muted/30">
                       <td className="px-4 py-3 font-mono text-xs">{job.id}</td>
                       <td className="px-4 py-3 font-medium">{staffLocations.find((s) => s.job === job.id)?.name || "—"}</td>
@@ -161,13 +159,13 @@ export default function MonitoringPage() {
                           <span className={`px-2 py-0.5 rounded-full ${job.photos.after ? "bg-green-100 text-green-800" : "bg-muted text-muted-foreground"}`}>After</span>
                         </div>
                       </td>
-                    </motion.tr>
+                    </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-        </motion.div>
+        </div>
       </PageTransition>
     </AdminLayout>
   );

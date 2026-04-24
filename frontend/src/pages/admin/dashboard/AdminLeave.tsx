@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -92,14 +91,9 @@ export default function AdminLeave() {
           </div>
         ) : (
           <div className="space-y-4">
-            <AnimatePresence>
-              {filtered.map((r, i) => (
-                <motion.div
+            {filtered.map((r, i) => (
+                <div
                   key={r.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ delay: i * 0.06 }}
                   className="rounded-2xl bg-card border border-border shadow-[var(--shadow-card)] overflow-hidden"
                 >
                   {/* Top row — avatar + name + status */}
@@ -171,9 +165,8 @@ export default function AdminLeave() {
                       </button>
                     </div>
                   )}
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
           </div>
         )}
       </PageTransition>

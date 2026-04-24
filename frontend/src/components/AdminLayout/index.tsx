@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
 import { LayoutDashboard, CalendarDays, CreditCard, UserCheck, BarChart3, Search, Bell, ArrowLeft, LogOut, ConciergeBell, CalendarOff, ShieldCheck, HeadphonesIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
@@ -18,11 +17,9 @@ const navItems = [
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const { pathname: path } = useLocation();
-  const [mounted, setMounted] = useState(false);
   const [authed, setAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setMounted(true);
     if (typeof window !== 'undefined') {
       if (!sessionStorage.getItem("camz_admin")) {
         window.location.replace("/admin/login");
@@ -44,10 +41,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex bg-[image:var(--gradient-soft)]">
       {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -260 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.4 }}
+      <aside
         className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground"
       >
         <div className="px-6 py-3 border-b border-sidebar-border flex items-center justify-start overflow-hidden h-16">
@@ -57,12 +51,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           {navItems.map((item, i) => {
             const active = item.exact ? path === item.to : path.startsWith(item.to);
             return (
-              <motion.div
-                key={item.to}
-                initial={{ x: -30, opacity: 0 }}
-                animate={mounted ? { x: 0, opacity: 1 } : {}}
-                transition={{ delay: i * 0.05 }}
-              >
+              <div key={item.to}>
                 <Link
                   to={item.to}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
@@ -72,7 +61,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
                   <item.icon className="w-4 h-4" />
                   {item.label}
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
         </nav>
@@ -84,13 +73,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             <LogOut className="w-4 h-4" /> Logout
           </button>
         </div>
-      </motion.aside>
+      </aside>
 
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        <motion.header
-          initial={{ y: -60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+        <header
           className="h-16 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between gap-4"
         >
           <div className="flex items-center gap-3">
@@ -129,7 +116,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
               </div>
             </div>
           </div>
-        </motion.header>
+        </header>
         <main className="flex-1 p-4 md:p-8 overflow-x-auto pb-24 md:pb-8">{children}</main>
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border flex z-40">
           {navItems.map((item) => {

@@ -1,5 +1,4 @@
 
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { PageTransition } from "@/components/PageTransition";
@@ -117,14 +116,14 @@ export default function PaymentsPage() {
                   { label: "Cash on Delivery", value: `CAD $${codPayments.toFixed(2)}`, icon: Banknote, iconBg: "bg-green-100", iconColor: "text-green-500" },
                   { label: "Outstanding (Cleaners)", value: `CAD $${outstandingCleaners.toFixed(2)}`, icon: Clock, iconBg: "bg-yellow-100", iconColor: "text-yellow-500" },
                 ].map((stat, i) => (
-                  <motion.div key={stat.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+                  <div key={stat.label}
                     className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
                     <div className={`w-9 h-9 rounded-xl ${stat.iconBg} flex items-center justify-center mb-2`}>
                       <stat.icon className={`w-4 h-4 ${stat.iconColor}`} />
                     </div>
                     <p className="text-sm font-bold text-gray-900">{stat.value}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{stat.label}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
@@ -137,7 +136,7 @@ export default function PaymentsPage() {
           {activeTab === "Payouts" && (
             <>
               {/* Payout overview card */}
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+              <div
                 className="bg-blue-500 rounded-2xl p-4 mb-5 text-white">
                 <div className="flex items-center gap-2 mb-3">
                   <Banknote className="w-4 h-4 opacity-80" />
@@ -162,7 +161,7 @@ export default function PaymentsPage() {
                     ⚠ {pendingPayouts} cleaner{pendingPayouts > 1 ? "s" : ""} have pending payments. Tap a card to settle.
                   </div>
                 )}
-              </motion.div>
+              </div>
 
               {/* Filter chips */}
               <div className="flex gap-2 mb-4">
@@ -180,7 +179,7 @@ export default function PaymentsPage() {
                   const pct = p.totalEarned > 0 ? Math.round((p.paidOut / p.totalEarned) * 100) : 100;
                   const isPending = outstanding > 0;
                   return (
-                    <motion.div key={p.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+                    <div key={p.id}
                       className={`bg-white rounded-2xl p-4 shadow-sm border ${isPending ? "border-yellow-200" : "border-gray-100"}`}>
                       {/* Name row */}
                       <div className="flex items-center justify-between mb-3">
@@ -235,7 +234,7 @@ export default function PaymentsPage() {
                           </button>
                         </div>
                       )}
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -264,7 +263,7 @@ function TransactionList({ items }: { items: Transaction[] }) {
   return (
     <div className="space-y-3">
       {items.map((t, i) => (
-        <motion.div key={t.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
+        <div key={t.id}
           className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center gap-3">
           <div className="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center flex-shrink-0">
             <Banknote className="w-5 h-5 text-green-500" />
@@ -284,7 +283,7 @@ function TransactionList({ items }: { items: Transaction[] }) {
               {t.status.toUpperCase()}
             </span>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );
