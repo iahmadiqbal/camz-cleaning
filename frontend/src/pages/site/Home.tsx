@@ -187,7 +187,7 @@ function ServiceCategorySection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.06, duration: 0.4 }}
                   >
-                    <Link to="/booking/$service" params={{ service: s.id }} className="block group h-full">
+                    <Link to={`/booking/${s.id}`} className="block group h-full">
                       <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:shadow-[var(--shadow-elegant)] hover:-translate-y-2 transition-all duration-300">
                         <div className="aspect-[4/3] overflow-hidden relative">
                           <img src={s.image} alt={s.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -259,7 +259,7 @@ function AllServicesSection({ serviceIconMap }: { serviceIconMap: Record<string,
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: i * 0.06, duration: 0.4 }}
               >
-                <Link to="/booking/$service" params={{ service: s.id }} className="block group h-full">
+                <Link to={`/booking/${s.id}`} className="block group h-full">
                   <div className="h-full rounded-2xl overflow-hidden bg-card border border-border hover:shadow-[var(--shadow-elegant)] hover:-translate-y-2 transition-all duration-300">
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <img

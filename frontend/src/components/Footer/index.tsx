@@ -35,15 +35,15 @@ export function Footer() {
           <h4 className="font-semibold mb-4 text-white">Services</h4>
           <ul className="space-y-2.5 text-base">
             {[
-              { label: "Residential Cleaning", to: "/booking/$service", params: { service: "residential" } },
-              { label: "Commercial Cleaning", to: "/booking/$service", params: { service: "commercial" } },
-              { label: "Move-In / Move-Out", to: "/booking/$service", params: { service: "move" } },
-              { label: "Carpet & Sofa", to: "/booking/$service", params: { service: "carpet" } },
-              { label: "Vehicle Detailing", to: "/booking/$service", params: { service: "vehicle" } },
+              { label: "Residential Cleaning", service: "residential" },
+              { label: "Commercial Cleaning", service: "commercial" },
+              { label: "Move-In / Move-Out", service: "move" },
+              { label: "Carpet & Sofa", service: "carpet" },
+              { label: "Vehicle Detailing", service: "vehicle" },
             ].map((item) => (
               <li key={item.label}>
                 <Link
-                  to={`/booking/${item.params.service}`}
+                  to={`/booking/${item.service}`}
                   className="opacity-70 hover:opacity-100 hover:text-soft-blue transition-all"
                 >
                   {item.label}
